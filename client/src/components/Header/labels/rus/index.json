@@ -1,0 +1,19 @@
+{
+	"title": "Приключения",
+	"desktop": {
+		"navigation": {
+			"profile": "Мой профиль"
+		}
+	},
+	"mobile": {
+		"navigation": {
+			"search": {
+				"title": "Новый поиск"
+			},
+			"contactInfo": {
+				"value": "Отдел продаж туров"
+			},
+			"profile": "Профиль"
+		}
+	}
+}

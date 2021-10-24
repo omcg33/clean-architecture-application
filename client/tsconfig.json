@@ -1,0 +1,45 @@
+{
+  // TypeScript type check and emit JavaScript es2015 (TypeScript without types) consumable by Babel.
+  // This behavior enable the possibility to use babel plugins for server side rendering.
+
+  "compilerOptions": {
+      // Preserve es2015 import
+      "target": "es2015",
+
+      // Preserve dynamic import
+      "module": "esnext",
+
+      // Preserve React jsx syntax
+      "jsx": "preserve",
+
+      // Allow import X from "x"
+      "allowSyntheticDefaultImports": true,
+
+      // Find dependencies in node_modules
+      "moduleResolution": "node",
+
+      // Full power of TypeScript with strict options enabled
+      "alwaysStrict": true,
+      "noImplicitThis": true,
+      "strictFunctionTypes": true,
+      "strictPropertyInitialization": true,
+      "strictNullChecks": true,
+
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitAny": false,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": false,
+      "experimentalDecorators": true
+  },
+  // Allow compiler to find ts(x) files in source folder
+  "include": [
+      "./src",
+      "./global.d.ts"
+  ],
+  "exclude": [
+      "./static"
+  ]
+}
