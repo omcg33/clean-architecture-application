@@ -1,16 +1,14 @@
-import theme   from "@tutu/order-theme";
-import Browser from "@tutu-utils/browser-detect";
-
 import history from "../app/history";
 
+const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
 
 export function getDocument() {
-  return (Browser.check() && document) || (<any>{});
+  return (isBrowser) || (<any>{});
 }
 
 
 export function getWindow() {
-  return (Browser.check() && window) || (<any>global) || (<any>{});
+  return (isBrowser) || (<any>global) || (<any>{});
 }
 
 
@@ -38,7 +36,6 @@ export function stopPropagationBrowserHistory(from: string) {
 
 
 export function redirectToPage(url: string) {
-  // return getWindow().location.replace(url);
   return history.push({pathname: url});
 }
 
@@ -62,7 +59,7 @@ export function removeFromStorage(key: string) {
 }
 
 export function getMatchQuery(query: string) {
-  return Browser.check() ? window.matchMedia(query) : null;
+  return isBrowser ? window.matchMedia(query) : null;
 }
 
 export function isMediaQueryMinWidth(minWidth: number) {
@@ -72,10 +69,7 @@ export function isMediaQueryMinWidth(minWidth: number) {
 }
 
 export function isDesktop(): boolean {
-  const matchQuery = isMediaQueryMinWidth(theme.variables.gridBreakpoints.lg);
+  const matchQuery = isMediaQueryMinWidth(1024);
 
   return matchQuery ? matchQuery.matches : false;
 }
-
-
-export default {};

@@ -2,7 +2,6 @@ const {join} = require("path");
 
 const DIRS = {
   INPUT_PATH: join(__dirname, "../src"),
-  // NPM_COMPONENTS: join(__dirname, "../node_modules", "@tutu*"),
   NODE_MODULES: join(__dirname, "../node_modules"),
   STATIC: {
     IMAGES: join(__dirname, "../static/images"),

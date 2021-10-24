@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import Container            from "@tutu/order/lib/Container";
 
 
 import { Header }  from "../../../components/Header";
@@ -16,11 +15,11 @@ class Page extends React.PureComponent<any> {
     return (
       <>
         <div className={styles.headerWrp}>
-          <Container fluid={!isDesktop}>
+          <div >
             <Header
               className={styles.header}
             />
-          </Container>
+          </div>
         </div>
 
         <div className={styles.pageContent}>

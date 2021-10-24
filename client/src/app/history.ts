@@ -1,9 +1,9 @@
 // history.js
 import { createBrowserHistory, History } from "history";
 
-import Browser from "@tutu-utils/browser-detect";
+const isBrowser = typeof window !== 'undefined';
 
-const history = Browser.check() ? createBrowserHistory() : {} as History;
+const history = isBrowser ? createBrowserHistory() : {} as History;
 
 // configure, createTrip, and export the project's history instance
 export default history;

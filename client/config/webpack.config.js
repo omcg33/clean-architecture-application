@@ -41,13 +41,7 @@ module.exports = (env, argv) => {
         maxInitialRequests: 5,
         cacheGroups: {
           default: false,
-          vendors: false,
-          // vendorTutu: {
-          //   test: /[\\/]node_modules[\\/]@tutu/,
-          //   name: "vendors.tutu",
-          //   chunks: "all",
-          //   priority: -10,
-          // },
+          vendors: false,          
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",

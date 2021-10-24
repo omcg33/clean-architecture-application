@@ -1,25 +1,28 @@
 import * as React from "react";
 import { Link }   from "react-router-dom";
 
-import Container from "@tutu/order/lib/Container";
-import Row       from "@tutu/order/lib/Row";
-import Column    from "@tutu/order/lib/Column";
+import { PAGES_URL_ALIASES } from "../../../../../const";
+import { generatePageUrl } from "../../../app/routes";
 
-import { generatePageUrl, PAGES_URL_ALIASES } from "../../../../../interfaces/controllers/helpers/routes";
+
 import { Dog }                                from "../../../components/Dog";
 
 import styles from "./styles.less"
 
-class Content extends React.PureComponent<any> {
+export interface IProps {
+  dogs: any;  
+}
+
+class Content extends React.PureComponent<IProps> {
 
   render() {
-    const { dogs,isDesktop } = this.props;
+    const { dogs } = this.props;
 
     return (
       <>
-        <Container fluid={!isDesktop} className={styles.container}>
-          <Row>
-            <Column col={12}>
+        <div className={styles.container}>
+          <div>
+            <div>
               <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
                 Список кошечек
               </Link>
@@ -27,9 +30,9 @@ class Content extends React.PureComponent<any> {
                 dogs
                   .map((dog,i) => <Dog className={styles.dog} dog={dog} key={i}/>)
               }
-            </Column>
-          </Row>
-        </Container>
+            </div>
+          </div>
+        </div>
       </>
     );
   }
