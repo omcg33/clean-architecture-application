@@ -1,5 +1,5 @@
 import { Task }                    from "redux-saga";
-import { call, put, select, take } from "redux-saga/effects";
+import { call, all, put, select, take } from "redux-saga/effects";
 
 import { PAGES_KEYS } from "../../../../../const";
 
@@ -33,15 +33,20 @@ export function* getPageData() {
 
   if (!hasData) {
     try {
-      const { meta, ...data } = yield call(get, generateApiUrl(API_ROUTES_GET.PAGE_ABOUT));
+      // TODO: Заменить на вызов сервиса
+      const { meta, ...data } = yield call(get, generateApiUrl(API_ROUTES_GET.PAGE_CATS_LIST));
 
-      yield put(set(meta));
-      yield put(add(data));
+      yield all([
+        put(set(meta)),
+        put(add(data))
+      ])
     } catch (e) {
       console.error(e);
-      yield put(error(e.message));
+      yield put(error((e as any).message));
     }
 
   }
+  // Если на странице есть дин данные
+  // yield put(replaceReducer(PAGES_KEYS.CATS_LIST, pageReducer));
   yield put(loaded());
 }

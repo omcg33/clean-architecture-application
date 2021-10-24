@@ -1,11 +1,18 @@
 import { fromJS, Map }     from "immutable";
 import { combineReducers } from "redux-immutable";
 
-import { stubMap } from "../../../app/reducers";
+import { stubList }      from "../../../app/reducers";
+import { ImmutableMap } from "../../../interfaces";
 
 import { ADD }      from "../actions";
 
-const initialState = Map();
+interface IState {
+  cats: any;
+};
+
+const initialState: ImmutableMap<IState> = Map({
+  cats: []
+});
 
 export function defaultReducer(state = initialState, action) {
   switch (action.type) {
@@ -16,7 +23,6 @@ export function defaultReducer(state = initialState, action) {
   }
 }
 
-export const pageReducer = combineReducers({
-  seoData: stubMap,
-  course: stubMap
+export const pageReducer = combineReducers<IState>({
+  cats: stubList,
 });

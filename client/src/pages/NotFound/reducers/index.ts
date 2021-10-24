@@ -1,38 +1,28 @@
-//TODO: ПРоблемный файл. Не решена проблема использования combineReducer
+import { fromJS, Map }     from "immutable";
+import { combineReducers } from "redux-immutable";
 
-import { fromJS, Map }         from "immutable";
+import { stubList }      from "../../../app/reducers";
+import { ImmutableMap } from "../../../interfaces";
 
-import { ADD, CLEAR, LOADING }                          from "../actions";
+import { ADD }      from "../actions";
 
-const initialState = Map({
-  data: null,
-  loading: false
+interface IState {
+  
+};
+
+const initialState: ImmutableMap<IState> = Map({
+  
 });
 
-export function notFoundPage(state = initialState, action) {
+export function defaultReducer(state = initialState, action) {
   switch (action.type) {
     case ADD:
-      return state.set("data", fromJS(action.payload.data));
-    case LOADING:
-      return state.set("loading", action.payload.isLoading);
-    case CLEAR:
-      return state.set("data", null);
-  }
-
-  const data = state.get("data");
-  if (!data)
-    return state;
-
-  switch (action.type) {
-    // case CLEAR_THEMES:
-    // case TOGGLE_THEMES: {
-    //   const formState = state.getIn(["data", "themesFilter"]);
-    //   return state.setIn(["data", "themesFilter"], themesFilter(formState, action));
-    // }
-
+      return fromJS(action.payload);
     default:
       return state;
   }
 }
 
-export default {};
+export const pageReducer = combineReducers<IState>({
+  
+});

@@ -5,72 +5,47 @@ import { StaticRouter } from "react-router-dom";
 import * as Loadable    from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
 
-import { SheetsRegistry } from "react-jss";
 import Helmet             from "react-helmet";
 import * as csso          from "csso";
 import serialize          from "serialize-javascript";
 
-import { AbTesting, IConfig } from "@tutu/ab-testing";
-import RootProvider           from "@tutu/order/provider/root";
-import { AbTestingProvider }  from "@tutu-react/ab-testing";
 
-import { clientPageRoutes } from "../../interfaces/controllers/helpers/routes";
-import { IRender }          from "../../interfaces/controllers/page/interfaces";
+// TODO: Продумать место лучше
+import { CreateSSRender } from "../../server/src/interfaces";
 
-import createStore            from "./store";
-import App                    from "./app";
-import rootReducer            from "./app/reducers";
-// import { createImageResizer } from "./app/sagas";
+import createStore                 from "./store";
+import { App }                     from "./app";
+import { createRootReducer }       from "./app/helpers";
+import { staticReducers }          from "./app/reducers";
 
-import { getConfig } from "./modules/config/selectors";
+//TODO: Исправить
+interface ICreateSSRenderParams {
+  stats: any,
+  pageRoutes: any;
+};
 
-interface IPage {
-  abTesting: {
-    config: IConfig;
-    instance: AbTesting;
-  };
-  location: string;
-  is404?: boolean;
+interface ISSRenderParams { 
+  location: string | object;
 }
 
-const render = ({ stats, dllAssets }): IRender => <T extends IPage>({ location, abTesting, ...state }: T) => {
-  const { is404, ...preloadedState } = state,
-    [store] = createStore(rootReducer, undefined, preloadedState);
-
-  const appState = store.getState();
-
-  // createImageResizer(appState);
-
-  const config = getConfig(appState),
-    cdn = config.getIn(["apiHosts", "cdn"]);
-
-  if (cdn)
-    __webpack_public_path__ = cdn;
-
-  const sheets = new SheetsRegistry();
+export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats, pageRoutes }) => ({ location, ...state }) => {
+  const preloadedState = state,
+    [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
   const modules = new Set();
   let context = {};
 
-  if (!abTesting) {
-    console.error(`Undefined abTesting: (${JSON.stringify(location)})`);
-  }
-
   const html = ReactDOMServer.renderToString(
     <Loadable.Capture report={moduleName => modules.add(moduleName)}>
-      <AbTestingProvider value={abTesting.instance}>
-        <RootProvider registry={sheets}>
-          <Provider store={store}>
-            <StaticRouter location={location} context={context}>
-              <App/>
-            </StaticRouter>
-          </Provider>
-        </RootProvider>
-      </AbTestingProvider>
+      <Provider store={store}>
+        <StaticRouter location={location} context={context}>
+          <App/>
+        </StaticRouter>
+      </Provider>
     </Loadable.Capture>
   );
   const helmet = Helmet.renderStatic();
-  const serverSideStyles = csso.minify(sheets.toString()).css;
+  const serverSideStyles = csso.minify({}).css;
 
   const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]),
     jsException = [] as any[];
@@ -82,7 +57,6 @@ const render = ({ stats, dllAssets }): IRender => <T extends IPage>({ location, 
     .join("\n");
 
   const scripts = [
-    `<script src="${__webpack_public_path__}${dllAssets.vendorsDll.js}"></script>`,
     ...js
       .reduce((acc, script) => {
         if (script.file.includes("index")) {
@@ -110,12 +84,6 @@ const render = ({ stats, dllAssets }): IRender => <T extends IPage>({ location, 
     styles,
     scripts,
     inlineStyles,
-    routes: serialize(clientPageRoutes, { isJSON: true }),
-    abTesting: serialize({
-      config: { ...abTesting.config, serverRendering: false },
-      campaigns: abTesting.instance.getCampaignsData()
-    })
+    routes: serialize(pageRoutes, { isJSON: true }),    
   };
 };
-
-export default render;

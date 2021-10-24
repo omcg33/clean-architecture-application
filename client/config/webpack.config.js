@@ -117,7 +117,7 @@ module.exports = (env, argv) => {
             {
               loader: "awesome-typescript-loader",
               options: {
-                configFileName: require.resolve("./tsconfig.json"),
+                configFileName: require.resolve("../tsconfig.json"),
                 context: __dirname
               }
             }
@@ -144,13 +144,13 @@ module.exports = (env, argv) => {
                 },
                 {
                   loader: "postcss-loader",
-                  options: {
-                    plugins: [
-                      autoprefixer({
-                        browsers: ["last 2 version"]
-                      })
-                    ]
-                  }
+                  // options: {
+                    // plugins: [
+                    //   autoprefixer({
+                    //     browsers: ["last 2 version"]
+                    //   })
+                    // ]
+                  // }
                 },
                 "less-loader"
               ]
@@ -166,7 +166,7 @@ module.exports = (env, argv) => {
     // this way Webpack will always find the file when the server build append before client
     plugins: [
       new ReactLoadableSSRAddon({
-        filename: path.join(DIRS.STATIC.DIST, "/reactLoadable.json")
+        filename: "reactLoadable.json"
       }),
       // new webpack.DllReferencePlugin({
       //   context: __dirname,

@@ -31,6 +31,11 @@ declare module "*.svg" {
   export = content;
 }
 
+declare module "*.ico" {
+  const content: string;
+  export = content;
+}
+
 declare module "*.json" {
   const content: any;
   export default content;
