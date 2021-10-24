@@ -1,15 +1,14 @@
-const path                      = require("path");
+const path = require("path");
 // const autoprefixer              = require("autoprefixer");
-const ReactLoadableSSRAddon     = require("react-loadable-ssr-addon");
-const MiniCssExtractPlugin      = require("mini-css-extract-plugin");
-const CopyWebpackPlugin         = require("copy-webpack-plugin");
+const ReactLoadableSSRAddon = require("react-loadable-ssr-addon");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 // const BundleAnalyzerPlugin      = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const BundleSizeAnalyzerPlugin  = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 const webpack = require('webpack');
 
-const common = require("./common");
-const DIRS   = require('./consts').DIRS;
-const PATHS  = require('./consts').PATHS;
+const DIRS = require('./consts').DIRS;
+const PATHS = require('./consts').PATHS;
 
 module.exports = (env, argv) => {
   const { mode, analyze } = argv;
@@ -29,7 +28,7 @@ module.exports = (env, argv) => {
   //     })
   //   ]);
   // }
-
+  
   return {
     // The main entry point of the application
     entry: {
@@ -41,7 +40,7 @@ module.exports = (env, argv) => {
         maxInitialRequests: 5,
         cacheGroups: {
           default: false,
-          vendors: false,          
+          vendors: false,
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",
@@ -83,7 +82,41 @@ module.exports = (env, argv) => {
     // Rules are applied from right to left (ts-loader then babel-loader)
     module: {
       rules: [
-        ...common.rules,
+        {
+          test: /\.(jpe?g|png|gif|ico)$/,
+          loader: "url-loader",
+          options: {
+            limit: 10000,
+            name: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.IMAGES, "[sha512:hash:base64:7].[ext]?[hash:10]") )
+          }
+        },
+        {
+          test: /\.svg$/,
+          oneOf: [
+            {
+              loader: "svg-inline-loader",
+              resourceQuery: /^\?raw$/,
+              options: {
+                idPrefix: true
+              }
+            },
+            {
+              loader: "url-loader",
+              options: {
+                limit: 10000,
+                name: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.IMAGES, "[sha512:hash:base64:7].[ext]?[hash:10]") )
+              }
+            },
+          ]
+        },
+        {
+          test: /\.(woff|ttf)$/,
+          loader: "url-loader",
+          options: {
+            limit: 25000,
+            name: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.FONTS, "[sha512:hash:base64:7].[ext]?[hash:10]") )
+          }
+        },
         {
           test: /\.ts(x?)$/,
           exclude: /node_modules/,
@@ -136,16 +169,17 @@ module.exports = (env, argv) => {
                     importLoaders: 1
                   }
                 },
-                {
-                  loader: "postcss-loader",
-                  // options: {
-                    // plugins: [
-                    //   autoprefixer({
-                    //     browsers: ["last 2 version"]
-                    //   })
-                    // ]
-                  // }
-                },
+                // {
+                //   loader: "postcss-loader",
+                //   options: {
+                //     options: {},
+                //     plugins: [
+                //       autoprefixer({
+                //         browsers: ["last 2 version"]
+                //       })
+                //     ]
+                //   }
+                // },
                 "less-loader"
               ]
             }
@@ -160,21 +194,21 @@ module.exports = (env, argv) => {
     // this way Webpack will always find the file when the server build append before client
     plugins: [
       new ReactLoadableSSRAddon({
-        filename: "reactLoadable.json"
+        filename: path.join(DIRS.DIST.INDEX, "reactLoadable.json")
       }),
       // new webpack.DllReferencePlugin({
       //   context: __dirname,
       //   manifest: path.join(DIRS.STATIC.DLL, "/manifest.dll.json")
       // }),
       new MiniCssExtractPlugin({
-        filename: mode === "production" ? "css/[name].css?[contenthash:10]" : "css/[name].css"
+        filename: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.CSS, mode === "production" ? "[name].css?[contenthash:10]" : "css/[name].css") )
       }),
       new CopyWebpackPlugin([
         {
           from: DIRS.STATIC.IMAGES,
-          to: DIRS.DIST.IMAGES,
+          to: path.relative(DIRS.DIST.JS, DIRS.DIST.IMAGES),
           test: /\.(gif|jpe?g|tiff?|png|webp|bmp)$/
-        },        
+        },
       ]),
       ...additionalPlugins
     ]

@@ -1,19 +1,16 @@
 import axios    from "axios";
 import { Saga } from "redux-saga";
 import {
-  fork, put, takeEvery, select, call
+  fork, takeEvery, select, call
 }               from "redux-saga/effects";
 
 // // import i18n                      from 'modules/i18n/sagas';
 import logger        from "../../modules/logger/sagas";
-import { sendLog }   from "../../modules/logger/actions";
 import { getConfig } from "../../modules/config/selectors";
-import SystemLogger  from "../../utils/systemLogger";
 
 import { ADD_REDUCER, IRunAction, REMOVE_REDUCER, REPLACE_REDUCER, RUN } from "../actions";
 
 
-const sysLogger = new SystemLogger("root");
 const NOT_SEND_ERRORS = [
   "API_PARSING_ERROR",
   "API_UNAUTHORIZED",
@@ -59,13 +56,6 @@ export function* initialSagas(reducerManager) {
 }
 
 
-export function* sysLoggerSaga() {
-  yield takeEvery("*", function(action) {
-    sysLogger.addAction(action);
-  });
-}
-
-
 /**
  * Default saga runner.
  *
@@ -73,24 +63,19 @@ export function* sysLoggerSaga() {
  * @param sagaToRun
  */
 export default function* rootSaga(reducerManager: any, sagaToRun: Saga<any>) {
-  yield fork(sysLoggerSaga);
 
   try {
-    sysLogger.addLog("saga load");
     yield fork(initialSagas, reducerManager);
     yield sagaToRun();
   } catch (e) {
-    const { name, stack, message } = e as any;
+    const { name, 
+      // stack, message 
+    } = e as any;
 
     if (process.env.NODE_ENV === "production") { // eslint-disable-line
       // Don't send already sent errors from server
       if (!~NOT_SEND_ERRORS.indexOf(name)) {
-        yield put(sendLog("SAGA_ERROR", {
-          name,
-          stack,
-          message,
-          ...sysLogger.getLogs()
-        }, message));
+       // отошли ошибку
       }
     } else {
       console.error(e);  // eslint-disable-line

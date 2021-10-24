@@ -10,7 +10,8 @@ import { Dog }                                from "../../../components/Dog";
 import styles from "./styles.less"
 
 export interface IProps {
-  dogs: any;  
+  //TODO: исправить
+  dogs?: any;  
 }
 
 class Content extends React.PureComponent<IProps> {

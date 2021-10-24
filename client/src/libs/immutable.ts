@@ -33,18 +33,18 @@ export const createNestedList = (list: List<ImmutableMap<{id: number; parentId: 
   const root = [] as any[];
 // Cache found parent index
   const map = {};
-  const flat = list.toJS();
+  const flat: any[] = list.toJS();
 
 
   // Используем мутацию и присваивание по ссылке для прохода 1 раз по массиву
-  flat.forEach(node => {
+  flat.forEach((node: any) => {
     // No parentId means top level
     if (!node.parentId) return root.push(node);
 
     // Insert node as child of parent in flat array
     let parentIndex = map[node.parentId];
     if (typeof parentIndex !== "number") {
-      parentIndex = flat.findIndex(el => el.id === node.parentId);
+      parentIndex = flat.findIndex((el: any) => el.id === node.parentId);
       map[node.parentId] = parentIndex;
     }
 

@@ -1,6 +1,6 @@
 import * as React  from "react";
 
-import { desktopMediaQueryListerner } from "../libs/mediaQuery";
+// import { desktopMediaQueryListerner } from "../libs/mediaQuery";
 
 import { View, IProps as IViewProps } from "./view";
 
@@ -13,9 +13,9 @@ export type IProps = {
 export class Controller extends React.PureComponent<IProps> {  
 
   componentDidMount() {   
-    desktopMediaQueryListerner(isDesktop => {
-      this.props.setIsDesktop(isDesktop);
-    });
+    // desktopMediaQueryListerner(isDesktop => {
+    //   this.props.setIsDesktop(isDesktop);
+    // });
   }
 
   componentDidCatch(error: Error) {

@@ -9,7 +9,7 @@ import styles         from "./styles.less";
 
 class Page extends React.PureComponent<any> {
   render() {
-    const { hasData, isDesktop } = this.props;
+    const { hasData } = this.props;
 
     return (
       <>

@@ -1,4 +1,4 @@
-const {join} = require("path");
+const {join, resolve} = require("path");
 
 const DIRS = {
   INPUT_PATH: join(__dirname, "../src"),
@@ -6,10 +6,12 @@ const DIRS = {
   STATIC: {
     IMAGES: join(__dirname, "../static/images"),
   },
-  DIST: {    
-    JS: join(__dirname, "../dist/js"),
-    CSS: join(__dirname, "../dist/css"),
-    IMAGES: join(__dirname, "../dist/images"),
+  DIST: {   
+    INDEX: resolve(__dirname, "../dist"), 
+    JS: resolve(__dirname, "../dist/js"),
+    CSS: resolve(__dirname, "../dist/css"),
+    FONTS: resolve(__dirname, "../dist/fonts"),
+    IMAGES: resolve(__dirname, "../dist/images"),
   }
 };
 

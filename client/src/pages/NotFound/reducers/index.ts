@@ -1,7 +1,6 @@
 import { fromJS, Map }     from "immutable";
 import { combineReducers } from "redux-immutable";
 
-import { stubList }      from "../../../app/reducers";
 import { ImmutableMap } from "../../../interfaces";
 
 import { ADD }      from "../actions";

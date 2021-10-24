@@ -2,7 +2,10 @@ import * as React from "react";
 import cn         from "classnames";
 
 import { ImmutableMap }    from "../../interfaces";
-import { IAdoptedCatFull } from "../../../../interfaces/adapters/ui/cat/full";
+
+// TODO: Убрать
+type IAdoptedCatFull = any;
+
 import styles              from "./styles.less";
 
 export type IProps = {

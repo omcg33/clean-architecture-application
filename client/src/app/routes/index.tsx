@@ -67,9 +67,9 @@ export const generatePageUrl = (alias, params = {}) => {
 
   try {
     return pathToRegexp.compile(pageRoutesObject[alias])(params);
-  } catch (e: any) {
+  } catch (e) {
     console.error(e);
-    throw new Error(e);
+    throw new Error(e as string);
   }
 };
 

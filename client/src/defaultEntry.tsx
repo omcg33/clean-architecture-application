@@ -8,20 +8,21 @@ import { Router }   from "react-router-dom";
 
 
 import createStore from "./store";
-import App         from "./app";
+import { App }     from "./app";
 
-import history     from "./app/history";
-import rootSaga    from "./app/sagas";
-import rootReducer from "./app/reducers";
+import history               from "./app/history";
+import rootSaga              from "./app/sagas";
+import { createRootReducer } from "./app/helpers";
+import { staticReducers }    from "./app/reducers";
+import { setPageRoutes }      from "./app/routes";
 
 import { getConfig }     from "./modules/config/selectors";
-import { setPageRoutes } from "./app/routes";
 
 
 
 export default function render(config?: any) {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
-  const [store] = createStore(rootReducer, rootSaga, preloadedState);
+  const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
 
   delete window.__PRELOADED_STATE__;
 

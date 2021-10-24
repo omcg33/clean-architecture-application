@@ -1,8 +1,8 @@
 import * as React from "react";
 import cn         from "classnames";
 
-import { ImmutableMap }    from "../../interfaces";
-import { IAdoptedDogFull } from "../../../../interfaces/adapters/ui/dog/full";
+import { ImmutableMap }    from "../../interfaces";// TODO: Убрать
+type IAdoptedDogFull = any;
 import styles              from "./styles.less";
 
 export type IProps = {
