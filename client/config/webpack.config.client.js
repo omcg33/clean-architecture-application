@@ -3,11 +3,12 @@ const path = require("path");
 const ReactLoadableSSRAddon = require("react-loadable-ssr-addon");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-// const BundleAnalyzerPlugin      = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const BundleSizeAnalyzerPlugin  = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
+const BundleAnalyzerPlugin      = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleSizeAnalyzerPlugin  = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 const webpack = require('webpack');
 
 const DIRS = require('./consts').DIRS;
+const REACT_LOADABLE_STATS = require('./consts').REACT_LOADABLE_STATS;
 const PATHS = require('./consts').PATHS;
 
 module.exports = (env, argv) => {
@@ -17,22 +18,21 @@ module.exports = (env, argv) => {
   let additionalPlugins = [];
 
   // if (!!analyze) {
-  //   additionalPlugins = additionalPlugins.concat([
-  //     new BundleSizeAnalyzerPlugin(
-  //       "../analyze/bundle-size-report.txt"
-  //     ),
-  //     new BundleAnalyzerPlugin({
-  //       analyzerMode: "static",
-  //       reportFilename: "../analyze/report.html",
-  //       openAnalyzer: true
-  //     })
-  //   ]);
+    // additionalPlugins = additionalPlugins.concat([
+    //   new BundleSizeAnalyzerPlugin(
+    //     path.join(DIRS.DIST.INDEX, "bundle-size-report.txt")
+    //   ),
+    //   new BundleAnalyzerPlugin({
+    //     analyzerMode: "static",
+    //     reportFilename: path.join(DIRS.DIST.INDEX, "report.html"),
+    //     openAnalyzer: true
+    //   })
+    // ]);
   // }
   
-  return {
-    // The main entry point of the application
+  return {    
     entry: {
-      index: ["babel-polyfill", DIRS.INPUT_PATH]
+      index: ["babel-polyfill", DIRS.ENTRYPOINTS.CLIENT]
     },
 
     optimization: {
@@ -75,7 +75,7 @@ module.exports = (env, argv) => {
 
     // Source files take into account
     resolve: {
-      extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".css", ".less"]
+      extensions: [".js", ".ts", ".tsx", ".json", ".css", ".less"]
     },
 
     // Plugins in charge to transform the source code
@@ -152,7 +152,6 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(c|le)ss/,
-          include: [DIRS.INPUT_PATH],
           oneOf: [
             {
               resourceQuery: /^\?raw$/,
@@ -169,17 +168,6 @@ module.exports = (env, argv) => {
                     importLoaders: 1
                   }
                 },
-                // {
-                //   loader: "postcss-loader",
-                //   options: {
-                //     options: {},
-                //     plugins: [
-                //       autoprefixer({
-                //         browsers: ["last 2 version"]
-                //       })
-                //     ]
-                //   }
-                // },
                 "less-loader"
               ]
             }
@@ -194,7 +182,7 @@ module.exports = (env, argv) => {
     // this way Webpack will always find the file when the server build append before client
     plugins: [
       new ReactLoadableSSRAddon({
-        filename: path.join(DIRS.DIST.INDEX, "reactLoadable.json")
+        filename: REACT_LOADABLE_STATS
       }),
       // new webpack.DllReferencePlugin({
       //   context: __dirname,

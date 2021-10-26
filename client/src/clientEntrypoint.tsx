@@ -19,8 +19,11 @@ import { setPageRoutes }      from "./app/routes";
 import { getConfig }     from "./modules/config/selectors";
 
 
+export interface IConfig {
 
-export default function render(config?: any) {
+}
+
+export const render = (config?: IConfig) => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
 

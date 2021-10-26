@@ -6,8 +6,10 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean": "rimraf dist",
-		"watch": "npm run clean && node --max_old_space_size=4096 node_modules/webpack/bin/webpack --config ./config/webpack.config.js -d --watch --devtool source-map",
-		"build": "npm run clean && webpack --config ./config/webpack.config.js -p",
+		"watch": "npm run clean && node --max_old_space_size=4096 node_modules/webpack/bin/webpack --config ./config/webpack.config.client.js -d --watch --devtool source-map",
+		"build:client": "webpack --config ./config/webpack.config.client.js -p",
+		"build:ssr": "webpack --config ./config/webpack.config.ssr.js -p",
+		"build": "npm run clean && npm run build:client && npm run build:ssr",
 		"start": "NODE_TLS_REJECT_UNAUTHORIZED=0 node --max_old_space_size=512 static/dist/server.js",
 		"start:dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon static/dist/server.js"
 	},
@@ -22,6 +24,7 @@
 		"axios": "^0.19.0",
 		"babel-polyfill": "^6.26.0",
 		"classnames": "^2.2.6",
+		"concurrently": "^6.3.0",
 		"immutable": "^4.0.0-rc.12",
 		"jquery-param": "^1.1.8",
 		"lodash-es": "^4.17.15",
@@ -76,7 +79,7 @@
 		"typescript": "^3.6.4",
 		"url-loader": "^1.1.2",
 		"webpack": "^4.29.5",
-		"webpack-bundle-analyzer": "^3.4.1",
+		"webpack-bundle-analyzer": "^3.9.0",
 		"webpack-bundle-size-analyzer": "^3.0.0",
 		"webpack-cli": "^3.2.1",
 		"webpack-node-externals": "^1.7.2"

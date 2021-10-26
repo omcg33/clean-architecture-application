@@ -1,7 +1,10 @@
 const {join, resolve} = require("path");
 
 const DIRS = {
-  INPUT_PATH: join(__dirname, "../src"),
+  ENTRYPOINTS: {
+    CLIENT: join(__dirname, "../src/index"),
+    SERVER: join(__dirname, "../src/ssr"),
+  },
   NODE_MODULES: join(__dirname, "../node_modules"),
   STATIC: {
     IMAGES: join(__dirname, "../static/images"),
@@ -14,6 +17,8 @@ const DIRS = {
     IMAGES: resolve(__dirname, "../dist/images"),
   }
 };
+
+const REACT_LOADABLE_STATS = join(DIRS.DIST.INDEX, "reactLoadable.json");
 
 const PATHS = {
   STATIC: "/" // Для правильной работы балансировщика
@@ -38,6 +43,7 @@ const PATHS = {
 module.exports = {
   DIRS,
   PATHS,
+  REACT_LOADABLE_STATS,
   // VENDORS_DLL
 };
 

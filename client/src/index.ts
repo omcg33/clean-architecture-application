@@ -1,10 +1,3 @@
-import render             from './defaultEntry';
+import { render } from './clientEntrypoint';
 
-render({
-    useRouter: false
-    // i18nConfig: {
-    //   ns: ['main'],
-    //   defaultNS: 'main'
-    // },
-    // themeConfig: {}
-});
+render();

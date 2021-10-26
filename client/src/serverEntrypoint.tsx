@@ -21,14 +21,14 @@ import { staticReducers }          from "./app/reducers";
 //TODO: Исправить
 interface ICreateSSRenderParams {
   stats: any,
-  pageRoutes: any;
 };
 
 interface ISSRenderParams { 
+  pageRoutes: any;
   location: string | object;
 }
 
-export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats, pageRoutes }) => ({ location, ...state }) => {
+export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => ({ location, pageRoutes, ...state }) => {
   const preloadedState = state,
     [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
