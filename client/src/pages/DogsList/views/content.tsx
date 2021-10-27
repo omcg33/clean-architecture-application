@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link }   from "react-router-dom";
 
-import { PAGES_URL_ALIASES } from "../../../../../const";
+import { PAGES_URL_ALIASES } from "../../../../../consts";
 import { generatePageUrl } from "../../../app/routes";
 
 

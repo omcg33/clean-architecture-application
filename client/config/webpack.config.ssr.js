@@ -1,5 +1,4 @@
 const path                  = require("path");
-const MiniCssExtractPlugin  = require("mini-css-extract-plugin");
 const nodeExternals         = require("webpack-node-externals");
 const webpack               = require('webpack');
 
@@ -39,7 +38,7 @@ module.exports = (env, argv) => {
       warnings: false,
     },
     // Exclude node_modules except tutu from the bundle
-    externals: [nodeExternals()],
+    // externals: [],
 
     devServer: {      
       hot: false,
@@ -49,10 +48,16 @@ module.exports = (env, argv) => {
     entry: [DIRS.ENTRYPOINTS.SERVER],
 
     // Generated bundle location
+    // output: {
+    //   path: DIRS.DIST.INDEX,
+    //   filename: "ssr.js",
+    //   publicPath: PATHS.STATIC,     
+    //   libraryTarget: 'commonjs'
+    // },
+
     output: {
       path: DIRS.DIST.INDEX,
-      filename: "server.js",
-      publicPath: PATHS.STATIC
+      filename:"ssr.js",
     },
 
     watchOptions: {

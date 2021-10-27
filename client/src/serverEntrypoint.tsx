@@ -1,12 +1,12 @@
-import * as React       from "react";
+import React       from "react";
 import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
 import { StaticRouter } from "react-router-dom";
-import * as Loadable    from "react-loadable";
+import Loadable    from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
 
 import Helmet             from "react-helmet";
-import * as csso          from "csso";
+import csso          from "csso";
 import serialize          from "serialize-javascript";
 
 
@@ -28,62 +28,67 @@ interface ISSRenderParams {
   location: string | object;
 }
 
-export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => ({ location, pageRoutes, ...state }) => {
-  const preloadedState = state,
-    [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
+export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => { 
+  
+  return ({ location, pageRoutes, ...state }) => {
+    const preloadedState = state,
+      [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
-  const modules = new Set();
-  let context = {};
+      console.log("------", store.getState());
 
-  const html = ReactDOMServer.renderToString(
-    <Loadable.Capture report={moduleName => modules.add(moduleName)}>
-      <Provider store={store}>
-        <StaticRouter location={location} context={context}>
-          <App/>
-        </StaticRouter>
-      </Provider>
-    </Loadable.Capture>
-  );
-  const helmet = Helmet.renderStatic();
-  const serverSideStyles = csso.minify({}).css;
+    const modules = new Set();
+    let context = {};
 
-  const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]),
-    jsException = [] as any[];
+    const html = ReactDOMServer.renderToString(
+      <Loadable.Capture report={moduleName => modules.add(moduleName)}>
+        <Provider store={store}>
+          <StaticRouter location={location} context={context}>
+            <App/>
+          </StaticRouter>
+        </Provider>
+      </Loadable.Capture>
+    );
+    const helmet = Helmet.renderStatic();
+    const serverSideStyles = csso.minify({}).css;
 
-  const styles = [
-    ...css
-      .map(style => `<link href="${__webpack_public_path__}${style.file}" rel="stylesheet"/>`)
-  ]
-    .join("\n");
+    const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]),
+      jsException = [] as any[];
 
-  const scripts = [
-    ...js
-      .reduce((acc, script) => {
-        if (script.file.includes("index")) {
-          jsException.push(script);
-          return acc;
-        }
+    const styles = [
+      ...css
+        .map(style => `<link href="${__webpack_public_path__}${style.file}" rel="stylesheet"/>`)
+    ]
+      .join("\n");
 
-        return [
-          ...acc,
-          `<script src="${__webpack_public_path__}${script.file}"></script>`
-        ];
-      }, []),
-    ...jsException
-      .map(script => `<script src="${__webpack_public_path__}${script.file}"></script>`)
-  ]
-    .join("\n");
+    const scripts = [
+      ...js
+        .reduce((acc, script) => {
+          if (script.file.includes("index")) {
+            jsException.push(script);
+            return acc;
+          }
 
-  const inlineStyles = [
-    `<style type="text/css" id="server-side-styles">${serverSideStyles}</style>`
-  ];
+          return [
+            ...acc,
+            `<script src="${__webpack_public_path__}${script.file}"></script>`
+          ];
+        }, []),
+      ...jsException
+        .map(script => `<script src="${__webpack_public_path__}${script.file}"></script>`)
+    ]
+      .join("\n");
 
-  return {
-    helmet,
-    html,
-    styles,
-    scripts,
-    inlineStyles,
-    routes: serialize(pageRoutes, { isJSON: true }),    
-  };
+    const inlineStyles = [
+      `<style type="text/css" id="server-side-styles">${serverSideStyles}</style>`
+    ];
+
+    return {
+      helmet,
+      html,
+      styles,
+      scripts,
+      inlineStyles,
+      routes: serialize(pageRoutes, { isJSON: true }),    
+    };
+  }
 };

@@ -1,7 +1,7 @@
 import { Task }                    from "redux-saga";
 import { call, all, put, select, take } from "redux-saga/effects";
 
-import { PAGES_KEYS } from "../../../../../const";
+import { PAGES_KEYS } from "../../../../../consts";
 
 import { get } from "../../../libs/xhr";
 

@@ -1,31 +1,18 @@
 import { createSelector }   from '../../../utils/memoization';
-
+import { PAGES_KEYS } from "../../../../../consts"
 import {IState}             from './interfaces';
 
-/**
- * select loading status
- */
-export const getLoading = createSelector(
-	(state: IState) => state.catsListPage.get('loading'),
-	(loading: boolean) => loading
-);
-
-/**
- * Select page data
- */
 export const getData = createSelector(
-	(state: IState) => state.catsListPage.get('data'),
-	(data: any) => data
-);
-
-export const getHasData = createSelector(
-	(state: IState) => !!state.catsListPage.get('data'),
+	(state: IState) => state[PAGES_KEYS.CATS_LIST],
+	(hasData: any) => hasData,
+  );
+  
+  export const getHasData = createSelector(
+	(state: IState) => !!state[PAGES_KEYS.CATS_LIST] && !state[PAGES_KEYS.CATS_LIST]!.isEmpty(),
 	(hasData: boolean) => hasData,
-);
-
+  );
+  
 export const getCats = createSelector(
-  (state: IState) => state.catsListPage.getIn(['data', 'cats']),
+  (state: IState) => getData(state).get('cats'),
   (data: any) => data,
 );
-
-export default {};

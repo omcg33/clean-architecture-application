@@ -39,6 +39,7 @@
 		"react-router-hash-link": "^1.2.2",
 		"redux-immutable": "^4.0.0",
 		"redux-saga": "^1.0.0",
+		"regenerator-runtime": "^0.13.9",
 		"reselect": "^4.0.0",
 		"serialize-javascript": "^1.6.1"
 	},
@@ -65,6 +66,7 @@
 		"core-decorators": "^0.20.0",
 		"css-loader": "^0.28.10",
 		"file-loader": "^3.0.1",
+		"json-loader": "^0.5.7",
 		"less": "^3.9.0",
 		"less-loader": "^4.1.0",
 		"mini-css-extract-plugin": "^0.5.0",
