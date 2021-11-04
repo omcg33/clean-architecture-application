@@ -11,9 +11,9 @@ const DIRS = require('./consts').DIRS;
 const REACT_LOADABLE_STATS = require('./consts').REACT_LOADABLE_STATS;
 const PATHS = require('./consts').PATHS;
 
+
 module.exports = (env, argv) => {
   const { mode, analyze } = argv;
-  const isProduction = mode === "production";
 
   let additionalPlugins = [];
 
@@ -62,8 +62,8 @@ module.exports = (env, argv) => {
     // Ex: import(/* webpackChunkName: "about" */ "../pages/about") generate about.js
     output: {
       path: DIRS.DIST.JS,
-      filename: isProduction ? "[name].js?[contenthash:10]" : "[name].js",
-      chunkFilename: isProduction ? "[name].js?[contenthash:10]" : "[name].js",
+      filename: "[name].js?[contenthash:10]",
+      chunkFilename: "[name].js?[contenthash:10]",
       publicPath: PATHS.STATIC
     },
 
@@ -189,7 +189,7 @@ module.exports = (env, argv) => {
       //   manifest: path.join(DIRS.STATIC.DLL, "/manifest.dll.json")
       // }),
       new MiniCssExtractPlugin({
-        filename: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.CSS, mode === "production" ? "[name].css?[contenthash:10]" : "css/[name].css") )
+        filename: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.CSS, "[name].css?[contenthash:10]"))
       }),
       new CopyWebpackPlugin([
         {

@@ -11,14 +11,15 @@ const DIRS = {
   },
   DIST: {   
     INDEX: resolve(__dirname, "../dist"), 
-    JS: resolve(__dirname, "../dist/js"),
-    CSS: resolve(__dirname, "../dist/css"),
-    FONTS: resolve(__dirname, "../dist/fonts"),
-    IMAGES: resolve(__dirname, "../dist/images"),
+    JS: resolve(__dirname, "../dist/static"),
+    CSS: resolve(__dirname, "../dist/static/css"),
+    FONTS: resolve(__dirname, "../dist/static/fonts"),
+    IMAGES: resolve(__dirname, "../dist/static/images"),
   }
 };
 
 const REACT_LOADABLE_STATS = join(DIRS.DIST.INDEX, "reactLoadable.json");
+
 
 const PATHS = {
   STATIC: "/" // Для правильной работы балансировщика

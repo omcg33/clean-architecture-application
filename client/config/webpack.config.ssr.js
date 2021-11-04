@@ -1,13 +1,12 @@
 const path                  = require("path");
-const nodeExternals         = require("webpack-node-externals");
 const webpack               = require('webpack');
+const WebpackNotifierPlugin = require('webpack-notifier')
 
 const DIRS   = require('./consts').DIRS;
 const PATHS = require("./consts").PATHS;
 
 module.exports = (env, argv) => {
   const { mode, analyze = false } = argv;
-  const isProduction = mode === "production";
 
   return {
     // Set Webpack build for Node.js
@@ -49,16 +48,11 @@ module.exports = (env, argv) => {
 
     // Generated bundle location
     output: {
-      path: DIRS.DIST.JS,
+      path: DIRS.DIST.INDEX,
       filename: "ssr.js",
       publicPath: PATHS.STATIC,     
       libraryTarget: 'commonjs'
     },
-
-    // output: {
-    //   path: DIRS.DIST.INDEX,
-    //   filename:"ssr.js",
-    // },
 
     watchOptions: {
       aggregateTimeout: 300,
@@ -83,10 +77,11 @@ module.exports = (env, argv) => {
         {
           test: /\.(jpe?g|png|gif|ico)$/,
           loader: "url-loader",
-          options: {
+          options: { 
             limit: 10000,
+            emitFile: false,
             name: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.IMAGES, "[sha512:hash:base64:7].[ext]?[hash:10]") )
-          }
+           },         
         },
         {
           test: /\.svg$/,
@@ -95,13 +90,15 @@ module.exports = (env, argv) => {
               loader: "svg-inline-loader",
               resourceQuery: /^\?raw$/,
               options: {
-                idPrefix: true
+                idPrefix: true,
+                emitFile: false,
               }
             },
             {
               loader: "url-loader",
               options: {
                 limit: 10000,
+                emitFile: false,
                 name: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.IMAGES, "[sha512:hash:base64:7].[ext]?[hash:10]") )
               }
             },
@@ -112,6 +109,7 @@ module.exports = (env, argv) => {
           loader: "url-loader",
           options: {
             limit: 25000,
+            emitFile: false,
             name: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.FONTS, "[sha512:hash:base64:7].[ext]?[hash:10]") )
           }
         },
@@ -153,13 +151,10 @@ module.exports = (env, argv) => {
           oneOf: [
             {
               resourceQuery: /^\?raw$/,
-              use: [
-                //MiniCssExtractPlugin.loader,
-                 "css-loader", "less-loader"]
+              use: ["css-loader", "less-loader"]
             },
             {
               use: [
-               // MiniCssExtractPlugin.loader,
                 {
                   loader: "css-loader",
                   options: {
@@ -175,15 +170,11 @@ module.exports = (env, argv) => {
         }
       ]
     },
-    plugins: [
-      // new MiniCssExtractPlugin({
-      //   filename: "server.css",
-      //   chunkFilename: "server.css",
-      //   publicPath: "/css/"
-      // }),
+    plugins: [     
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
-      })      
+      }),
+      new WebpackNotifierPlugin({ alwaysNotify: false, emoji: true }),
     ]
   }
 };
