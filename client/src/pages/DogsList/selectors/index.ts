@@ -13,6 +13,6 @@ export const getHasData = createSelector(
 );
 
 export const getDogs = createSelector(
-	(state: IState) => getData(state).get('dogs'),
+	(state: IState) => getData(state)?.get('dogs'),
 	(data: any) => data,
 );

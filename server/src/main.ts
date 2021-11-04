@@ -12,11 +12,19 @@ import createSSRender from '../../client/dist/ssr';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const render = await createSSRender();
-  const pageRoutes = {
-    [PAGES_URL_ALIASES.CATS_LIST]: '/cats',
-    [PAGES_URL_ALIASES.DOGS_LIST]: '/dogs'
-  }
-  console.log(render({location: pageRoutes[PAGES_URL_ALIASES.CATS_LIST], pageRoutes }));
+
+  const pageRoutes = [
+    {
+      alias: PAGES_URL_ALIASES.CATS_LIST,
+      template: '/cats'
+    },
+    {
+      alias: PAGES_URL_ALIASES.DOGS_LIST,
+      template: '/dogs'
+    },
+  ];
+
+  console.log(render({location: '/cats', pageRoutes }));
   await app.listen(3000);
 }
 bootstrap();

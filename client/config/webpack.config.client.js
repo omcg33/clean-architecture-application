@@ -81,8 +81,7 @@ module.exports = (env, argv) => {
     // Plugins in charge to transform the source code
     // Rules are applied from right to left (ts-loader then babel-loader)
     module: {
-      rules: [
-        { test: /\.json$/, loader: 'json' },
+      rules: [       
         {
           test: /\.(jpe?g|png|gif|ico)$/,
           loader: "url-loader",

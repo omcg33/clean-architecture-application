@@ -6,7 +6,7 @@ import Loadable    from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
 
 import Helmet             from "react-helmet";
-import csso          from "csso";
+// import csso               from "csso";
 import serialize          from "serialize-javascript";
 
 
@@ -17,6 +17,8 @@ import createStore                 from "./store";
 import { App }                     from "./app";
 import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
+import { setPageRoutes }           from "./app/routes";
+import { IRoute }                  from "./app/interfaces";
 
 //TODO: Исправить
 interface ICreateSSRenderParams {
@@ -24,7 +26,7 @@ interface ICreateSSRenderParams {
 };
 
 interface ISSRenderParams { 
-  pageRoutes: any;
+  pageRoutes: IRoute[];
   location: string | object;
 }
 
@@ -34,8 +36,8 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
     const preloadedState = state,
       [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
-      console.log("------", store.getState());
-
+    setPageRoutes(pageRoutes);
+    
     const modules = new Set();
     let context = {};
 
@@ -49,7 +51,7 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
       </Loadable.Capture>
     );
     const helmet = Helmet.renderStatic();
-    const serverSideStyles = csso.minify({}).css;
+    // const serverSideStyles = csso.minify({}).css;
 
     const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]),
       jsException = [] as any[];
@@ -79,7 +81,7 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
       .join("\n");
 
     const inlineStyles = [
-      `<style type="text/css" id="server-side-styles">${serverSideStyles}</style>`
+      // `<style type="text/css" id="server-side-styles">${serverSideStyles}</style>`
     ];
 
     return {

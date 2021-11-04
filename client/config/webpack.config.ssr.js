@@ -48,17 +48,17 @@ module.exports = (env, argv) => {
     entry: [DIRS.ENTRYPOINTS.SERVER],
 
     // Generated bundle location
+    output: {
+      path: DIRS.DIST.JS,
+      filename: "ssr.js",
+      publicPath: PATHS.STATIC,     
+      libraryTarget: 'commonjs'
+    },
+
     // output: {
     //   path: DIRS.DIST.INDEX,
-    //   filename: "ssr.js",
-    //   publicPath: PATHS.STATIC,     
-    //   libraryTarget: 'commonjs'
+    //   filename:"ssr.js",
     // },
-
-    output: {
-      path: DIRS.DIST.INDEX,
-      filename:"ssr.js",
-    },
 
     watchOptions: {
       aggregateTimeout: 300,
@@ -75,6 +75,11 @@ module.exports = (env, argv) => {
     // Rules are applied from right to left (ts-loader then babel-loader)
     module: {
       rules: [
+        // { 
+        //   test: /\.json$/,
+        //   exclude: /node_modules/,
+        //   loader: 'json-loader',
+        // },
         {
           test: /\.(jpe?g|png|gif|ico)$/,
           loader: "url-loader",

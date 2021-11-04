@@ -13,6 +13,6 @@ export const getData = createSelector(
   );
   
 export const getCats = createSelector(
-  (state: IState) => getData(state).get('cats'),
+  (state: IState) => getData(state)?.get('cats'),
   (data: any) => data,
 );
