@@ -1,30 +1,28 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-// import { PAGES_URL_ALIASES } from '../../consts';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { ConfigService } from 'nestjs-config';
+import { GetPagesRoutesService } from './get-pages-routes/get-pages-routes.service';
 
-export enum PAGES_URL_ALIASES {
-  CATS_LIST = "catsList",
-  DOGS_LIST = "dogsList",    
-}
 
-// const createSSRender = require('../../client/dist/ssr').default;
 import createSSRender from '../../client/dist/ssr';
+
+
+import { AppModule } from './app.module';
+
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const render = await createSSRender();
+  const getPageRoutesService = new GetPagesRoutesService();
 
-  const pageRoutes = [
-    {
-      alias: PAGES_URL_ALIASES.CATS_LIST,
-      template: '/cats'
-    },
-    {
-      alias: PAGES_URL_ALIASES.DOGS_LIST,
-      template: '/dogs'
-    },
-  ];
+  const [ app, render, routes] = await Promise.all([
+    NestFactory.create<NestExpressApplication>(AppModule, {
+      bodyParser: true 
+    }),
+    createSSRender(),
+    getPageRoutesService.get()
+  ])
 
-  console.log(render({location: '/cats', pageRoutes }));
+  console.log(render({ location: '/cats', pageRoutes: routes }));
   await app.listen(3000);
 }
+
 bootstrap();
