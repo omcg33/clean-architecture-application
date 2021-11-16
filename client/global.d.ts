@@ -1,6 +1,6 @@
 ///<reference types="node" />
 declare type IRoute = import("./src/app/interfaces").IRoute;
-// import { IRoute } from "./src/app/interfaces";
+
 
 interface IStyles {
   readonly [id: string]: string;

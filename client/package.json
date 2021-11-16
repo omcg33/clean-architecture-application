@@ -6,7 +6,9 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"clean": "rimraf dist",
-		"watch": "npm run clean && node --max_old_space_size=4096 node_modules/webpack/bin/webpack --config ./config/webpack.config.client.js -d --watch --devtool source-map",
+		"watch": "npm run clean && concurrently \"npm run watch:client\" \"npm run watch:ssr\"",
+		"watch:client": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack --config ./config/webpack.config.client.js -d --watch --devtool source-map",
+		"watch:ssr": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack --config ./config/webpack.config.ssr.js -d --watch --devtool source-map",
 		"build:client": "webpack --config ./config/webpack.config.client.js -p",
 		"build:ssr": "webpack --config ./config/webpack.config.ssr.js -p",
 		"build": "npm run clean && npm run build:client && npm run build:ssr",

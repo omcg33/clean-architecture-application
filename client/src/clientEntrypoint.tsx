@@ -27,10 +27,11 @@ export const render = (config?: IConfig) => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
 
-  delete window.__PRELOADED_STATE__;
-
   setPageRoutes(window.__ROUTES__);
-  // delete window.__ROUTES__;
+
+  // window.__PRELOADED_STATE__ = undefined;
+  // window.__ROUTES__ = undefined;
+
 
   const clientConfig = getConfig(store.getState()),
     cdn = clientConfig.getIn(["apiHosts", "cdn"]);

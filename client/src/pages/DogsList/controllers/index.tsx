@@ -5,8 +5,7 @@ import View from "../views";
 
 class Controller extends React.PureComponent<any> {
   componentDidMount() {
-    this.props.runSaga(saga);
-    this.props.load();
+    this.props.runSaga({ saga });
   }
 
   componentWillUnmount() {

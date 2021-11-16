@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+  
+    <title>Clean Arch</title>  
+    {{!-- ${helmet.title.toString()} --}}
+    {{!-- ${helmet.meta.toString()} --}}
+
+    {{{styles}}}
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">{{{ html }}}</div>
+
+    <script id="preloadedState" type="application/json">{{{ preloadedState }}}</script>
+    <script id="routes" type="application/json">{{{ routes }}}</script>
+    <script>
+      var __PRELOADED_STATE__ = JSON.parse(document.getElementById('preloadedState').textContent);
+      var __ROUTES__ = JSON.parse(document.getElementById('routes').textContent);
+    </script>  
+     {{{scripts}}}
+  </body>
+</html>

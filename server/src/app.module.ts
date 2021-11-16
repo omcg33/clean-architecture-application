@@ -1,10 +1,18 @@
+import path from 'path';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from 'nestjs-config';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { PageRoutesService } from './page-routes/page-routes.service';
+import { SsRenderService } from './ss-render/ss-render.service';
+import { CatsService } from './api/pages/cats.service';
 
 @Module({
-  imports: [],
+  imports: [
+		ConfigModule.load(
+      path.resolve(__dirname, './config', '**/!(*.d).{ts,js}')
+    ),
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [PageRoutesService, SsRenderService, CatsService],
 })
 export class AppModule {}

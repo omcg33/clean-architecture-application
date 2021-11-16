@@ -10,8 +10,16 @@ import Helmet             from "react-helmet";
 import serialize          from "serialize-javascript";
 
 
-// TODO: Продумать место лучше
-import { CreateSSRender } from "../../server/src/interfaces";
+export type CreateSSRender<CP, RP> = (createParams: CP) => SSRender<RP>;
+export type SSRender<P> = <T extends P>(paramsForEachRequest: T) => IRenderResult;
+
+export interface IRenderResult {
+  html: string;
+  styles: string;
+  scripts: string;
+  inlineStyles: string[];
+  routes: string;
+}
 
 import createStore                 from "./store";
 import { App }                     from "./app";
@@ -33,7 +41,7 @@ interface ISSRenderParams {
 export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => { 
   
   return ({ location, pageRoutes, ...state }) => {
-    const preloadedState = state,
+    const preloadedState = state || {},
       [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
     setPageRoutes(pageRoutes);
@@ -90,6 +98,7 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
       styles,
       scripts,
       inlineStyles,
+      preloadedState: serialize(state, { isJSON: true }),
       routes: serialize(pageRoutes, { isJSON: true }),    
     };
   }

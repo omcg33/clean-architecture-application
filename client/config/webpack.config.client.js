@@ -197,6 +197,11 @@ module.exports = (env, argv) => {
           to: path.relative(DIRS.DIST.JS, DIRS.DIST.IMAGES),
           test: /\.(gif|jpe?g|tiff?|png|webp|bmp)$/
         },
+        {
+          from: DIRS.STATIC.TEMPLATES,
+          to: path.relative(DIRS.DIST.JS, DIRS.DIST.TEMPLATES),
+          test: /\.(hbs)$/
+        }
       ]),
       ...additionalPlugins
     ]

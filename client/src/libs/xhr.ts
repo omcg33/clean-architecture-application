@@ -20,7 +20,7 @@ function getAxiosClient() {
 }
 
 
-function ajax(url: string, method: string = "get", data: Object = {}, prefix: string = "/api", axiosDefaults: Object = {
+function ajax(url: string, method: string = "get", data: Object = {}, prefix: string = "", axiosDefaults: Object = {
   paramsSerializer: param
 }, rest?: Object) {
   return new Promise((res, rej) => {

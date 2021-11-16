@@ -8,6 +8,7 @@ const DIRS = {
   NODE_MODULES: join(__dirname, "../node_modules"),
   STATIC: {
     IMAGES: join(__dirname, "../static/images"),
+    TEMPLATES: join(__dirname, "../static/templates"),
   },
   DIST: {   
     INDEX: resolve(__dirname, "../dist"), 
@@ -15,6 +16,7 @@ const DIRS = {
     CSS: resolve(__dirname, "../dist/static/css"),
     FONTS: resolve(__dirname, "../dist/static/fonts"),
     IMAGES: resolve(__dirname, "../dist/static/images"),
+    TEMPLATES: resolve(__dirname, "../dist/templates"),
   }
 };
 
@@ -32,7 +34,6 @@ const PATHS = {
 //   "react-redux",
 //   "react-router-dom",
 //   "react-router-hash-link",
-//   "react-css-themr",
 //   "react-helmet",
 //   "redux-saga",
 //   "reselect",

@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import { run as runSaga } from "../../../app/actions";
 
-import { load, unmount } from "../actions";
+import { unmount } from "../actions";
 
 // import { getMeta }      from "../../../modules/meta/selectors";
 import { getConfig }    from "../../../modules/config/selectors";
@@ -29,7 +29,6 @@ const mapStateToProps = (state: any, props: any) => {
 const mapDispatchToProps = {
   runSaga,
   unmount,
-  load,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controller);
