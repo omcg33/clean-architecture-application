@@ -37,9 +37,7 @@ export function* initialSagas(reducerManager) {
   yield fork(logger);
 
   yield takeEvery(RUN, function* ({ meta }: IRunAction) {
-    console.log(meta);
-    
-    // yield fork(meta.saga, meta.params);
+    yield fork(meta.saga, meta.params);
   });
 
   yield takeEvery(ADD_REDUCER, function* ({ meta }: any) {
@@ -50,7 +48,7 @@ export function* initialSagas(reducerManager) {
   yield takeEvery(REMOVE_REDUCER, function* ({ meta }: any) {
     yield call(reducerManager.remove, meta);
   });
-
+ 
   yield takeEvery(REPLACE_REDUCER, function* ({ meta }: any) {
     const { key, reducer } = meta;
     yield call(reducerManager.replace, key, reducer);
@@ -69,8 +67,6 @@ export default function* rootSaga(reducerManager: any, sagaToRun: Saga<any>) {
   try {
     yield fork(initialSagas, reducerManager);
     yield sagaToRun();
-    console.log('2')
-
   } catch (e) {
     const { name, 
       // stack, message 

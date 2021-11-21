@@ -25,11 +25,11 @@ export enum API_ROUTES_GET {
   }
 
 export const apiRoutesGet: Record<API_ROUTES_GET, string> = {
-    [API_ROUTES_GET.PAGE_NOT_FOUND]: "/api/page/notFound",
+    [API_ROUTES_GET.PAGE_NOT_FOUND]: "/api/pages/notFound",
   
-    [API_ROUTES_GET.PAGE_MAIN]: "/api/page/main",
-    [API_ROUTES_GET.PAGE_CATS_LIST]: "/api/page/cats",
-    [API_ROUTES_GET.PAGE_DOGS_LIST]: "/api/page/dogs",
+    [API_ROUTES_GET.PAGE_MAIN]: "/api/pages/main",
+    [API_ROUTES_GET.PAGE_CATS_LIST]: "/api/pages/cats",
+    [API_ROUTES_GET.PAGE_DOGS_LIST]: "/api/pages/dogs",
   };
   
   export const apiRoutesPost: Record<API_ROUTES_POST, string> = {
@@ -45,6 +45,6 @@ export const apiRoutesGet: Record<API_ROUTES_GET, string> = {
   };
   
   export const apiRoutesDelete: Record<API_ROUTES_DELETE, string> = {
-    [API_ROUTES_DELETE.CAT]: "/api/cat/:id",
-    [API_ROUTES_DELETE.DOG]: "/api/dog/:id",
+    [API_ROUTES_DELETE.CAT]: "/api/cats/:id",
+    [API_ROUTES_DELETE.DOG]: "/api/dogs/:id",
   };

@@ -23,6 +23,7 @@ class Content extends React.PureComponent<any> {
           <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
             Список Кошачек
           </Link>
+
           {
             cats
               .map((cat,i) => <Cat cat={cat} className={styles.cat} key={i}/>)
@@ -30,7 +31,9 @@ class Content extends React.PureComponent<any> {
           <hr/>          
           <hr/>          
           <hr/>          
-          <hr/>     
+          <hr/>   
+          <hr/>   
+
           {
             dogs
               .map((dog,i) => <Dog dog={dog} className={styles.dog} key={i}/>)

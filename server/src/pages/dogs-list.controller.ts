@@ -4,7 +4,7 @@ import { PAGES_KEYS } from 'consts/pages';
 import { CommonPageService } from './common.service';
 import { RenderService } from './render.service';
 
-@Controller('/dogs')
+@Controller()
 export class DogsListPageController {
 
     constructor(
@@ -14,7 +14,7 @@ export class DogsListPageController {
     ) { }
 
     @Render('index')
-    @Get('/')
+    @Get('/dogs')
     async get(@Req() req) {
         const [commonData, pageData] = await Promise.all([
             this._commonPageService.get(req),

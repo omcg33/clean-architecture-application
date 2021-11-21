@@ -1,4 +1,4 @@
-import * as React                              from "react";
+// import React                                   from "react";
 import { RouteProps }                          from "react-router-dom";
 import Loadable                                from "react-loadable"; // Обязательно default'ный импорт!!!!
 import * as pathToRegexp from "path-to-regexp";
@@ -6,7 +6,7 @@ import * as pathToRegexp from "path-to-regexp";
 import { PAGES_URL_ALIASES } from "../../../../consts";
 
 import Loading    from "../../components/Loading";
-import { is404 }  from "../helpers";
+// import { is404 }  from "../helpers";
 import { IRoute } from "../interfaces";
 
 import { 
@@ -47,25 +47,16 @@ const LoadableNotFoundPage = Loadable({
 
 const routesProps: {[key: string]: RouteProps} = {
   [PAGES_URL_ALIASES.MAIN]: {
-    render: (props) => (
-      !is404(props.location)
-        ? <LoadableMain  {...props} />
-        : <LoadableNotFoundPage {...props}/>
-    )
+    exact: true,
+    component: LoadableMain
   },
   [PAGES_URL_ALIASES.CATS_LIST]: {
-    render: (props) => (
-      !is404(props.location)
-        ? <LoadableCatsList  {...props} />
-        : <LoadableNotFoundPage {...props}/>
-    )
+    exact: true,
+    component: LoadableCatsList,
   },
   [PAGES_URL_ALIASES.DOGS_LIST]: {
-    render: (props) => (
-      !is404(props.location)
-        ? <LoadableDogsList  {...props} />
-        : <LoadableNotFoundPage {...props}/>
-    )
+    exact: true,
+    component: LoadableDogsList,
   },
 };
 

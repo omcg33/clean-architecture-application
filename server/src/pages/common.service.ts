@@ -7,7 +7,7 @@ export class CommonPageService {
         return {
             user: {},
             isDesktop: req.useragent.isDesktop,
-            url: req.url,
+            location: req.url,
         }
     }
 }

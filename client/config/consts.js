@@ -33,7 +33,6 @@ const PATHS = {
 //   "react-loadable",
 //   "react-redux",
 //   "react-router-dom",
-//   "react-router-hash-link",
 //   "react-helmet",
 //   "redux-saga",
 //   "reselect",

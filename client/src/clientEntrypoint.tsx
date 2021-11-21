@@ -51,7 +51,7 @@ export const render = (config?: IConfig) => {
   });
 
   Loadable.preloadReady().then(() => {
-    ReactDOM.render(
+    ReactDOM.hydrate(
       <Provider store={store}>
         <Router history={history}>
           <App/>

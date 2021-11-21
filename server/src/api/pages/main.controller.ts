@@ -9,7 +9,7 @@ export class MainPageController {
         private _mainPageService: MainPageService,
     ){}
 
-    @Get('/')
+    @Get('/main')
     async get(){
         const data = await this._mainPageService.get();
 

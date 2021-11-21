@@ -48,12 +48,11 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
     setPageRoutes(pageRoutes);
     
     const modules = new Set();
-    let context = {};
 
     const html = ReactDOMServer.renderToString(
       <Loadable.Capture report={moduleName => modules.add(moduleName)}>
         <Provider store={store}>
-          <StaticRouter location={location} context={context}>
+          <StaticRouter location={location}>
             <App/>
           </StaticRouter>
         </Provider>
@@ -81,11 +80,11 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
 
           return [
             ...acc,
-            `<script src="${__webpack_public_path__}${script.file}"></script>`
+            `<script defer src="${__webpack_public_path__}${script.file}"></script>`
           ];
         }, []),
       ...jsException
-        .map(script => `<script src="${__webpack_public_path__}${script.file}"></script>`)
+        .map(script => `<script defer src="${__webpack_public_path__}${script.file}"></script>`)
     ]
       .join("\n");
 

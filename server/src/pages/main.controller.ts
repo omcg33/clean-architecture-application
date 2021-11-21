@@ -4,7 +4,7 @@ import { PAGES_KEYS } from 'consts/pages';
 import { CommonPageService } from './common.service';
 import { RenderService } from './render.service';
 
-@Controller('/')
+@Controller()
 export class MainPageController {
 
     constructor(
