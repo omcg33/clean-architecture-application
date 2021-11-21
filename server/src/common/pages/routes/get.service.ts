@@ -10,6 +10,10 @@ export class GetPagesRoutesService {
 
         return [
             {
+                alias: PAGES_URL_ALIASES.MAIN,
+                template: '/'
+            },
+            {
                 alias: PAGES_URL_ALIASES.CATS_LIST,
                 template: '/cats'
             },

@@ -1,17 +1,17 @@
 import { Controller, Get } from '@nestjs/common';
-import { DogsListPageService } from './dogs-list.service';
+import { MainPageService } from './main.service';
 
 // Обработчик входящего запроса
 // Здесь производиться преобразование req в параметры нужные сервису
 @Controller('/pages')
-export class DogsListPageController {
+export class CatsListPageController {
     constructor(
-        private _dogsListPageService: DogsListPageService
+        private _mainPageService: MainPageService,
     ){}
 
-    @Get('/dogs')
+    @Get('/')
     async get(){
-        const data = await this._dogsListPageService.get();
+        const data = await this._mainPageService.get();
 
         return data;
     }
