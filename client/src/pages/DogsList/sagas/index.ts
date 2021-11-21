@@ -9,7 +9,7 @@ import { get } from "../../../libs/xhr";
 import { addReducer, removeReducer } from "../../../app/actions";
 import { generateApiUrl }            from "../../../app/routes";
 import { API_ROUTES_GET }            from "../../../app/routes/distionary";
-import { set }                       from "../../../modules/meta/actions";
+// import { set }                       from "../../../modules/meta/actions";
 
 import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData }                  from "../selectors";
@@ -33,11 +33,14 @@ export function* getPageData() {
 
   if (!hasData) {
     try {
+      console.log('DOGS 111111')
       // TODO: Заменить на вызов сервиса
-      const { meta, ...data } = yield call(get, generateApiUrl(API_ROUTES_GET.PAGE_DOGS_LIST));
+      const data = yield call(get, generateApiUrl(API_ROUTES_GET.PAGE_DOGS_LIST));
+
+      console.log('DOGS', data);
 
       yield all([
-        put(set(meta)),
+        // put(set(meta)),
         put(add(data))
       ])
     } catch (e) {

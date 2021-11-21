@@ -18,6 +18,9 @@ class Content extends React.PureComponent<any> {
       <>
           <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
             Список Собачек
+          </Link><br/>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+            Главная
           </Link>
           {
             cats

@@ -9,12 +9,9 @@ export const UNMOUNT    = 'PAGES/DOGS_LIST/UNMOUNT';
 
 /**
  * Load data
- *
- * @param departureId
- * @param arrivalId
  * @return {{type: string, payload: {}}}
  */
-interface ILoadProps {
+ interface ILoadProps {
 	code: string;
 }
 export const load = (props: ILoadProps) => ({
@@ -29,9 +26,9 @@ export const load = (props: ILoadProps) => ({
  * @param data
  * @return {{type: string, payload: {}}}
  */
-export const add = (data: Object) => ({
+ export const add = (data: Object) => ({
 	type: ADD,
-	payload: { data }
+	payload: data
 });
 
 

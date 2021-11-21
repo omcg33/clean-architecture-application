@@ -25,7 +25,7 @@ export const load = (props: ILoadProps) => ({
  */
 export const add = (data: Object) => ({
 	type: ADD,
-	payload: { data }
+	payload: data
 });
 
 

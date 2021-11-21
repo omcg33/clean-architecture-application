@@ -9,9 +9,6 @@ export const UNMOUNT    = 'PAGES/CATS_LIST/UNMOUNT';
 
 /**
  * Load data
- *
- * @param departureId
- * @param arrivalId
  * @return {{type: string, payload: {}}}
  */
 interface ILoadProps {
@@ -31,7 +28,7 @@ export const load = (props: ILoadProps) => ({
  */
 export const add = (data: Object) => ({
 	type: ADD,
-	payload: { data }
+	payload: data
 });
 
 

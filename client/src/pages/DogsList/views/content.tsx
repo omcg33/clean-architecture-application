@@ -26,6 +26,9 @@ class Content extends React.PureComponent<IProps> {
             <div>
               <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
                 Список кошечек
+              </Link><br/>
+              <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+                Главная
               </Link>
               {
                 dogs

@@ -46,7 +46,9 @@ function ajax(url: string, method: string = "get", data: Object = {}, prefix: st
       ({ data }: any) => {
         if (data.redirect) return res(redirectToPage(data.redirect));
         if (data.error) return rej(data.error);
-        if (typeof data.payload !== "undefined") return res(data.payload);
+        // if (typeof data.payload !== "undefined") return res(data.payload);
+
+        return res(data);
       },
       // Process request error
       (result: any) => rej(result)
