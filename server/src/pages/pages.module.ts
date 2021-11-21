@@ -5,13 +5,14 @@ import { CommonPageService } from './common.service';
 
 import { UserAgentMiddleware } from 'middlewares/useragent.middleware';
 
-import { CatsListController } from './cats-list.controller';
-import { DogsListController } from './dogs-list.controller';
+import { MainPageController } from './main.controller';
+import { CatsListPageController } from './cats-list.controller';
+import { DogsListPageController } from './dogs-list.controller';
 
 
 
 @Module({
-  controllers: [CatsListController, DogsListController],
+  controllers: [CatsListPageController, DogsListPageController, MainPageController],
   imports: [ApiModule],
   providers: [RenderService, CommonPageService],
   exports: [RenderService]

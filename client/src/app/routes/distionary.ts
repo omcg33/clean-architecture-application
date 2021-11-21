@@ -2,6 +2,7 @@
 export enum API_ROUTES_GET {
     PAGE_NOT_FOUND = "pageNotFound",
   
+    PAGE_MAIN = "pageMain",
     PAGE_CATS_LIST = "pageCatsList",
     PAGE_DOGS_LIST = "pageDogsList"
   }
@@ -26,6 +27,7 @@ export enum API_ROUTES_GET {
 export const apiRoutesGet: Record<API_ROUTES_GET, string> = {
     [API_ROUTES_GET.PAGE_NOT_FOUND]: "/api/page/notFound",
   
+    [API_ROUTES_GET.PAGE_MAIN]: "/api/page/main",
     [API_ROUTES_GET.PAGE_CATS_LIST]: "/api/page/cats",
     [API_ROUTES_GET.PAGE_DOGS_LIST]: "/api/page/dogs",
   };

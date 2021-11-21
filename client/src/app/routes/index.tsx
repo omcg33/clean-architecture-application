@@ -23,6 +23,12 @@ let pageRoutes: IRoute[] = [];
 let pageRoutesObject: Record<PAGES_URL_ALIASES, string>;
 
 
+const LoadableMain = Loadable({
+  loader: () => import(/* webpackChunkName: "mainPage" */ "../../pages/Main"), 
+  loading: Loading
+});
+
+
 const LoadableCatsList = Loadable({
   loader: () => import(/* webpackChunkName: "catsListPage" */ "../../pages/CatsList"),
   loading: Loading
@@ -40,6 +46,13 @@ const LoadableNotFoundPage = Loadable({
 
 
 const routesProps: {[key: string]: RouteProps} = {
+  [PAGES_URL_ALIASES.MAIN]: {
+    render: (props) => (
+      !is404(props.location)
+        ? <LoadableMain  {...props} />
+        : <LoadableNotFoundPage {...props}/>
+    )
+  },
   [PAGES_URL_ALIASES.CATS_LIST]: {
     render: (props) => (
       !is404(props.location)

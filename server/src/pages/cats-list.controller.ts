@@ -5,7 +5,7 @@ import { CommonPageService } from './common.service';
 import { RenderService } from './render.service';
 
 @Controller('/cats')
-export class CatsListController {
+export class CatsListPageController {
 
     constructor(
         private _commonPageService: CommonPageService,
