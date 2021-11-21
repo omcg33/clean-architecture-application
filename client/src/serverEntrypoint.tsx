@@ -36,11 +36,12 @@ interface ICreateSSRenderParams {
 interface ISSRenderParams { 
   pageRoutes: IRoute[];
   location: string | object;
+  state: Record<string, any>;
 }
 
 export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => { 
   
-  return ({ location, pageRoutes, ...state }) => {
+  return ({ location, pageRoutes, state }) => {
     const preloadedState = state || {},
       [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 

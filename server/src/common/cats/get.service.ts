@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { delay } from 'utils';
 
 @Injectable()
-export class CatsService {
-    public get() {
+export class CatsGetService {
+    async get() {
+        await delay(500);
+        
         return [
             {
                 id: 1,

@@ -8,3 +8,9 @@ export enum PAGES_KEYS  {
     DOGS_LIST = "dogsListPage",
     NOT_FOUND = "notFoundPage"
 }
+
+export enum API_ROUTES_GET {
+    PAGE_NOT_FOUND = "pageNotFound",
+    PAGE_CATS_LIST = "pageCatsList",
+    PAGE_DOGS_LIST = "pageDogsList"
+}

@@ -1,50 +1,55 @@
+import path from 'path';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from 'nestjs-config';
-// import { config as loadConfigFromEnv } from 'dotenv';
-import path from 'path';
+import morgan from 'morgan';
 
 // import createSSRender from '../../client/dist/ssr';
 // TODO: es import
 const createSSRender = require('../../client/dist/ssr').default;
 
-import { PageRoutesService } from './page-routes/page-routes.service';
-import { SsRenderService } from './ss-render/ss-render.service';
+import { GetPagesRoutesService } from './common/pages/routes/get.service';
+import { RenderService } from './pages/render.service';
 
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
+
+const ASSETS_PATH = path.join(process.cwd(), '../client/dist/static');
+const TEMPLATES_PATH = path.join(process.cwd(), '../client/dist/templates');
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule, {
 		bodyParser: true
 	});
 	
+	
 	const configService = app.get(ConfigService);
-	const pageRoutesService = app.get(PageRoutesService);
-	const ssRenderService = app.get(SsRenderService);
+	const getPagesRoutesService = app.get(GetPagesRoutesService);
+	const renderService = app.get(RenderService);
 
 	const host = configService.get(['express', CONFIG.HOST]);
 	const port = configService.get(['express', CONFIG.PORT]);
 	const basePath = configService.get(['express', CONFIG.BASE_PATH]);
 
 	app.setGlobalPrefix(basePath);
+	app.use(morgan('tiny'));
 	app.useStaticAssets(
-		path.join(process.cwd(), '../client/dist/static'),
+		ASSETS_PATH,
 		{
 			redirect: false,
 			prefix: basePath
 		}
 	);
-	app.setBaseViewsDir(path.join(process.cwd(), '../client/dist/templates'));
+	app.setBaseViewsDir(TEMPLATES_PATH);
 	app.setViewEngine('hbs');
 
 	const [render, routes] = await Promise.all([
 		createSSRender(),
-		pageRoutesService.get()
+		getPagesRoutesService.get()
 	]);
 
-	ssRenderService.setRender(render);
-	ssRenderService.setPageRoutes(routes);
+	renderService.setRender(render);
+	renderService.setPageRoutes(routes);
 
 	app.listen(port, host, async () => {
 		console.log(`Server listening at http://${host}:${port}`);

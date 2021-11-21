@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PageRoutesService } from './page-routes.service';
+import { CatsListPageService } from './cats-list.service';
 
-describe('PageRoutesService', () => {
-  let service: PageRoutesService;
+describe('CatsListPageService', () => {
+  let service: CatsListPageService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PageRoutesService],
+      providers: [CatsListPageService],
     }).compile();
 
-    service = module.get<PageRoutesService>(PageRoutesService);
+    service = module.get<CatsListPageService>(CatsListPageService);
   });
 
   it('should be defined', () => {

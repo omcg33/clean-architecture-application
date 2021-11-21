@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SsRenderService } from './ss-render.service';
+import { GetPagesRoutesService } from './get.service';
 
-describe('SsRenderService', () => {
-  let service: SsRenderService;
+describe('GetService', () => {
+  let service: GetPagesRoutesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SsRenderService],
+      providers: [GetPagesRoutesService],
     }).compile();
 
-    service = module.get<SsRenderService>(SsRenderService);
+    service = module.get<GetPagesRoutesService>(GetPagesRoutesService);
   });
 
   it('should be defined', () => {
