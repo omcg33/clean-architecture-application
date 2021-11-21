@@ -1,6 +1,7 @@
 const path                  = require("path");
 const webpack               = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const DIRS   = require('./consts').DIRS;
 const PATHS = require("./consts").PATHS;
@@ -151,10 +152,11 @@ module.exports = (env, argv) => {
           oneOf: [
             {
               resourceQuery: /^\?raw$/,
-              use: ["css-loader", "less-loader"]
+              use: [ MiniCssExtractPlugin.loader,"css-loader", "less-loader"]
             },
             {
               use: [
+                MiniCssExtractPlugin.loader,
                 {
                   loader: "css-loader",
                   options: {
@@ -171,6 +173,9 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [     
+      new MiniCssExtractPlugin({
+        filename: "server.css"
+      }),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
       }),
