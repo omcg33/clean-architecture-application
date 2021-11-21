@@ -6,8 +6,7 @@ export class CommonPageService {
     async get(req: Request) {
         return {
             user: {},
-            isDesktop: true,
-            // isDesktop: req.useragent.isDesktop,
+            isDesktop: req.useragent.isDesktop,
             url: req.url,
         }
     }
