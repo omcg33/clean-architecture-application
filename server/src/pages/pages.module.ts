@@ -1,9 +1,9 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
-import { ApiModule } from 'api/api.module';
+import { ApiModule } from '@src/api/api.module';
+import { UserAgentMiddleware } from '@src/middlewares/useragent.middleware';
+
 import { RenderService } from './render.service';
 import { CommonPageService } from './common.service';
-
-import { UserAgentMiddleware } from 'middlewares/useragent.middleware';
 
 import { MainPageController } from './main.controller';
 import { CatsListPageController } from './cats-list.controller';

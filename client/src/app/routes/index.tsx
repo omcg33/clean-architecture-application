@@ -3,7 +3,7 @@ import { RouteProps }                          from "react-router-dom";
 import Loadable                                from "react-loadable"; // Обязательно default'ный импорт!!!!
 import * as pathToRegexp from "path-to-regexp";
 
-import { PAGES_URL_ALIASES } from "../../../../consts";
+import { PAGES_URL_ALIASES } from "../../../../common";
 
 import Loading    from "../../components/Loading";
 // import { is404 }  from "../helpers";

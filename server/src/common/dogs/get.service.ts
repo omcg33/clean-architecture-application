@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { delay } from 'utils';
+import { delay } from '@src/utils';
 
 @Injectable()
 export class DogsGetService {

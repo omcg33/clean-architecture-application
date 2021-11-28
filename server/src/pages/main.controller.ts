@@ -1,6 +1,6 @@
 import { Controller, Get, Render, Req } from '@nestjs/common';
-import { MainPageService } from 'api/pages/main.service';
-import { PAGES_KEYS } from 'consts/pages';
+import { MainPageService } from '@src/api/pages/main.service';
+import { PAGES_KEYS } from '../../../common';
 import { CommonPageService } from './common.service';
 import { RenderService } from './render.service';
 

@@ -1,4 +1,4 @@
-import { PAGES_URL_ALIASES } from "../../../consts";
+import { PAGES_URL_ALIASES } from "../../../common";
 
 export type IRoute = {
     alias: PAGES_URL_ALIASES;

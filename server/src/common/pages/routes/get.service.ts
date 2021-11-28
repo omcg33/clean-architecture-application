@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { delay } from 'utils';
+import { delay } from '@src/utils';
 
-import { PAGES_URL_ALIASES } from 'consts/pages';
+import { PAGES_URL_ALIASES } from '../../../../../common';
 
 @Injectable()
 export class GetPagesRoutesService {

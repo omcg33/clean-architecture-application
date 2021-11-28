@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CommonModule } from 'common/common.module';
+import { CommonModule } from '@src/common/common.module';
 import { CatsListPageController } from './pages/cats-list.controller';
 import { DogsListPageController } from './pages/dogs-list.controller';
 import { CatsListPageService } from './pages/cats-list.service';

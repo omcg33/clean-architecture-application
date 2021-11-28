@@ -1,5 +1,5 @@
 import { createSelector } from '../../../utils/memoization';
-import { PAGES_KEYS } from "../../../../../consts"
+import { PAGES_KEYS } from "../../../../../common"
 import { IState } from './interfaces';
 
 export const getData = createSelector(

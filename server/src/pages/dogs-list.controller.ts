@@ -1,6 +1,6 @@
 import { Controller, Get, Render, Req } from '@nestjs/common';
-import { DogsListPageService } from 'api/pages/dogs-list.service';
-import { PAGES_KEYS } from 'consts/pages';
+import { DogsListPageService } from '@src/api/pages/dogs-list.service';
+import { PAGES_KEYS } from '../../../common';
 import { CommonPageService } from './common.service';
 import { RenderService } from './render.service';
 
