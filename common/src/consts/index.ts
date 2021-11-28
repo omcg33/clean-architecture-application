@@ -8,11 +8,12 @@ export const enum PAGES_KEYS  {
     MAIN = "mainPage",
     CATS_LIST = "catListPage",
     DOGS_LIST = "dogsListPage",
-    NOT_FOUND = "notFoundPage"
+    NOT_FOUND = "notFoundPage",
 }
 
 export const enum API_ROUTES_GET {
-    PAGE_NOT_FOUND = "pageNotFound",
+    PAGE_MAIN = "mainPage",
     PAGE_CATS_LIST = "pageCatsList",
-    PAGE_DOGS_LIST = "pageDogsList"
+    PAGE_DOGS_LIST = "pageDogsList",
+    PAGE_NOT_FOUND = "pageNotFound",
 }
