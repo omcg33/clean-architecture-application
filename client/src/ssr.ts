@@ -4,7 +4,11 @@ import Loadable                 from "react-loadable";
 import { createSSRender }       from "./serverEntrypoint";
 import stats                    from "../dist/reactLoadable.json";
 
-export default async () => {
+const createSSRenderWithPreload = async () => {
     await Loadable.preloadAll();
     return createSSRender({ stats });
 };
+
+export {
+    createSSRenderWithPreload as createSSRender
+}

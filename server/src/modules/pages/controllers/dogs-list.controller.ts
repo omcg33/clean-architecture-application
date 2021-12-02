@@ -2,7 +2,7 @@ import { Controller, Get, Render, Req } from '@nestjs/common';
 import { DogsListPageService } from '@src/modules/api/pages/dogs-list.service';
 import { PAGES_KEYS } from '../../../../../common';
 import { CommonPageService } from '../services/common.service';
-import { ClientService } from '../services/render.service';
+import { ClientService } from '../services/client.service';
 
 @Controller()
 export class DogsListPageController {

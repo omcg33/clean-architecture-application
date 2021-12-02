@@ -5,10 +5,11 @@ import { ConfigService } from 'nestjs-config';
 import morgan from 'morgan';
 
 // TODO: es import
-const createSSRender = require('../../client/dist/ssr').default;
+import { createSSRender } from '../../client/dist/ssr';
+// const createSSRender = require('../../client/dist/ssr').default;
 
 import { GetPagesRoutesService } from './modules/common/pages/routes/get.service';
-import { ClientService } from './modules/pages/services/render.service';
+import { ClientService } from './modules/pages/services/client.service';
 
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
@@ -23,7 +24,7 @@ async function bootstrap() {
 	
 	const configService = app.get(ConfigService);
 	const getPagesRoutesService = app.get(GetPagesRoutesService);
-	const renderService = app.get(ClientService);
+	const clientService = app.get(ClientService);
 
 	const host = configService.get(['express', CONFIG.HOST]);
 	const port = configService.get(['express', CONFIG.PORT]);
@@ -46,9 +47,8 @@ async function bootstrap() {
 		getPagesRoutesService.get()
 	]);
 
-	renderService.setSSR(render);
-	renderService.setPageRoutes(routes);
-
+	clientService.setSSR(render);
+	clientService.setPageRoutes(routes);
 
 	app.listen(port, host, async () => {
 		console.log(`Server listening at http://${host}:${port}`);
