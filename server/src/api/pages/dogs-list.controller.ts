@@ -4,7 +4,7 @@ import { DogsListPageService } from './dogs-list.service';
 // Обработчик входящего запроса
 // Здесь производиться преобразование req в параметры нужные сервису
 @Controller('/pages')
-export class DogsListPageController {
+export class ApiDogsListPageController {
     constructor(
         private _dogsListPageService: DogsListPageService
     ){}

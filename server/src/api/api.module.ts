@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { CommonModule } from '@src/common/common.module';
-import { CatsListPageController } from './pages/cats-list.controller';
-import { DogsListPageController } from './pages/dogs-list.controller';
+import { ApiCatsListPageController } from './pages/cats-list.controller';
+import { ApiDogsListPageController } from './pages/dogs-list.controller';
 import { CatsListPageService } from './pages/cats-list.service';
 import { DogsListPageService } from './pages/dogs-list.service';
-import { MainPageController } from './pages/main.controller';
+import { ApiMainPageController } from './pages/main.controller';
 import { MainPageService } from './pages/main.service';
 
 @Module({
-  controllers: [CatsListPageController, DogsListPageController, MainPageController],
+  controllers: [ApiCatsListPageController, ApiDogsListPageController, ApiMainPageController],
   imports: [CommonModule],
   providers: [CatsListPageService, DogsListPageService, MainPageService],
   exports: [CatsListPageService, DogsListPageService, MainPageService]

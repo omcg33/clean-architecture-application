@@ -14,7 +14,7 @@ export class CatsListPageController {
     ) { }
 
     @Render('index')
-    @Get('/cats')
+    @Get('cats')
     async get(@Req() req) {
         const [commonData, pageData] = await Promise.all([
             this._commonPageService.get(req),

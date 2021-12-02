@@ -4,7 +4,7 @@ import { MainPageService } from './main.service';
 // Обработчик входящего запроса
 // Здесь производиться преобразование req в параметры нужные сервису
 @Controller('/pages')
-export class MainPageController {
+export class ApiMainPageController {
     constructor(
         private _mainPageService: MainPageService,
     ){}
