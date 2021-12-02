@@ -9,17 +9,7 @@ import Helmet             from "react-helmet";
 // import csso               from "csso";
 import serialize          from "serialize-javascript";
 
-
-export type CreateSSRender<CP, RP> = (createParams: CP) => SSRender<RP>;
-export type SSRender<P> = <T extends P>(paramsForEachRequest: T) => IRenderResult;
-
-export interface IRenderResult {
-  html: string;
-  styles: string;
-  scripts: string;
-  inlineStyles: string[];
-  routes: string;
-}
+import { CreateSSRender } from "../../common";
 
 import createStore                 from "./store";
 import { App }                     from "./app";

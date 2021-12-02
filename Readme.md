@@ -3,7 +3,7 @@
 ### Start
 зайти в первом терминале ./client -> npm run watch
 
-зайти в втором терминале ./server -> npm run start:dev
+зайти в втором терминале ./server -> npm run build затем npm run start:dev
 
 Обрати внимание на вкладку Network в браузере, при переключении страниц. 
 

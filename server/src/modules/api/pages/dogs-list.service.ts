@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { CatsGetService } from '@src/common/cats/get.service';
+import { DogsGetService } from '@src/modules/common/dogs/get.service';
 
 // Сервис реализует сборку всех нужных данных для конкретной страницы
 @Injectable()
-export class CatsListPageService {
+export class DogsListPageService {
     constructor(
-        private _getCatsService: CatsGetService
+        private _getDogsService: DogsGetService
     ) {}
 
     async get() {
-        const [ cats ] = await Promise.all([
-            this._getCatsService.get()
+        const [ dogs ] = await Promise.all([
+            this._getDogsService.get()
         ])
 
         return {
-            cats
+            dogs
         }
     }
 }

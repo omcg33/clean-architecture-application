@@ -7,14 +7,11 @@ import morgan from 'morgan';
 // TODO: es import
 const createSSRender = require('../../client/dist/ssr').default;
 
-import { GetPagesRoutesService } from './common/pages/routes/get.service';
-import { RenderService } from './pages/render.service';
+import { GetPagesRoutesService } from './modules/common/pages/routes/get.service';
+import { ClientService } from './modules/pages/services/render.service';
 
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
-import { route } from './common/http';
-
-import { PAGES_URL_ALIASES } from '../../common/src';
 
 const ASSETS_PATH = path.join(process.cwd(), '../client/dist/static');
 const TEMPLATES_PATH = path.join(process.cwd(), '../client/dist/templates');
@@ -26,7 +23,7 @@ async function bootstrap() {
 	
 	const configService = app.get(ConfigService);
 	const getPagesRoutesService = app.get(GetPagesRoutesService);
-	const renderService = app.get(RenderService);
+	const renderService = app.get(ClientService);
 
 	const host = configService.get(['express', CONFIG.HOST]);
 	const port = configService.get(['express', CONFIG.PORT]);
@@ -49,13 +46,11 @@ async function bootstrap() {
 		getPagesRoutesService.get()
 	]);
 
-	renderService.setRender(render);
+	renderService.setSSR(render);
 	renderService.setPageRoutes(routes);
 
 
 	app.listen(port, host, async () => {
-		console.log(route(PAGES_URL_ALIASES.CATS_LIST));
-
 		console.log(`Server listening at http://${host}:${port}`);
 
 		console.log(CONFIG.HOST, configService.get(['express', CONFIG.HOST]));

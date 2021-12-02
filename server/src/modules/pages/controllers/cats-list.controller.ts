@@ -1,8 +1,8 @@
 import { Controller, Get, Render, Req } from '@nestjs/common';
-import { CatsListPageService } from '@src/api/pages/cats-list.service';
-import { PAGES_KEYS } from '../../../common';
-import { CommonPageService } from './common.service';
-import { RenderService } from './render.service';
+import { CatsListPageService } from '@src/modules/api/pages/cats-list.service';
+import { PAGES_KEYS } from '../../../../../common';
+import { CommonPageService } from '../services/common.service';
+import { ClientService } from '../services/render.service';
 
 @Controller()
 export class CatsListPageController {
@@ -10,7 +10,7 @@ export class CatsListPageController {
     constructor(
         private _commonPageService: CommonPageService,
         private _catsListPageService: CatsListPageService,
-        private _render: RenderService
+        private _clientService: ClientService
     ) { }
 
     @Render('index')
@@ -21,12 +21,11 @@ export class CatsListPageController {
             this._catsListPageService.get()
         ]);
 
-        return this._render.render({
-            location: '/cats',
-            state: {
-                ...commonData,
-                [PAGES_KEYS.CATS_LIST]: pageData
-            }
+        return this._clientService.getRenderData(
+            '/cats',
+            {
+            ...commonData,
+            [PAGES_KEYS.CATS_LIST]: pageData
         })
     }
 }

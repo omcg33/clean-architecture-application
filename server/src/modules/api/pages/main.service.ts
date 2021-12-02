@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CatsGetService } from '@src/common/cats/get.service';
-import { DogsGetService } from '@src/common/dogs/get.service';
+import { CatsGetService } from '@src/modules/common/cats/get.service';
+import { DogsGetService } from '@src/modules/common/dogs/get.service';
 
 @Injectable()
 export class MainPageService {
