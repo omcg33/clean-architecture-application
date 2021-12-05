@@ -9,14 +9,13 @@ import Helmet             from "react-helmet";
 // import csso               from "csso";
 import serialize          from "serialize-javascript";
 
-import { CreateSSRender } from "../../common";
+import { CreateSSRender, IRoute } from "../../common";
 
 import createStore                 from "./store";
 import { App }                     from "./app";
 import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
 import { setPageRoutes }           from "./app/routes";
-import { IRoute }                  from "./app/interfaces";
 
 //TODO: Исправить
 interface ICreateSSRenderParams {
@@ -24,18 +23,19 @@ interface ICreateSSRenderParams {
 };
 
 interface ISSRenderParams { 
-  pageRoutes: IRoute[];
+  pagesRoutes: IRoute[];
+  apiRoutes: IRoute[];
   location: string | object;
   state: Record<string, any>;
 }
 
 export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => { 
   
-  return ({ location, pageRoutes, state }) => {
+  return ({ location, pagesRoutes, apiRoutes, state }) => {
     const preloadedState = state || {},
       [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
-    setPageRoutes(pageRoutes);
+    setPageRoutes(pagesRoutes);
     
     const modules = new Set();
 
@@ -89,7 +89,8 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
       scripts,
       inlineStyles,
       preloadedState: serialize(state, { isJSON: true }),
-      routes: serialize(pageRoutes, { isJSON: true }),    
+      pagesRoutes: serialize(pagesRoutes, { isJSON: true }),
+      apiRoutes: serialize(apiRoutes, { isJSON: true }),
     };
   }
 };

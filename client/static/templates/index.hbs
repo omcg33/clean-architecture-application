@@ -21,10 +21,12 @@
     <div id="root">{{{ html }}}</div>
 
     <script id="preloadedState" type="application/json">{{{ preloadedState }}}</script>
-    <script id="routes" type="application/json">{{{ routes }}}</script>
+    <script id="pagesRoutes" type="application/json">{{{ pagesRoutes }}}</script>
+    <script id="apiRoutes" type="application/json">{{{ apiRoutes }}}</script>
     <script>
       var __PRELOADED_STATE__ = JSON.parse(document.getElementById('preloadedState').textContent);
-      var __ROUTES__ = JSON.parse(document.getElementById('routes').textContent);
+      var __PAGES_ROUTES__ = JSON.parse(document.getElementById('pagesRoutes').textContent);
+      var __API_ROUTES__ = JSON.parse(document.getElementById('apiRoutes').textContent);
     </script>  
      {{{scripts}}}
   </body>

@@ -4,11 +4,16 @@ import { SSRender } from '../../../../../common/dist';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {
-    private _pageRoutes;
+    private _pagesRoutes;
+    private _apiRoutes;
     private _ssr: SSRender<any>;
     
-    setPageRoutes(pageRoutes){
-        this._pageRoutes = pageRoutes;
+    setPagesRoutes(pagesRoutes){
+        this._pagesRoutes = pagesRoutes;
+    }
+
+    setApiRoutes(apiRoutes){
+        this._apiRoutes = apiRoutes;      
     }
 
     setSSR(ssr: SSRender<any>){
@@ -17,6 +22,6 @@ export class ClientService {
 
     // TODO: Типизировать state
     getRenderData(location: string, initialState: any) {
-        return this._ssr({pageRoutes: this._pageRoutes, location, state: initialState});
+        return this._ssr({pagesRoutes: this._pagesRoutes, apiRoutes: this._apiRoutes, location, state: initialState});
     }
 }

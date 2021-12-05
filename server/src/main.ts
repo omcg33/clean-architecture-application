@@ -6,13 +6,14 @@ import morgan from 'morgan';
 
 // TODO: es import
 import { createSSRender } from '../../client/dist/ssr';
-// const createSSRender = require('../../client/dist/ssr').default;
 
 import { GetPagesRoutesService } from './modules/common/pages/routes/get.service';
 import { ClientService } from './modules/pages/services/client.service';
 
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
+import { getNamedRoutes } from './modules/common/http';
+import { convertRoutesObjectToRoutesArray, filterApiRoutes } from './helpers/router';
 
 const ASSETS_PATH = path.join(process.cwd(), '../client/dist/static');
 const TEMPLATES_PATH = path.join(process.cwd(), '../client/dist/templates');
@@ -21,7 +22,7 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule, {
 		bodyParser: true
 	});
-	
+
 	const configService = app.get(ConfigService);
 	const getPagesRoutesService = app.get(GetPagesRoutesService);
 	const clientService = app.get(ClientService);
@@ -42,15 +43,21 @@ async function bootstrap() {
 	app.setBaseViewsDir(TEMPLATES_PATH);
 	app.setViewEngine('hbs');
 
-	const [render, routes] = await Promise.all([
+	const [ssr, routes] = await Promise.all([
 		createSSRender(),
 		getPagesRoutesService.get()
 	]);
 
-	clientService.setSSR(render);
-	clientService.setPageRoutes(routes);
 
 	app.listen(port, host, async () => {
+		clientService.setSSR(ssr);
+		clientService.setPagesRoutes(routes);
+		clientService.setApiRoutes(
+			convertRoutesObjectToRoutesArray(
+				filterApiRoutes(getNamedRoutes())
+			)
+		);
+
 		console.log(`Server listening at http://${host}:${port}`);
 
 		console.log(CONFIG.HOST, configService.get(['express', CONFIG.HOST]));

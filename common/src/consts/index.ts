@@ -11,9 +11,13 @@ export enum PAGES_KEYS  {
     NOT_FOUND = "notFoundPage",
 }
 
-export enum API_ROUTES_GET {
+export enum API_URL_ALIASES_GET {
     PAGE_MAIN = "mainPage",
     PAGE_CATS_LIST = "pageCatsList",
     PAGE_DOGS_LIST = "pageDogsList",
     PAGE_NOT_FOUND = "pageNotFound",
+}
+
+export enum API_URL_ALIASES_POST {
+    POST = "post"
 }

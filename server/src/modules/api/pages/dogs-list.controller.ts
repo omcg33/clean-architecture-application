@@ -1,4 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
+import { WithAlias } from '@src/modules/common/http';
+import { API_URL_ALIASES_GET } from '../../../../../common';
 import { DogsListPageService } from './dogs-list.service';
 
 // Обработчик входящего запроса
@@ -10,6 +12,7 @@ export class ApiDogsListPageController {
     ){}
 
     @Get('/dogs')
+    @WithAlias(API_URL_ALIASES_GET.PAGE_DOGS_LIST)
     async get(){
         const data = await this._dogsListPageService.get();
 

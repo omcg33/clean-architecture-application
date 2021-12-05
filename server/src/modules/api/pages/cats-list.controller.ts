@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-// import { PAGES_URL_ALIASES } from '../../../../common/src';
-// import { WithAlias } from '@src/common/http';
+import { API_URL_ALIASES_GET } from '../../../../../common';
+import { WithAlias } from '@src/modules/common/http';
 import { CatsListPageService } from './cats-list.service';
 
 // Обработчик входящего запроса
@@ -12,7 +12,7 @@ export class ApiCatsListPageController {
     ){}
 
     @Get('/cats')
-    // @WithAlias(PAGES_URL_ALIASES.CATS_LIST)
+    @WithAlias(API_URL_ALIASES_GET.PAGE_CATS_LIST)
     async get(){
         const data = await this._catsListPageService.get();
 
