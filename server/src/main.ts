@@ -13,7 +13,7 @@ import { ClientService } from './modules/pages/services/client.service';
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
 import { getNamedRoutes } from './modules/common/http';
-import { convertRoutesObjectToRoutesArray, filterApiRoutes } from './helpers/router';
+import { filterApiRoutes } from './helpers/router';
 
 const ASSETS_PATH = path.join(process.cwd(), '../client/dist/static');
 const TEMPLATES_PATH = path.join(process.cwd(), '../client/dist/templates');
@@ -53,9 +53,7 @@ async function bootstrap() {
 		clientService.setSSR(ssr);
 		clientService.setPagesRoutes(routes);
 		clientService.setApiRoutes(
-			convertRoutesObjectToRoutesArray(
-				filterApiRoutes(getNamedRoutes())
-			)
+			filterApiRoutes(getNamedRoutes())
 		);
 
 		console.log(`Server listening at http://${host}:${port}`);

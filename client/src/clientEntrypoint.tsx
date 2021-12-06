@@ -14,7 +14,7 @@ import history               from "./app/history";
 import rootSaga              from "./app/sagas";
 import { createRootReducer } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
-import { setPageRoutes }      from "./app/routes";
+import { setPageRoutes, setApiRoutes }      from "./app/routes/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
@@ -27,7 +27,8 @@ export const render = (config?: IConfig) => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
 
-  setPageRoutes(window.__ROUTES__);
+  setPageRoutes(window.__PAGES_ROUTES__);
+  setApiRoutes(window.__API_ROUTES__);
 
   // window.__PRELOADED_STATE__ = undefined;
   // window.__ROUTES__ = undefined;

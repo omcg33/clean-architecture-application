@@ -1,5 +1,6 @@
 ///<reference types="node" />
-declare type IRoute = import("./src/app/interfaces").IRoute;
+declare type PAGES_ROUTES = import("../common").PAGES_ROUTES;
+declare type API_ROUTES = import("../common").API_ROUTES;
 
 
 interface IStyles {
@@ -49,7 +50,8 @@ declare module NodeJS  {
 
 interface Window {
   __PRELOADED_STATE__: any;
-  __ROUTES__: IRoute[];
+  __PAGES_ROUTES__: PAGES_ROUTES;
+  __API_ROUTES__: API_ROUTES;
 }
 
 //variables

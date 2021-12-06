@@ -21,3 +21,15 @@ export enum API_URL_ALIASES_GET {
 export enum API_URL_ALIASES_POST {
     POST = "post"
 }
+
+export enum API_URL_ALIASES_PATCH {
+    PATCH = "patch"
+}
+
+export enum API_URL_ALIASES_PUT {
+    PUT = "put"
+}
+
+export enum API_URL_ALIASES_DELETE {
+    DELETE = "delete"
+}

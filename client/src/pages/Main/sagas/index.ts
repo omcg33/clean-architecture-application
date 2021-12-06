@@ -1,14 +1,13 @@
 import { Task }                    from "redux-saga";
 import { call, all, put, select, take } from "redux-saga/effects";
 
-import { PAGES_KEYS } from "../../../../../common";
+import { PAGES_KEYS, API_URL_ALIASES_GET } from "../../../../../common";
 
 import { get } from "../../../libs/xhr";
 
 
 import { addReducer, removeReducer } from "../../../app/actions";
-import { generateApiUrl }            from "../../../app/routes";
-import { API_ROUTES_GET }            from "../../../app/routes/distionary";
+import { generateApiUrl }            from "../../../app/routes/helpers";
 import { set }                       from "../../../modules/meta/actions";
 
 import { add, error, loaded, UNMOUNT } from "../actions";
@@ -34,7 +33,7 @@ export function* getPageData() {
   if (!hasData) {
     try {
       // TODO: Заменить на вызов сервиса
-      const { meta, ...data } = yield call(get, generateApiUrl(API_ROUTES_GET.PAGE_MAIN));
+      const { meta, ...data } = yield call(get, generateApiUrl(API_URL_ALIASES_GET.PAGE_MAIN));
 
       yield all([
         put(set(meta)),

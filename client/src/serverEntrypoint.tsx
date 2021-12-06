@@ -1,21 +1,21 @@
-import React       from "react";
+import React            from "react";
 import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
 import { StaticRouter } from "react-router-dom";
-import Loadable    from "react-loadable";
+import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
 
-import Helmet             from "react-helmet";
+import Helmet           from "react-helmet";
 // import csso               from "csso";
-import serialize          from "serialize-javascript";
+import serialize        from "serialize-javascript";
 
-import { CreateSSRender, IRoute } from "../../common";
+import { CreateSSRender, PAGES_ROUTES, API_ROUTES } from "../../common";
 
 import createStore                 from "./store";
 import { App }                     from "./app";
 import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
-import { setPageRoutes }           from "./app/routes";
+import { setPageRoutes, setApiRoutes } from "./app/routes/helpers";
 
 //TODO: Исправить
 interface ICreateSSRenderParams {
@@ -23,8 +23,8 @@ interface ICreateSSRenderParams {
 };
 
 interface ISSRenderParams { 
-  pagesRoutes: IRoute[];
-  apiRoutes: IRoute[];
+  pagesRoutes: PAGES_ROUTES;
+  apiRoutes: API_ROUTES;
   location: string | object;
   state: Record<string, any>;
 }
@@ -36,7 +36,8 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
       [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
 
     setPageRoutes(pagesRoutes);
-    
+    setApiRoutes(apiRoutes);
+
     const modules = new Set();
 
     const html = ReactDOMServer.renderToString(
