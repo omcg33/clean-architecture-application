@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Fragment } from "react";
 import { Link }   from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
@@ -32,7 +32,12 @@ class Content extends React.PureComponent<IProps> {
               </Link>
               {
                 dogs
-                  .map((dog,i) => <Dog className={styles.dog} dog={dog} key={i}/>)
+                  .map((dog,i) => (
+                    <Fragment key={i}>
+                      <Dog className={styles.dog} dog={dog} />
+                      <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id: dog.get('id') })}>{ dog.get('name') }</Link>
+                    </Fragment>
+                  ))
               }
             </div>
           </div>

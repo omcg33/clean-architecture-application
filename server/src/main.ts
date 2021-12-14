@@ -7,13 +7,12 @@ import morgan from 'morgan';
 // TODO: es import
 import { createSSRender } from '../../client/dist/ssr';
 
-import { GetPagesRoutesService } from './modules/common/pages/routes/get.service';
 import { ClientService } from './modules/pages/services/client.service';
 
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
 import { getNamedRoutes } from './modules/common/http';
-import { filterApiRoutes } from './helpers/router';
+import { filterApiRoutes, filterPagesRoutes } from './helpers/router';
 
 const ASSETS_PATH = path.join(process.cwd(), '../client/dist/static');
 const TEMPLATES_PATH = path.join(process.cwd(), '../client/dist/templates');
@@ -23,8 +22,7 @@ async function bootstrap() {
 		bodyParser: true
 	});
 
-	const configService = app.get(ConfigService);
-	const getPagesRoutesService = app.get(GetPagesRoutesService);
+	const configService = app.get(ConfigService);	
 	const clientService = app.get(ClientService);
 
 	const host = configService.get(['express', CONFIG.HOST]);
@@ -43,17 +41,20 @@ async function bootstrap() {
 	app.setBaseViewsDir(TEMPLATES_PATH);
 	app.setViewEngine('hbs');
 
-	const [ssr, routes] = await Promise.all([
+	const [ssr] = await Promise.all([
 		createSSRender(),
-		getPagesRoutesService.get()
 	]);
 
 
 	app.listen(port, host, async () => {
+		const namedRoutes = getNamedRoutes();
+
 		clientService.setSSR(ssr);
-		clientService.setPagesRoutes(routes);
+		clientService.setPagesRoutes(
+			filterPagesRoutes(namedRoutes)
+		);
 		clientService.setApiRoutes(
-			filterApiRoutes(getNamedRoutes())
+			filterApiRoutes(namedRoutes)
 		);
 
 		console.log(`Server listening at http://${host}:${port}`);

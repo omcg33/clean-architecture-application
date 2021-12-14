@@ -1,4 +1,4 @@
-import { Module, MiddlewareConsumer } from '@nestjs/common';
+import { Module, MiddlewareConsumer, DynamicModule } from '@nestjs/common';
 import { ApiModule } from '@src/modules/api/api.module';
 
 import { UserAgentMiddleware } from './middlewares/useragent.middleware';
@@ -10,10 +10,11 @@ import { MainPageController } from './controllers/main.controller';
 import { CatsListPageController } from './controllers/cats-list.controller';
 import { DogsListPageController } from './controllers/dogs-list.controller';
 
-
+import { CatPageController } from './controllers/cat.controller';
+import { DogPageController } from './controllers/dog.controller';
 
 @Module({
-  controllers: [CatsListPageController, DogsListPageController, MainPageController],
+  controllers: [CatsListPageController, CatPageController, DogsListPageController, MainPageController, DogPageController],
   imports: [ApiModule],
   providers: [ClientService, CommonPageService],
   exports: [ClientService]

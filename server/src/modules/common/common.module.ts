@@ -4,11 +4,12 @@ import { DiscoveryModule } from '@nestjs/core';
 import { HttpExplorer } from './http';
 import { CatsGetService } from './cats/get.service';
 import { DogsGetService } from './dogs/get.service';
-import { GetPagesRoutesService } from './pages/routes/get.service';
+import { CatGetService } from './cat/get.service';
+import { DogGetService } from './dog/get.service';
 
 @Module({
   imports: [DiscoveryModule],
-  providers: [HttpExplorer, CatsGetService, DogsGetService, GetPagesRoutesService],
-  exports: [HttpExplorer, CatsGetService, DogsGetService, GetPagesRoutesService]
+  providers: [HttpExplorer, CatsGetService, DogsGetService, CatGetService, DogGetService],
+  exports: [HttpExplorer, CatsGetService, DogsGetService, CatGetService, DogGetService]
 })
 export class CommonModule {}

@@ -1,5 +1,6 @@
 import { Map }    from 'immutable';
+import { PAGES_KEYS } from '../../../../../common';
 
 export interface IState {
-  dogsListPage: Map<string, any>;
+  [PAGES_KEYS.DOGS_LIST]: Map<string, any>;
 }

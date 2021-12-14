@@ -4,7 +4,7 @@ import { API_URL_ALIASES_GET } from '../../../../../common';
 import { DogsListPageService } from './dogs-list.service';
 
 // Обработчик входящего запроса
-// Здесь производиться преобразование req в параметры нужные сервису
+// Здесь производится преобразование req в параметры нужные сервису
 @Controller('/pages')
 export class ApiDogsListPageController {
     constructor(

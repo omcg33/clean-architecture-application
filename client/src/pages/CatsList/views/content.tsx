@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Fragment } from "react";
 import { Link }   from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
@@ -23,7 +23,12 @@ class Content extends React.PureComponent<any> {
           </Link>
           {
             cats
-              .map((cat,i) => <Cat cat={cat} className={styles.cat} key={i}/>)
+              .map((cat,i) => (
+                <Fragment key={i}>
+                  <Cat cat={cat} className={styles.cat} key={i}/>
+                  <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: cat.get('id') })}>{ cat.get('name') }</Link>
+                </Fragment>
+              ))
           }            
       </>
     );

@@ -5,4 +5,7 @@ export const ENV = {
 	HOST: 'HOST',
 	PORT: 'PORT',
 	BASE_PATH: 'BASE_PATH',
+
+	CATS_SERVICE: 'CATS_SERVICE',
+	DOGS_SERVICE: 'DOGS_SERVICE',
 } as const;

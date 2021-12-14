@@ -1,5 +1,6 @@
 import { Map }    from 'immutable';
+import { PAGES_KEYS } from '../../../../../common';
 
 export interface IState {
-  notFoundPage: Map<string, any>;
+  [PAGES_KEYS.NOT_FOUND]: Map<string, any>;
 }
