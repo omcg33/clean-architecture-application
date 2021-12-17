@@ -24,6 +24,17 @@ const LoadableDogsList = Loadable({
   loading: Loading
 });
 
+const LoadableDog = Loadable({
+  loader: () => import(/* webpackChunkName: "dogPage" */ "../../pages/Dog"),
+  loading: Loading
+});
+
+const LoadableCat = Loadable({
+  loader: () => import(/* webpackChunkName: "catPage" */ "../../pages/Cat"),
+  loading: Loading
+});
+
+
 const LoadableNotFoundPage = Loadable({
   loader: () => import(/* webpackChunkName: "notFoundPage" */ "../../pages/NotFound"),
   loading: Loading
@@ -42,6 +53,14 @@ const routesProps: {[key: string]: RouteProps} = {
   [PAGES_URL_ALIASES.DOGS_LIST]: {
     exact: true,
     component: LoadableDogsList,
+  },
+  [PAGES_URL_ALIASES.DOG]: {
+    exact: true,
+    component: LoadableDog,
+  },
+  [PAGES_URL_ALIASES.CAT]: {
+    exact: true,
+    component: LoadableCat,
   },
 };
 

@@ -1,10 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { API_URL_ALIASES_GET } from '../../../../../common';
+import { API_URL_ALIASES_GET } from '../../../../../../common/dist';
 import { WithAlias } from '@src/modules/common/http';
 import { CatsListPageService } from './cats-list.service';
 
 // Обработчик входящего запроса
-// Здесь производиться преобразование req в параметры нужные сервису
+// Здесь производится преобразование req в параметры нужные сервису
 @Controller('/pages')
 export class ApiCatsListPageController {
     constructor(

@@ -7,4 +7,6 @@ export const CONFIG = {
     PORT: ENV.PORT,
     BASE_PATH: ENV.BASE_PATH,
 
+    CATS_SERVICE: ENV.CATS_SERVICE,
+    DOGS_SERVICE: ENV.DOGS_SERVICE,
 } as const;

@@ -1,8 +1,9 @@
 import { Controller, Get, Render, Req } from '@nestjs/common';
-import { CatsListPageService } from '@src/modules/api/pages/cats-list.service';
-import { PAGES_KEYS } from '../../../../../common';
+import { CatsListPageService } from '@src/modules/api/pages/catsList/cats-list.service';
+import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../services/common.service';
 import { ClientService } from '../services/client.service';
+import { WithAlias } from '@src/modules/common/http';
 
 @Controller()
 export class CatsListPageController {
@@ -15,6 +16,7 @@ export class CatsListPageController {
 
     @Render('index')
     @Get('cats')
+    @WithAlias(PAGES_URL_ALIASES.CATS_LIST)
     async get(@Req() req) {
         const [commonData, pageData] = await Promise.all([
             this._commonPageService.get(req),
