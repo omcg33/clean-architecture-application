@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { WithAlias } from '@src/modules/common/http';
-import { API_URL_ALIASES_GET } from '../../../../../common';
+import { API_URL_ALIASES_GET } from '../../../../../../common/dist';
 import { MainPageService } from './main.service';
 
 // Обработчик входящего запроса

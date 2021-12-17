@@ -4,7 +4,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from 'nestjs-config';
 import morgan from 'morgan';
 
-// TODO: es import
 import { createSSRender } from '../../client/dist/ssr';
 
 import { ClientService } from './modules/pages/services/client.service';

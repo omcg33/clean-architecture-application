@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Render, Req } from '@nestjs/common';
-import { DogPageService } from '@src/modules/api/pages/dog.service';
+import { DogPageService } from '@src/modules/api/pages/dog/dog.service';
 import { WithAlias } from '@src/modules/common/http';
 import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common/dist';
 import { CommonPageService } from '../services/common.service';
