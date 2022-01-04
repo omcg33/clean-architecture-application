@@ -1,9 +1,12 @@
+import { Request } from 'express';
 import { Controller, Get, Render, Req } from '@nestjs/common';
+import { WithAlias } from '@src/modules/common/http';
 import { DogsListPageService } from '@src/modules/api/pages/dogsList/dogs-list.service';
+
 import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../services/common.service';
 import { ClientService } from '../services/client.service';
-import { WithAlias } from '@src/modules/common/http';
+import { adaptCommonPageDataToCommonInitialState } from '../adapters/common';
 
 @Controller()
 export class DogsListPageController {
@@ -17,16 +20,17 @@ export class DogsListPageController {
     @Render('index')
     @Get('dogs')
     @WithAlias(PAGES_URL_ALIASES.DOGS_LIST)
-    async get(@Req() req) {
-        const [commonData, pageData] = await Promise.all([
+    async get(@Req() req: Request) {
+        const [commonPageData, pageData] = await Promise.all([
             this._commonPageService.get(req),
             this._dogsListPageService.get()
         ]);
+        const { location } = commonPageData;
 
         return this._clientService.getRenderData(
-            '/dogs',
+            location,
             {
-                ...commonData,
+                ...adaptCommonPageDataToCommonInitialState(commonPageData),
                 [PAGES_KEYS.DOGS_LIST]: pageData
             }
         )

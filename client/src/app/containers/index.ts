@@ -18,7 +18,7 @@ type IOwnProps = {};
 
 const mapStateToProps = (state: any) => ({
   meta: getMeta(state),
-  config: getConfig(state)
+  config: getConfig(state),  
 });
 
 const mapDispatchToProps = {

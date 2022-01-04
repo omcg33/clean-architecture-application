@@ -4,7 +4,7 @@ import { Provider }     from "react-redux";
 import { StaticRouter } from "react-router-dom";
 import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
-
+import * as H            from "history";
 import Helmet           from "react-helmet";
 // import csso               from "csso";
 import serialize        from "serialize-javascript";
@@ -25,7 +25,7 @@ interface ICreateSSRenderParams {
 interface ISSRenderParams { 
   pagesRoutes: PAGES_ROUTES;
   apiRoutes: API_ROUTES;
-  location: string | object;
+  location: H.Location<H.LocationState>;
   state: Record<string, any>;
 }
 
