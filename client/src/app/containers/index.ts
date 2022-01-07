@@ -1,5 +1,6 @@
-import { withRouter } from "react-router";
+// import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { withRoute } from "react-router5";
 
 import { getMeta } from "../../modules/meta/selectors";
 import { getConfig } from "../../modules/config/selectors";
@@ -14,7 +15,7 @@ type IDispatchToProps = Pick<
   IControllerProps,
   "setIsDesktop"   
 >;
-type IOwnProps = {};
+type IOwnProps = Omit<IControllerProps, keyof IStateToProps | keyof IDispatchToProps>;
 
 const mapStateToProps = (state: any) => ({
   meta: getMeta(state),
@@ -25,7 +26,14 @@ const mapDispatchToProps = {
   setIsDesktop,
 };
 
-const Container = withRouter(
+// const Container = connect<IStateToProps, IDispatchToProps, IOwnProps, any>(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(
+//   Controller
+// )
+
+const Container = withRoute<Omit<IOwnProps, 'route'>>(
   connect<IStateToProps, IDispatchToProps, IOwnProps, any>(
     mapStateToProps,
     mapDispatchToProps

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Link }   from "react-router-dom";
-import { PAGES_URL_ALIASES } from "../../../../../common";
-import { generatePageUrl } from "../../../app/routes/helpers";
+// import { Link }   from "react-router-dom";
+// import { PAGES_URL_ALIASES } from "../../../../../common";
+// import { generatePageUrl } from "../../../app/routes/helpers";
 
 
 
@@ -18,7 +18,7 @@ class Content extends React.PureComponent<any> {
             <div>
               404
             </div>
-            <div>
+            {/* <div>
               <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
                 Список кошечек
               </Link>
@@ -27,7 +27,7 @@ class Content extends React.PureComponent<any> {
               <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
                 Список собачек
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </>
