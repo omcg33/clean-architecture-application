@@ -24,10 +24,6 @@ import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
-// export interface IConfig {
-
-// }
-
 export const render = () => {
   setPageRoutes(window.__PAGES_ROUTES__);
   setApiRoutes(window.__API_ROUTES__);

@@ -14,6 +14,9 @@ import { unmount as unmountCatPageAction } from "../../pages/Cat/actions";
 import getDogPageData from "../../pages/Dog/sagas";
 import { unmount as unmountDogPageAction } from "../../pages/Dog/actions";
 
+import getDogsListPageData from "../../pages/DogsList/sagas";
+import { unmount as unmountDogsListPageAction } from "../../pages/DogsList/actions";
+
 const routesData = {
   [PAGES_URL_ALIASES.MAIN]: {
     onActivate: () => runSaga({ saga: getMainPageData }),
@@ -27,6 +30,10 @@ const routesData = {
     onActivate: (params) => runSaga({ saga: getCatPageData, params }),
     onDeactivate: () => unmountCatPageAction(),
   },
+  [PAGES_URL_ALIASES.DOGS_LIST]: {
+    onActivate: (params) => runSaga({ saga: getDogsListPageData, params }),
+    onDeactivate: () => unmountDogsListPageAction(),
+  },
   [PAGES_URL_ALIASES.DOG]: {
     onActivate: (params) => runSaga({ saga: getDogPageData, params }),
     onDeactivate: () => unmountDogPageAction(),
@@ -39,9 +46,9 @@ export const createRoutes = (pageRoutes:PAGES_ROUTES) => {
     .map(route => {
       const data = routesData[route.alias];
 
-      // if (!props) {
-      //   throw new Error(`Не удалось найти обработчик для роута ${route.alias} (${JSON.stringify(pageRoutes)})`);
-      // }
+      if (!data) {
+        throw new Error(`Не удалось найти обработчик для роута ${route.alias} (${JSON.stringify(pageRoutes)})`);
+      }
 
       return {
         name: route.alias,

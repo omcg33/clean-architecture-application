@@ -1,3 +1,3 @@
-import Page   from './containers';
+import Page   from './container';
 
 export default Page;

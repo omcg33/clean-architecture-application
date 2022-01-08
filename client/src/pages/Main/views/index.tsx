@@ -3,12 +3,15 @@ import * as React from "react";
 import { Header }  from "../../../components/Header";
 import { Spinner } from "../../../components/PageSpinner";
 
-import Content        from "../controllers/content";
-import styles         from "./styles.less";
+import { ContentView, IContentViewProps } from "./content";
+import styles                             from "./styles.less";
 
-class Page extends React.PureComponent<any> {
+export interface IViewProps extends IContentViewProps {
+  hasData: boolean;
+}
+export class View extends React.PureComponent<IViewProps> {
   render() {
-    const { hasData } = this.props;
+    const { hasData, ...rest } = this.props;
 
     return (
       <>
@@ -21,7 +24,7 @@ class Page extends React.PureComponent<any> {
         <div className={styles.pageContent}>
             {
               hasData
-                ? <Content {...this.props}/>
+                ? <ContentView {...rest}/>
                 : <Spinner/>
             }
         </div>
@@ -29,5 +32,3 @@ class Page extends React.PureComponent<any> {
     );
   }
 }
-
-export default Page;

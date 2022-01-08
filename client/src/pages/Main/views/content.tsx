@@ -2,21 +2,26 @@ import * as React from "react";
 import { Link } from "react-router5";
 import { PAGES_URL_ALIASES } from "../../../../../common";
 
-import { Cat } from "../../../components/Cat";
-import { Dog } from "../../../components/Dog";
+import { Cat, ICatProps } from "../../../components/Cat";
+import { Dog, IDogProps } from "../../../components/Dog";
 
 import styles from "./styles.less";
 
-class Content extends React.PureComponent<any> {
+export interface IContentViewProps {
+  cats: ICatProps["cat"][];
+  dogs: IDogProps["dog"][];
+}
+
+export class ContentView extends React.PureComponent<any> {
 
   render() {
     const { cats, dogs } = this.props;
 
     return (
       <>
-          {/* <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
+          <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
-          </Link><br/> */}
+          </Link><br/>
           <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
             Список Кошачек
           </Link>
@@ -34,7 +39,6 @@ class Content extends React.PureComponent<any> {
           <hr/>          
           <hr/>   
           <hr/>   
-
           {
             dogs
               .map((dog,i) => <>
@@ -42,11 +46,7 @@ class Content extends React.PureComponent<any> {
                 <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: dog.get("id") }}>{dog.get("name")}</Link>
               </>)
           }  
-
       </>
     );
   }
 };
-
-export default Content;
-

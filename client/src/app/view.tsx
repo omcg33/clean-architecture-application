@@ -44,12 +44,7 @@ export class View extends React.PureComponent<IProps> {
         <div className={styles.wrp} id="__ssr__verify-layout">
           {
             getComponentByRoute(route.name as PAGES_URL_ALIASES)
-          }
-          {/* <Switch>
-            {
-              getRoutes().map(route => <Route {...route} key={(route.path || "*").toString()}/>)
-            }
-          </Switch> */}
+          }         
         </div>
       </>
     );

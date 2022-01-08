@@ -11,7 +11,7 @@ export interface IContentViewProps {
   cats: ICatProps["cat"][];
 }
 
-export class ContentView extends React.PureComponent<any> {
+export class ContentView extends React.PureComponent<IContentViewProps> {
 
   render() {
     const { cats } = this.props;

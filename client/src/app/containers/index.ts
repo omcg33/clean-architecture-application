@@ -26,13 +26,6 @@ const mapDispatchToProps = {
   setIsDesktop,
 };
 
-// const Container = connect<IStateToProps, IDispatchToProps, IOwnProps, any>(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(
-//   Controller
-// )
-
 const Container = withRoute<Omit<IOwnProps, 'route'>>(
   connect<IStateToProps, IDispatchToProps, IOwnProps, any>(
     mapStateToProps,
