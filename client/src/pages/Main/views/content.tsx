@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Link } from 'react-router5'
+import { PAGES_URL_ALIASES } from "../../../../../common/dist";
 // import { Link }   from "react-router-dom";
 
 // import { PAGES_URL_ALIASES } from "../../../../../common";
@@ -26,7 +28,11 @@ class Content extends React.PureComponent<any> {
 
           {
             cats
-              .map((cat,i) => <Cat cat={cat} className={styles.cat} key={i}/>)
+              .map((cat,i) => <>
+                <Cat cat={cat} className={styles.cat} key={i}/>
+                <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: cat.get("id") }}>{cat.get("name")}</Link>
+              </>
+            )
           }  
           <hr/>          
           <hr/>          

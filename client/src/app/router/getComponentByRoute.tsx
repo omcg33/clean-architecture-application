@@ -41,13 +41,12 @@ const LoadableCat = Loadable({
 
 const routesProps = {
   [PAGES_URL_ALIASES.MAIN]: <LoadableMain/>,
-  [PAGES_URL_ALIASES.CATS_LIST]: LoadableCatsList,
-  [PAGES_URL_ALIASES.DOGS_LIST]: LoadableDogsList,
-  [PAGES_URL_ALIASES.DOG]: LoadableDog,
-  [PAGES_URL_ALIASES.CAT]: LoadableCat,
+  [PAGES_URL_ALIASES.CATS_LIST]: <LoadableCatsList/>,
+  [PAGES_URL_ALIASES.DOGS_LIST]: <LoadableDogsList/>,
+  [PAGES_URL_ALIASES.DOG]: <LoadableDog/>,
+  [PAGES_URL_ALIASES.CAT]: <LoadableCat/>,
 };
 
-export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {
-    console.log(route, routesProps[route]);
+export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {    
     return routesProps[route];
 }

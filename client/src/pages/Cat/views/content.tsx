@@ -4,11 +4,14 @@ import * as React from "react";
 // import { PAGES_URL_ALIASES } from "../../../../../common";
 // import { generatePageUrl } from "../../../app/routes/helpers";
 
-import { Cat } from "../../../components/Cat";
+import { Cat, ICatProps } from "../../../components/Cat";
 
 import styles from "./styles.less";
 
-class Content extends React.PureComponent<any> {
+export interface IContentViewProps {
+  cat: ICatProps["cat"]
+}
+export class ContentView extends React.PureComponent<IContentViewProps> {
 
   render() {
     const { cat } = this.props;
@@ -30,6 +33,4 @@ class Content extends React.PureComponent<any> {
     );
   }
 };
-
-export default Content;
 

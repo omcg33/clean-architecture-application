@@ -22,8 +22,6 @@ export class View extends React.PureComponent<IProps> {
     const tags = meta.get("tags");
     const links = meta.get("links");
 
-    console.log(route);
-
     return (
       <>
         <Helmet>
