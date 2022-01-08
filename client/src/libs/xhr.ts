@@ -1,6 +1,6 @@
 import axios              from "axios";
 import param              from "jquery-param";
-import { redirectToPage } from "./browserActions";
+// import { redirectToPage } from "./browserActions";
 
 const isOuter = (url: string): boolean => /^https?:\/\//i.test(url);
 
@@ -44,9 +44,8 @@ function ajax(url: string, method: string = "get", data: Object = {}, prefix: st
     getAxiosClient()({...reqObj, ...rest}).then(
       // Process normally
       ({ data }: any) => {
-        if (data.redirect) return res(redirectToPage(data.redirect));
+        // if (data.redirect) return res(redirectToPage(data.redirect));
         if (data.error) return rej(data.error);
-        // if (typeof data.payload !== "undefined") return res(data.payload);
 
         return res(data);
       },

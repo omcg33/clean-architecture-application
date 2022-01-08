@@ -1,4 +1,4 @@
-import history from "../app/history";
+// import history from "../app/history";
 
 const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
 
@@ -22,22 +22,22 @@ export function getFromWindow(prop: string, def: any) {
 }
 
 
-export function stopPropagationBrowserHistory(from: string) {
-  const w = getWindow();
-  const { referrer } = getDocument();
+// export function stopPropagationBrowserHistory(from: string) {
+//   const w = getWindow();
+//   const { referrer } = getDocument();
 
-  if (referrer && referrer.replace(w.location.origin, "") === from) {
-    w.history && w.history.pushState(null, "", w.location.href);
-    w.onpopstate = function() {
-      w.history.go(1);
-    };
-  }
-}
+//   if (referrer && referrer.replace(w.location.origin, "") === from) {
+//     w.history && w.history.pushState(null, "", w.location.href);
+//     w.onpopstate = function() {
+//       w.history.go(1);
+//     };
+//   }
+// }
 
 
-export function redirectToPage(url: string) {
-  return history.push({pathname: url});
-}
+// export function redirectToPage(url: string) {
+//   return history.push({pathname: url});
+// }
 
 
 export function reload() {

@@ -51,6 +51,5 @@ export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {
           return <LoadableCat/>;    
       default:
           return <LoadableNotFoundPage/>
-    }  
-    // return routesProps[route];
+    }     
 }
