@@ -5,6 +5,9 @@ import { PAGES_ROUTES, PAGES_URL_ALIASES } from "../../../../common";
 import getMainPageData from "../../pages/Main/sagas";
 import { unmount as unmountMainPageAction } from "../../pages/Main/actions";
 
+import getCatsListPageData from "../../pages/CatsList/sagas";
+import { unmount as unmountCatsListPageAction } from "../../pages/CatsList/actions";
+
 import getCatPageData from "../../pages/Cat/sagas";
 import { unmount as unmountCatPageAction } from "../../pages/Cat/actions";
 
@@ -15,6 +18,10 @@ const routesData = {
   [PAGES_URL_ALIASES.MAIN]: {
     onActivate: () => runSaga({ saga: getMainPageData }),
     onDeactivate: () => unmountMainPageAction(),
+  },
+  [PAGES_URL_ALIASES.CATS_LIST]: {
+    onActivate: (params) => runSaga({ saga: getCatsListPageData, params }),
+    onDeactivate: () => unmountCatsListPageAction(),
   },
   [PAGES_URL_ALIASES.CAT]: {
     onActivate: (params) => runSaga({ saga: getCatPageData, params }),

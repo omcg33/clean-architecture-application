@@ -1,11 +1,6 @@
 import * as React from "react";
-import { Link } from 'react-router5'
-import { PAGES_URL_ALIASES } from "../../../../../common/dist";
-// import { Link }   from "react-router-dom";
-
-// import { PAGES_URL_ALIASES } from "../../../../../common";
-// import { generatePageUrl } from "../../../app/routes/helpers";
-
+import { Link } from "react-router5";
+import { PAGES_URL_ALIASES } from "../../../../../common";
 
 import { Cat } from "../../../components/Cat";
 import { Dog } from "../../../components/Dog";
@@ -21,10 +16,10 @@ class Content extends React.PureComponent<any> {
       <>
           {/* <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
             Список Собачек
-          </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
+          </Link><br/> */}
+          <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
             Список Кошачек
-          </Link> */}
+          </Link>
 
           {
             cats

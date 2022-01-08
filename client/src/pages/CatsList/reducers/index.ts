@@ -10,9 +10,7 @@ interface IState {
   cats: any;
 };
 
-const initialState: ImmutableMap<IState> = Map({
-  cats: []
-});
+const initialState: ImmutableMap<IState> = Map({});
 
 export function defaultReducer(state = initialState, action) {
   switch (action.type) {
