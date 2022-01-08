@@ -42,7 +42,10 @@ class Content extends React.PureComponent<any> {
 
           {
             dogs
-              .map((dog,i) => <Dog dog={dog} className={styles.dog} key={i}/>)
+              .map((dog,i) => <>
+                <Dog dog={dog} className={styles.dog} key={i}/>
+                <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: dog.get("id") }}>{dog.get("name")}</Link>
+              </>)
           }  
 
       </>

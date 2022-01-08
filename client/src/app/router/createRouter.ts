@@ -3,7 +3,7 @@ import loggerPlugin from "router5-plugin-logger";
 import browserPlugin from "router5-plugin-browser";
 
 import { PAGES_URL_ALIASES } from "../../../../common";
-import { onRouteActivateMiddleware } from "./middlewares";
+import { onRouteMiddleware } from "./middlewares";
 
 export const createRouter = (routes, defaultRoute: PAGES_URL_ALIASES) => {
   const router = createRouter5(routes, {
@@ -15,7 +15,7 @@ export const createRouter = (routes, defaultRoute: PAGES_URL_ALIASES) => {
       useHash: false
     })
   );
-  router.useMiddleware(onRouteActivateMiddleware(routes))
+  router.useMiddleware(onRouteMiddleware(routes))
 
   return router;
 };

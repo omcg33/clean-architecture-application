@@ -15,12 +15,12 @@ import { CreateSSRender, PAGES_ROUTES, PAGES_URL_ALIASES, API_ROUTES } from "../
 import createStore                 from "./store";
 
 import { createRouter, createRoutes } from "./app/router";
-import { pageRoutes }                 from "./app/routes/helpers";
+import { pageRoutes }                 from "./app/router/helpers";
 
 import { App }                     from "./app";
 import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
-import { setPageRoutes, setApiRoutes } from "./app/routes/helpers";
+import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
 //TODO: Исправить
 interface ICreateSSRenderParams {

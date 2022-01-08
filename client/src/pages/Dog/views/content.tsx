@@ -4,12 +4,15 @@ import * as React from "react";
 // import { PAGES_URL_ALIASES } from "../../../../../common";
 // import { generatePageUrl } from "../../../app/routes/helpers";
 
-import { Dog } from "../../../components/Dog";
+import { Dog, IDogProps } from "../../../components/Dog";
 
 import styles from "./styles.less";
 
-class Content extends React.PureComponent<any> {
+export interface IContentViewProps {
+  dog: IDogProps["dog"]
+}
 
+export class ContentView extends React.PureComponent<IContentViewProps> {
   render() {
     const { dog } = this.props;
 
@@ -27,9 +30,6 @@ class Content extends React.PureComponent<any> {
           <br/>
           <Dog dog={dog} className={styles.dog} />            
       </>
-    );
+    )
   }
 };
-
-export default Content;
-

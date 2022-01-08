@@ -8,6 +8,9 @@ import { unmount as unmountMainPageAction } from "../../pages/Main/actions";
 import getCatPageData from "../../pages/Cat/sagas";
 import { unmount as unmountCatPageAction } from "../../pages/Cat/actions";
 
+import getDogPageData from "../../pages/Dog/sagas";
+import { unmount as unmountDogPageAction } from "../../pages/Dog/actions";
+
 const routesData = {
   [PAGES_URL_ALIASES.MAIN]: {
     onActivate: () => runSaga({ saga: getMainPageData }),
@@ -16,6 +19,10 @@ const routesData = {
   [PAGES_URL_ALIASES.CAT]: {
     onActivate: (params) => runSaga({ saga: getCatPageData, params }),
     onDeactivate: () => unmountCatPageAction(),
+  },
+  [PAGES_URL_ALIASES.DOG]: {
+    onActivate: (params) => runSaga({ saga: getDogPageData, params }),
+    onDeactivate: () => unmountDogPageAction(),
   },
 }
 
@@ -36,9 +43,3 @@ export const createRoutes = (pageRoutes:PAGES_ROUTES) => {
       }
     })
 }
-
-// export const createRoutes = (pageRoutes:PAGES_ROUTES) => pageRoutes.map(route => ({
-//     name: route.alias, 
-//     path: route.template,
-    
-// }));

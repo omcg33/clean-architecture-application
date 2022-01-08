@@ -1,6 +1,6 @@
 import transitionPath from 'router5-transition-path';
 
-export const onRouteActivateMiddleware = (routes) => (router, dependencies) => (toState, fromState, done) => {
+export const onRouteMiddleware = (routes) => (router, dependencies) => (toState, fromState, done) => {
     const { toActivate, toDeactivate } = transitionPath(toState, fromState);
 
     

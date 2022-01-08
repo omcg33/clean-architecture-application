@@ -32,21 +32,34 @@ const LoadableCat = Loadable({
   loading: Loading
 });
 
+const LoadableNotFoundPage = Loadable({
+  loader: () => import(/* webpackChunkName: "notFoundPage" */ "../../pages/NotFound"),
+  loading: Loading
+});
 
-// const LoadableNotFoundPage = Loadable({
-//   loader: () => import(/* webpackChunkName: "notFoundPage" */ "../../pages/NotFound"),
-//   loading: Loading
-// });
 
+// const routesProps = {
+//   [PAGES_URL_ALIASES.MAIN]: <LoadableMain/>,
+//   [PAGES_URL_ALIASES.CATS_LIST]: <LoadableCatsList/>,
+//   [PAGES_URL_ALIASES.DOGS_LIST]: <LoadableDogsList/>,
+//   [PAGES_URL_ALIASES.DOG]: <LoadableDog/>,
+//   [PAGES_URL_ALIASES.CAT]: <LoadableCat/>,
+// };
 
-const routesProps = {
-  [PAGES_URL_ALIASES.MAIN]: <LoadableMain/>,
-  [PAGES_URL_ALIASES.CATS_LIST]: <LoadableCatsList/>,
-  [PAGES_URL_ALIASES.DOGS_LIST]: <LoadableDogsList/>,
-  [PAGES_URL_ALIASES.DOG]: <LoadableDog/>,
-  [PAGES_URL_ALIASES.CAT]: <LoadableCat/>,
-};
-
-export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {    
-    return routesProps[route];
+export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {  
+    switch (route) {
+      case PAGES_URL_ALIASES.MAIN:
+          return <LoadableMain/>;
+      case PAGES_URL_ALIASES.CATS_LIST:
+          return <LoadableCatsList/>;
+      case PAGES_URL_ALIASES.DOGS_LIST:
+          return <LoadableDogsList/>; 
+      case PAGES_URL_ALIASES.DOG:
+          return <LoadableDog/>;  
+      case PAGES_URL_ALIASES.CAT:
+          return <LoadableCat/>;    
+      default:
+          return <LoadableNotFoundPage/>
+    }  
+    // return routesProps[route];
 }

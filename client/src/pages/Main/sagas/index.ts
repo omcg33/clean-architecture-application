@@ -7,7 +7,7 @@ import { get } from "../../../libs/xhr";
 
 
 import { addReducer, removeReducer } from "../../../app/actions";
-import { generateApiUrl }            from "../../../app/routes/helpers";
+import { generateApiUrl }            from "../../../app/router/helpers";
 import { set }                       from "../../../modules/meta/actions";
 
 import { add, error, loaded, UNMOUNT } from "../actions";

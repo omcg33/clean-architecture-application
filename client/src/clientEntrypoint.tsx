@@ -18,9 +18,9 @@ import { createRootReducer } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
 
 import { createRouter, createRoutes } from "./app/router";
-import { pageRoutes } from "./app/routes/helpers";
+import { pageRoutes } from "./app/router/helpers";
 
-import { setPageRoutes, setApiRoutes }      from "./app/routes/helpers";
+import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 

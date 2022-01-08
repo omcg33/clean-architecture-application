@@ -1,6 +1,6 @@
 import * as pathToRegexp from "path-to-regexp";
 
-import { PAGES_URL_ALIASES, API_ROUTES, PAGES_ROUTES, API_URL_ALIASES_GET, API_URL_ALIASES_POST, API_URL_ALIASES_PATCH, API_URL_ALIASES_PUT, API_URL_ALIASES_DELETE } from "../../../../common";
+import { PAGES_URL_ALIASES, API_ROUTES, PAGES_ROUTES, API_URL_ALIASES_GET, API_URL_ALIASES_POST, API_URL_ALIASES_PATCH, API_URL_ALIASES_PUT, API_URL_ALIASES_DELETE } from "../../../../common/dist";
 
 interface IOptions {
     params?: Object;

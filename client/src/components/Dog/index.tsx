@@ -5,11 +5,11 @@ import { ImmutableMap }    from "../../interfaces";// TODO: Убрать
 type IAdoptedDogFull = any;
 import styles              from "./styles.less";
 
-export type IProps = {
+export type IDogProps = {
   dog: ImmutableMap<IAdoptedDogFull>
 }
 
-export class Dog extends React.PureComponent<IProps & React.HTMLAttributes<HTMLDivElement>> {
+export class Dog extends React.PureComponent<IDogProps & React.HTMLAttributes<HTMLDivElement>> {
   render() {
     const {className = "", dog, ...rest} = this.props,
       id = dog.get("id"),
