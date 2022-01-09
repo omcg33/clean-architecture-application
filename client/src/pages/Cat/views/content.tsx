@@ -1,8 +1,7 @@
 import * as React from "react";
-// import { Link }   from "react-router-dom";
+import { Link } from "react-router5";
 
-// import { PAGES_URL_ALIASES } from "../../../../../common";
-// import { generatePageUrl } from "../../../app/routes/helpers";
+import { PAGES_URL_ALIASES } from "../../../../../common";
 
 import { Cat, ICatProps } from "../../../components/Cat";
 
@@ -18,17 +17,25 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
 
     return (
       <>
-          {/* <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
+          <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
           </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
-            Список кошечек
+          <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+            Список Кошачек
           </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+          <Link routeName={PAGES_URL_ALIASES.MAIN}>
             Главная
-          </Link> */}
+          </Link><br/>
+          
+          <Cat cat={cat} className={styles.cat} />     
+
           <br/>
-          <Cat cat={cat} className={styles.cat} />            
+          <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: 1 }}>
+            Кошка 1
+          </Link><br/>  
+          <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: 2 }}>
+            Кошка 2
+          </Link><br/>       
       </>
     );
   }

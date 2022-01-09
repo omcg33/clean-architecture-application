@@ -26,7 +26,8 @@ import { CommonModule } from './modules/common/common.module';
     PagesModule,
     CommonModule,
   ],
-  providers: []
+  providers: [],
+  controllers: []
 })
 
 export class AppModule { }

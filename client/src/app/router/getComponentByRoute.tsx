@@ -1,6 +1,6 @@
 import React from "react";
-import Loadable                                from "react-loadable"; // Обязательно default'ный импорт!!!!
-
+import Loadable from "react-loadable"; // Обязательно default'ный импорт!!!!
+import { constants } from "router5";
 
 import { PAGES_URL_ALIASES } from "../../../../common";
 
@@ -37,7 +37,7 @@ const LoadableNotFoundPage = Loadable({
   loading: Loading
 });
 
-export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {  
+export const getComponentByRoute = (route: string) => {  
     switch (route) {
       case PAGES_URL_ALIASES.MAIN:
           return <LoadableMain/>;
@@ -48,7 +48,8 @@ export const getComponentByRoute = (route: PAGES_URL_ALIASES) => {
       case PAGES_URL_ALIASES.DOG:
           return <LoadableDog/>;  
       case PAGES_URL_ALIASES.CAT:
-          return <LoadableCat/>;    
+          return <LoadableCat/>;      
+      case constants.UNKNOWN_ROUTE:     
       default:
           return <LoadableNotFoundPage/>
     }     

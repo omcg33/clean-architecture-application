@@ -1,16 +1,14 @@
 import React            from "react";
 import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
-// import { StaticRouter } from "react-router-dom";
 import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
-// import * as H            from "history";
 import Helmet           from "react-helmet";
 // import csso               from "csso";
 import serialize        from "serialize-javascript";
 import { RouterProvider } from "react-router5";
 
-import { CreateSSRender, PAGES_ROUTES, PAGES_URL_ALIASES, API_ROUTES } from "../../common";
+import { CreateSSRender, PAGES_ROUTES, API_ROUTES } from "../../common";
 
 import createStore                 from "./store";
 
@@ -42,7 +40,7 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
 
     const preloadedState = state || {};
     const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
-    const router = createRouter(createRoutes(pageRoutes), PAGES_URL_ALIASES.MAIN);
+    const router = createRouter(createRoutes(pageRoutes));
     
     router.setDependency('store', store);
     router.start(location);

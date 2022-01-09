@@ -4,10 +4,7 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
-// import { Router }   from "react-router-dom";
 import { RouterProvider } from "react-router5";
-
-import { PAGES_URL_ALIASES } from "../../common";
 
 import createStore from "./store";
 import { App }     from "./app";
@@ -30,7 +27,7 @@ export const render = () => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
 
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
-  const router = createRouter(createRoutes(pageRoutes), PAGES_URL_ALIASES.MAIN);
+  const router = createRouter(createRoutes(pageRoutes));
   
   // window.__PRELOADED_STATE__ = undefined;
   // window.__ROUTES__ = undefined;
@@ -56,12 +53,6 @@ export const render = () => {
       document.getElementById("root")
     )
   )
-  // Устанавливаем state на основе данных с сервера
-  // const location = history.location;
-  // history.replace({
-  //   ...location,
-  //   state: {...location.state, is404}
-  // });
 
   Loadable.preloadReady().then(() => {
     router.setDependency('store', store);

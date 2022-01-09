@@ -1,8 +1,10 @@
 import * as React   from "react";
 
-import View         from "../views/content";
+import { View, IViewProps }         from "./views";
 
-export default class Component extends React.PureComponent<any, any> {
+export interface IControllerProps extends IViewProps {};
+
+export class Controller extends React.PureComponent<IViewProps> {
   //TODO: ТУТ можно писать логику отображения (callbacks)
 
   render() {

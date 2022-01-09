@@ -41,7 +41,7 @@ export const generateApiUrl = (
     const { params = {}, method = "GET" } = options || {};
 
     if (!Object.keys(apiRoutesObject[method]).includes(alias))
-        throw new ReferenceError(`Неизвестный алиас для роута страницы ${alias}`);
+        throw new ReferenceError(`Неизвестный алиас для api роута страницы ${alias}`);
 
     try {
         return pathToRegexp.compile(apiRoutesObject[method][alias])(params);

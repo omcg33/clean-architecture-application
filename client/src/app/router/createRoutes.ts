@@ -1,4 +1,5 @@
-// import { runSaga } from 'redux-saga'
+import { constants } from "router5";
+
 import { run as runSaga } from "../actions";
 import { PAGES_ROUTES, PAGES_URL_ALIASES } from "../../../../common";
 
@@ -16,6 +17,9 @@ import { unmount as unmountDogPageAction } from "../../pages/Dog/actions";
 
 import getDogsListPageData from "../../pages/DogsList/sagas";
 import { unmount as unmountDogsListPageAction } from "../../pages/DogsList/actions";
+
+import getNotFoundPageData from "../../pages/NotFound/sagas";
+import { unmount as unmountNotFoundPageAction } from "../../pages/NotFound/actions";
 
 const routesData = {
   [PAGES_URL_ALIASES.MAIN]: {
@@ -37,11 +41,11 @@ const routesData = {
   [PAGES_URL_ALIASES.DOG]: {
     onActivate: (params) => runSaga({ saga: getDogPageData, params }),
     onDeactivate: () => unmountDogPageAction(),
-  },
+  },  
 }
 
-export const createRoutes = (pageRoutes:PAGES_ROUTES) => {
-  return pageRoutes
+export const createRoutes = (pageRoutes: PAGES_ROUTES) => {  
+  const routes = pageRoutes
     .filter(route => !!route.template)
     .map(route => {
       const data = routesData[route.alias];
@@ -55,5 +59,15 @@ export const createRoutes = (pageRoutes:PAGES_ROUTES) => {
         path: route.template,
         ...data
       }
-    })
+    });
+
+  return [
+    ...routes,
+    {
+      name: constants.UNKNOWN_ROUTE,
+      path: '/404',
+      onActivate: (params) => runSaga({ saga: getNotFoundPageData, params }),
+      onDeactivate: () => unmountNotFoundPageAction(),
+    }
+  ]
 }

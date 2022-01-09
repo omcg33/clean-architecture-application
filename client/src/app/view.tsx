@@ -1,19 +1,14 @@
 import * as React        from "react";
 import { Helmet }        from "react-helmet";
 import { State } from 'router5';
-// import * as H            from "history";
-// import { Route, Switch } from "react-router-dom";
 
-// import { getRoutes } from "./routes";
 import styles        from "./styles.less";
 import favicon       from "./images/favicon.ico";
 import { getComponentByRoute } from "./router/getComponentByRoute";
-import { PAGES_URL_ALIASES } from "../../../common";
 
 export type IProps = {
   meta: any;
   route: State;
-  // location: H.Location<H.LocationState>;
 };
 
 export class View extends React.PureComponent<IProps> {
@@ -43,7 +38,7 @@ export class View extends React.PureComponent<IProps> {
 
         <div className={styles.wrp} id="__ssr__verify-layout">
           {
-            getComponentByRoute(route.name as PAGES_URL_ALIASES)
+            getComponentByRoute(route.name)
           }         
         </div>
       </>

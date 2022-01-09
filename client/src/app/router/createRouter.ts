@@ -1,13 +1,12 @@
-import createRouter5 from "router5";
+import createRouter5, { Route, RouteNode } from "router5";
 import loggerPlugin from "router5-plugin-logger";
 import browserPlugin from "router5-plugin-browser";
 
-import { PAGES_URL_ALIASES } from "../../../../common";
 import { onRouteMiddleware } from "./middlewares";
 
-export const createRouter = (routes, defaultRoute: PAGES_URL_ALIASES) => {
+export const createRouter = (routes: Route[] | RouteNode) => {
   const router = createRouter5(routes, {
-    defaultRoute
+    allowNotFound: true
   });
   router.usePlugin(loggerPlugin);
   router.usePlugin(
