@@ -1,6 +1,6 @@
 import * as React        from "react";
 import { Helmet }        from "react-helmet";
-import { State } from 'router5';
+import { State }         from 'router5';
 
 import styles        from "./styles.less";
 import favicon       from "./images/favicon.ico";
@@ -37,8 +37,8 @@ export class View extends React.PureComponent<IProps> {
         </Helmet>
 
         <div className={styles.wrp} id="__ssr__verify-layout">
-          {
-            getComponentByRoute(route.name)
+          {            
+            getComponentByRoute(route.name, route.meta)
           }         
         </div>
       </>

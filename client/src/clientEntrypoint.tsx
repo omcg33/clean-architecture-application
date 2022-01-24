@@ -14,21 +14,24 @@ import rootSaga              from "./app/sagas";
 import { createRootReducer } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
 
-import { createRouter, createRoutes } from "./app/router";
-import { pageRoutes } from "./app/router/helpers";
-
-import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
+import { createRouter, createRoutes, setRouter } from "./app/router";
+import { setPageRoutes, setApiRoutes, pagesRoutes }      from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
 export const render = () => {
   setPageRoutes(window.__PAGES_ROUTES__);
   setApiRoutes(window.__API_ROUTES__);
+  
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
 
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
-  const router = createRouter(createRoutes(pageRoutes));
-  
+  const router = createRouter(createRoutes(pagesRoutes));
+
+  setRouter(router);
+
+  router.setDependency('store', store);
+
   // window.__PRELOADED_STATE__ = undefined;
   // window.__ROUTES__ = undefined;
 
@@ -55,7 +58,6 @@ export const render = () => {
   )
 
   Loadable.preloadReady().then(() => {
-    router.setDependency('store', store);
     router.start(renderApp)    
   });
 };

@@ -1,11 +1,12 @@
 import React from "react";
 import Loadable from "react-loadable"; // Обязательно default'ный импорт!!!!
-import { constants } from "router5";
+import { constants, StateMeta } from "router5";
 
 import { PAGES_URL_ALIASES } from "../../../../common";
 
 import Loading    from "../../components/Loading";
 
+import { getIs404 } from "./helpers";
 
 const LoadableMain = Loadable({
   loader: () => import(/* webpackChunkName: "mainPage" */ "../../pages/Main"), 
@@ -37,7 +38,12 @@ const LoadableNotFoundPage = Loadable({
   loading: Loading
 });
 
-export const getComponentByRoute = (route: string) => {  
+export const getComponentByRoute = (route: string, meta?: StateMeta) => {  
+    const is404 = typeof meta !== "undefined" && getIs404(meta);
+
+    if (is404)
+      return <LoadableNotFoundPage/>;
+
     switch (route) {
       case PAGES_URL_ALIASES.MAIN:
           return <LoadableMain/>;
@@ -49,7 +55,7 @@ export const getComponentByRoute = (route: string) => {
           return <LoadableDog/>;  
       case PAGES_URL_ALIASES.CAT:
           return <LoadableCat/>;      
-      case constants.UNKNOWN_ROUTE:     
+      case constants.UNKNOWN_ROUTE:
       default:
           return <LoadableNotFoundPage/>
     }     

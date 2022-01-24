@@ -7,15 +7,18 @@ import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../services/common.service';
 import { ClientService } from '../services/client.service';
 import { adaptCommonPageDataToCommonInitialState } from '../adapters/common';
+import { AbstractController } from './abstract.controller';
 
 @Controller()
-export class CatPageController {
+export class CatPageController extends AbstractController {
 
     constructor(
         private _commonPageService: CommonPageService,
         private _catPageService: CatPageService,
         private _clientService: ClientService
-    ) { }
+    ) { 
+        super();
+    }
 
     @Render('index')
     @Get('cats/:id')

@@ -1,18 +1,19 @@
 import { Task }                    from "redux-saga";
 import { call, all, put, select, take } from "redux-saga/effects";
 
-import { PAGES_KEYS, API_URL_ALIASES_GET } from "../../../../../common/dist";
+import { PAGES_KEYS, API_URL_ALIASES_GET, PAGES_URL_ALIASES } from "../../../../../common/dist";
 
 import { get } from "../../../libs/xhr";
 
 
 import { addReducer, removeReducer, replaceReducer } from "../../../app/actions";
-import { generateApiUrl }            from "../../../app/router/helpers";
+import { generateApiUrl }                            from "../../../app/router/helpers";
+import { router }                                    from "../../../app/router";
 // import { set }                       from "../../../modules/meta/actions";
 
 import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData }                  from "../selectors";
-import { defaultReducer, pageReducer }              from "../reducers";
+import { defaultReducer, pageReducer } from "../reducers";
 
 interface IGetPageDataParams {
   id: number
@@ -45,6 +46,11 @@ export function* getPageData(params: IGetPageDataParams) {
     } catch (e) {
       console.error(e);
       yield put(error((e as any).message));
+      yield call(router.navigate as any, PAGES_URL_ALIASES.DOG, params,  {         
+        is404: true,        
+        force: true,
+        replace: true,
+      });
     }
 
   }

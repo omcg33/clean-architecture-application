@@ -21,11 +21,12 @@ export class ContentView extends React.PureComponent<any> {
       <>
           <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
-          </Link><br/>
+          </Link>
+          <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: 10 }}>DOG 10</Link><br/>
           <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
             Список Кошачек
           </Link>
-
+          <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: 10 }}>CAT 10</Link>
           {
             cats
               .map((cat,i) => <>
