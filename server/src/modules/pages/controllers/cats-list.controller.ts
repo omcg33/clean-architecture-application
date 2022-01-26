@@ -21,7 +21,7 @@ export class CatsListPageController {
     @Render('index')
     @Get('cats')
     @WithAlias(PAGES_URL_ALIASES.CATS_LIST)
-    async get(@Req() req: Request) {
+    async get(@Req() req: Request) {        
         const [commonPageData, pageData] = await Promise.all([
             this._commonPageService.get(req),
             this._catsListPageService.get()

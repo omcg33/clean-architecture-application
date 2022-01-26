@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from 'nestjs-config';
 
 import { delay } from '@src/modules/common/utils';
@@ -12,7 +12,6 @@ export class CatGetService {
 
     async get(id: number) {
         // Имитация получения урла до внешнего сервиса из конфига
-        console.log(this._configService.get(['services', CONFIG.CATS_SERVICE]))
         await delay(500);
 
         const data = [
@@ -30,6 +29,11 @@ export class CatGetService {
             }
         ];
 
-        return data.find(cat => cat.id === id);
+        const element = data.find(cat => cat.id === id);
+
+        if (!element)
+            throw new NotFoundException('');
+            
+        return element;
     }
 }

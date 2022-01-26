@@ -1,20 +1,19 @@
 import * as React        from "react";
 import { Helmet }        from "react-helmet";
-import * as H            from "history";
-import { Route, Switch } from "react-router-dom";
+import { State }         from 'router5';
 
-import { getRoutes } from "./routes";
 import styles        from "./styles.less";
 import favicon       from "./images/favicon.ico";
+import { getComponentByRoute } from "./router/getComponentByRoute";
 
 export type IProps = {
   meta: any;
-  location: H.Location<H.LocationState>;
+  route: State;
 };
 
 export class View extends React.PureComponent<IProps> {
   render() {
-    const { meta } = this.props;
+    const { meta, route } = this.props;
     const tags = meta.get("tags");
     const links = meta.get("links");
 
@@ -38,11 +37,9 @@ export class View extends React.PureComponent<IProps> {
         </Helmet>
 
         <div className={styles.wrp} id="__ssr__verify-layout">
-          <Switch>
-            {
-              getRoutes().map(route => <Route {...route} key={(route.path || "*").toString()}/>)
-            }
-          </Switch>
+          {            
+            getComponentByRoute(route.name, route.meta)
+          }         
         </div>
       </>
     );

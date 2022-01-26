@@ -7,15 +7,18 @@ import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../services/common.service';
 import { ClientService } from '../services/client.service';
 import { adaptCommonPageDataToCommonInitialState } from '../adapters/common';
+import { AbstractController } from './abstract.controller';
 
 @Controller()
-export class DogPageController {
+export class DogPageController extends AbstractController {
 
     constructor(
         private _commonPageService: CommonPageService,
         private _dogPageService: DogPageService,
         private _clientService: ClientService
-    ) { }
+    ) { 
+        super();
+    }
 
     @Render('index')
     @Get('dogs/:id')

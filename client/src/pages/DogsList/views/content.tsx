@@ -1,20 +1,17 @@
 import React, { Fragment } from "react";
-import { Link }   from "react-router-dom";
+import { Link } from "react-router5";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
-import { generatePageUrl } from "../../../app/routes/helpers";
 
-
-import { Dog }                                from "../../../components/Dog";
+import { Dog, IDogProps } from "../../../components/Dog";
 
 import styles from "./styles.less"
 
-export interface IProps {
-  //TODO: исправить
-  dogs?: any;  
+export interface IContentViewProps {
+  dogs: IDogProps["dog"][]
 }
 
-class Content extends React.PureComponent<IProps> {
+export class ContentView extends React.PureComponent<IContentViewProps> {
 
   render() {
     const { dogs } = this.props;
@@ -24,18 +21,18 @@ class Content extends React.PureComponent<IProps> {
         <div className={styles.container}>
           <div>
             <div>
-              <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
-                Список кошечек
+              <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+                Список Собачек
               </Link><br/>
-              <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+              <Link routeName={PAGES_URL_ALIASES.MAIN}>
                 Главная
-              </Link>
+              </Link><br/>
               {
                 dogs
                   .map((dog,i) => (
                     <Fragment key={i}>
                       <Dog className={styles.dog} dog={dog} />
-                      <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id: dog.get('id') })}>{ dog.get('name') }</Link>
+                      <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: dog.get("id") }}>{dog.get("name")}</Link>
                     </Fragment>
                   ))
               }
@@ -46,7 +43,3 @@ class Content extends React.PureComponent<IProps> {
     );
   }
 };
-
-export default Content;
-
-

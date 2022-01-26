@@ -1,32 +1,35 @@
 import React, { Fragment } from "react";
-import { Link }   from "react-router-dom";
+import { Link } from "react-router5";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
-import { generatePageUrl } from "../../../app/routes/helpers";
 
-import { Cat } from "../../../components/Cat";
+import { Cat, ICatProps } from "../../../components/Cat";
 
 import styles from "./styles.less";
 
-class Content extends React.PureComponent<any> {
+export interface IContentViewProps {
+  cats: ICatProps["cat"][];
+}
+
+export class ContentView extends React.PureComponent<IContentViewProps> {
 
   render() {
     const { cats } = this.props;
 
     return (
       <>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
+          <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
           </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+          <Link routeName={PAGES_URL_ALIASES.MAIN}>
             Главная
-          </Link>
+          </Link><br/>
           {
             cats
               .map((cat,i) => (
                 <Fragment key={i}>
                   <Cat cat={cat} className={styles.cat} key={i}/>
-                  <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: cat.get('id') })}>{ cat.get('name') }</Link>
+                  <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: cat.get("id") }}>{cat.get("name")}</Link>
                 </Fragment>
               ))
           }            
@@ -34,6 +37,4 @@ class Content extends React.PureComponent<any> {
     );
   }
 };
-
-export default Content;
 

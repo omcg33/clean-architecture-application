@@ -1,21 +1,22 @@
 import React            from "react";
 import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
-import { StaticRouter } from "react-router-dom";
 import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
-import * as H            from "history";
 import Helmet           from "react-helmet";
 // import csso               from "csso";
 import serialize        from "serialize-javascript";
+import { RouterProvider } from "react-router5";
 
 import { CreateSSRender, PAGES_ROUTES, API_ROUTES } from "../../common";
 
 import createStore                 from "./store";
+
 import { App }                     from "./app";
 import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
-import { setPageRoutes, setApiRoutes } from "./app/routes/helpers";
+import { createRouter, createRoutes, setRouter } from "./app/router";
+import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
 //TODO: Исправить
 interface ICreateSSRenderParams {
@@ -25,27 +26,32 @@ interface ICreateSSRenderParams {
 interface ISSRenderParams { 
   pagesRoutes: PAGES_ROUTES;
   apiRoutes: API_ROUTES;
-  location: H.Location<H.LocationState>;
+  location: string;
   state: Record<string, any>;
 }
 
 export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => { 
   
   return ({ location, pagesRoutes, apiRoutes, state }) => {
-    const preloadedState = state || {},
-      [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);
-
     setPageRoutes(pagesRoutes);
     setApiRoutes(apiRoutes);
+
+    const preloadedState = state || {};
+    const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);    
+    const router = createRouter(createRoutes(pagesRoutes));
+    setRouter(router);
+    
+    router.setDependency('store', store);
+    router.start(location);
 
     const modules = new Set();
 
     const html = ReactDOMServer.renderToString(
       <Loadable.Capture report={moduleName => modules.add(moduleName)}>
         <Provider store={store}>
-          <StaticRouter location={location}>
+          <RouterProvider router={router}>
             <App/>
-          </StaticRouter>
+          </RouterProvider>
         </Provider>
       </Loadable.Capture>
     );

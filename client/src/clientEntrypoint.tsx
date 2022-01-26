@@ -4,31 +4,33 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
-import { Router }   from "react-router-dom";
-
+import { RouterProvider } from "react-router5";
 
 import createStore from "./store";
 import { App }     from "./app";
 
-import history               from "./app/history";
+// import history               from "./app/history";
 import rootSaga              from "./app/sagas";
 import { createRootReducer } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
-import { setPageRoutes, setApiRoutes }      from "./app/routes/helpers";
+
+import { createRouter, createRoutes, setRouter } from "./app/router";
+import { setPageRoutes, setApiRoutes, pagesRoutes }      from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
-
-export interface IConfig {
-
-}
-
-export const render = (config?: IConfig) => {
-  const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
-  const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
-
+export const render = () => {
   setPageRoutes(window.__PAGES_ROUTES__);
   setApiRoutes(window.__API_ROUTES__);
+  
+  const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
+
+  const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
+  const router = createRouter(createRoutes(pagesRoutes));
+
+  setRouter(router);
+
+  router.setDependency('store', store);
 
   // window.__PRELOADED_STATE__ = undefined;
   // window.__ROUTES__ = undefined;
@@ -44,21 +46,18 @@ export const render = (config?: IConfig) => {
   const generatedStyles = document.getElementById("server-side-styles");
   if (!!generatedStyles) generatedStyles.remove();
 
-  // Устанавливаем state на основе данных с сервера
-  const location = history.location;
-  history.replace({
-    ...location,
-    state: {...location.state, is404}
-  });
-
-  Loadable.preloadReady().then(() => {
+  const renderApp = () => (
     ReactDOM.hydrate(
       <Provider store={store}>
-        <Router history={history}>
+        <RouterProvider router={router}>
           <App/>
-        </Router>
+        </RouterProvider>
       </Provider>,
       document.getElementById("root")
-    );
+    )
+  )
+
+  Loadable.preloadReady().then(() => {
+    router.start(renderApp)    
   });
 };

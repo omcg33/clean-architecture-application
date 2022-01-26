@@ -1,13 +1,15 @@
-import * as React from "react";
-import { Link }   from "react-router-dom";
+import React from "react";
+import { Link } from "react-router5";
+
 import { PAGES_URL_ALIASES } from "../../../../../common";
-import { generatePageUrl } from "../../../app/routes/helpers";
-
-
 
 import styles              from "./styles.less";
 
-class Content extends React.PureComponent<any> {
+export interface IContentViewProps {
+
+};
+
+export class ContentView extends React.PureComponent<IContentViewProps> {
   render() {
     // const { isDesktop } = this.props;
 
@@ -18,16 +20,15 @@ class Content extends React.PureComponent<any> {
             <div>
               404
             </div>
-            <div>
-              <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
-                Список кошечек
-              </Link>
-            </div>
-            <div>
-              <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
-                Список собачек
-              </Link>
-            </div>
+            <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
+              Список Собачек
+            </Link><br/>
+            <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+              Список Кошачек
+            </Link><br/>
+            <Link routeName={PAGES_URL_ALIASES.MAIN}>
+              Главная
+            </Link><br/>
           </div>
         </div>
       </>
@@ -35,5 +36,4 @@ class Content extends React.PureComponent<any> {
   }
 };
 
-export default Content;
 

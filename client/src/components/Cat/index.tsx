@@ -8,11 +8,11 @@ type IAdoptedCatFull = any;
 
 import styles              from "./styles.less";
 
-export type IProps = {
+export type ICatProps = {
   cat: ImmutableMap<IAdoptedCatFull>
 }
 
-export class Cat extends React.PureComponent<IProps & React.HTMLAttributes<HTMLDivElement>> {
+export class Cat extends React.PureComponent<ICatProps & React.HTMLAttributes<HTMLDivElement>> {
   render() {
     const {className = "", cat, ...rest} = this.props,
       id = cat.get("id"),

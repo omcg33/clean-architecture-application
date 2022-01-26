@@ -1,35 +1,34 @@
 import * as React from "react";
-import { Link }   from "react-router-dom";
+import { Link } from "react-router5";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
-import { generatePageUrl } from "../../../app/routes/helpers";
 
-import { Dog } from "../../../components/Dog";
+import { Dog, IDogProps } from "../../../components/Dog";
 
 import styles from "./styles.less";
 
-class Content extends React.PureComponent<any> {
+export interface IContentViewProps {
+  dog: IDogProps["dog"]
+}
 
+export class ContentView extends React.PureComponent<IContentViewProps> {
   render() {
     const { dog } = this.props;
 
     return (
       <>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
+          <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
           </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
-            Список кошечек
+          <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+            Список Кошачек
           </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+          <Link routeName={PAGES_URL_ALIASES.MAIN}>
             Главная
-          </Link>
-          <br/>
+          </Link><br/>
+
           <Dog dog={dog} className={styles.dog} />            
       </>
-    );
+    )
   }
 };
-
-export default Content;
-
