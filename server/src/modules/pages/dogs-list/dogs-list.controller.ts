@@ -3,10 +3,10 @@ import { Controller, Get, Render, Req } from '@nestjs/common';
 import { WithAlias } from '@src/modules/common/http';
 import { DogsListPageService } from '@src/modules/api/pages/dogsList/dogs-list.service';
 
-import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
-import { CommonPageService } from '../services/common.service';
-import { ClientService } from '../services/client.service';
-import { adaptCommonPageDataToCommonInitialState } from '../adapters/common';
+import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common/dist';
+import { CommonPageService } from '../common/common.service';
+import { ClientService } from '../helpers/services/client.service';
+import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapter';
 
 @Controller()
 export class DogsListPageController {

@@ -3,14 +3,14 @@ import { Controller, NotFoundException, Get, Param, Render, Req } from '@nestjs/
 import { CatPageService } from '@src/modules/api/pages/cat/cat.service';
 import { WithAlias } from '@src/modules/common/http';
 
-import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
-import { CommonPageService } from '../services/common.service';
-import { ClientService } from '../services/client.service';
-import { adaptCommonPageDataToCommonInitialState } from '../adapters/common';
-import { AbstractController } from './abstract.controller';
+import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common/dist';
+import { CommonPageService } from '../common/common.service';
+import { ClientService } from '../helpers/services/client.service';
+import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapter';
+import { CommonController } from '../common/common.controller';
 
 @Controller()
-export class CatPageController extends AbstractController {
+export class CatPageController extends CommonController {
 
     constructor(
         private _commonPageService: CommonPageService,

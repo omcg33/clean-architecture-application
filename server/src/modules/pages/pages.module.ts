@@ -2,17 +2,17 @@ import { Module, MiddlewareConsumer } from '@nestjs/common';
 
 import { ApiModule } from '@src/modules/api/api.module';
 
-import { UserAgentMiddleware } from './middlewares/useragent.middleware';
+import { UserAgentMiddleware } from './helpers/middlewares/useragent.middleware';
 
-import { ClientService } from './services/client.service';
-import { CommonPageService } from './services/common.service';
+import { ClientService } from './helpers/services/client.service';
+import { CommonPageService } from './common/common.service';
 
-import { MainPageController } from './controllers/main.controller';
-import { CatsListPageController } from './controllers/cats-list.controller';
-import { DogsListPageController } from './controllers/dogs-list.controller';
+import { MainPageController } from './main/main.controller';
+import { CatsListPageController } from './cats-list/cats-list.controller';
+import { DogsListPageController } from './dogs-list/dogs-list.controller';
 
-import { CatPageController } from './controllers/cat.controller';
-import { DogPageController } from './controllers/dog.controller';
+import { CatPageController } from './cat/cat.controller';
+import { DogPageController } from './dog/dog.controller';
 
 
 
