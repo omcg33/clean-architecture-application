@@ -6,7 +6,7 @@ import morgan from 'morgan';
 
 import { createSSRender } from '../../client/dist/ssr';
 
-import { ClientService } from './modules/pages/services/client.service';
+import { ClientService } from './modules/pages/helpers/services/client.service';
 
 import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';

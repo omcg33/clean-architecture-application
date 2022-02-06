@@ -1,6 +1,6 @@
 import { Injectable, Scope } from '@nestjs/common';
 
-import { SSRender } from '../../../../../common/dist';
+import { SSRender } from '../../../../../../common/dist';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {
