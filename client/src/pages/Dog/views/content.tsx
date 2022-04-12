@@ -24,7 +24,7 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
           <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
             Список Кошачек
           </Link><br/>
-          <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
+          <Link to={{ pathname: generatePageUrl(PAGES_URL_ALIASES.MAIN) }}>
             Главная
           </Link><br/>
 

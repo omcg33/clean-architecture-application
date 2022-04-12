@@ -22,10 +22,10 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
         <div className={styles.container}>
           <div>
             <div>
-              <Link to={PAGES_URL_ALIASES.CATS_LIST}>
+              <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
                 Список Собачек
               </Link><br/>
-              <Link to={PAGES_URL_ALIASES.MAIN}>
+              <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
                 Главная
               </Link><br/>
               {
