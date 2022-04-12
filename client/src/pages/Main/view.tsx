@@ -14,7 +14,7 @@ export interface IViewProps {
   dogs: IDogProps["dog"][];
 }
 
-export class View extends React.PureComponent<any> {
+export class View extends React.PureComponent<IViewProps> {
 
   render() {
     const { cats, dogs } = this.props;
@@ -25,7 +25,7 @@ export class View extends React.PureComponent<any> {
             Список Собачек
           </Link>
           <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id:10 })}>DOG 10</Link>
-          <Link to={PAGES_URL_ALIASES.CATS_LIST}>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
             Список Кошачек
           </Link>
           <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: 10 })}>CAT 10</Link>

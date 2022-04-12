@@ -1,7 +1,10 @@
 import { Task } from "redux-saga";
 import { call, all, put, select, take } from "redux-saga/effects";
 
-import { PAGES_KEYS, API_URL_ALIASES_GET, PAGES_URL_ALIASES } from "../../../../../common/dist";
+import { 
+  PAGES_KEYS, API_URL_ALIASES_GET, 
+  // PAGES_URL_ALIASES 
+} from "../../../../../common/dist";
 
 import { get } from "../../../libs/xhr";
 
@@ -15,7 +18,7 @@ import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData } from "../selectors";
 import { defaultReducer } from "../reducers";
 
-interface IGetPageDataParams {
+export interface IGetPageDataParams {
   id: number
 }
 

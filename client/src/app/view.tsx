@@ -1,4 +1,4 @@
-import * as React        from "react";
+import React        from "react";
 import { Helmet }        from "react-helmet";
 import {
   Routes,
@@ -20,8 +20,6 @@ export class View extends React.PureComponent<IProps> {
     const links = meta.get("links");
     const routes = getRoutes();
 
-    console.log(routes);
-    
     return (
       <>
         <Helmet>

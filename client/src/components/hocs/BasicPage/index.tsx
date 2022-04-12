@@ -1,23 +1,21 @@
 import React, { useEffect } from "react";
 
-import { Header }  from "../../../components/Header";
-import { Spinner } from "../../../components/PageSpinner";
+import { Header }  from "../../Header";
+import { Spinner } from "../../PageSpinner";
 
 import styles      from "./styles.less";
 
 
-export interface IBasePageProps {
+export interface IBasicPageProps {
   hasData: boolean;
   onDidMount: () => void;
   onWillUnmount: () => void;
 }
 
-export const BasicPage: React.FunctionComponent<IBasePageProps> = (props) => {
+export const BasicPage: React.FunctionComponent<IBasicPageProps> = (props) => {
     const { hasData, children, onDidMount, onWillUnmount } = props;
 
-    console.log('RENDER')
     useEffect(() => {
-        console.log('DID MOUNT')
         onDidMount();
 
         return () => onWillUnmount()
