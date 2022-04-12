@@ -142,10 +142,9 @@ module.exports = (env, argv) => {
             },
             // 1. TypeScript type check and emit JavaScript es2015 (TypeScript without types) consumable by Babel
             {
-              loader: "awesome-typescript-loader",
+              loader: "ts-loader",
               options: {
-                configFileName: require.resolve("../tsconfig.json"),
-                context: __dirname
+                configFile: require.resolve("../tsconfig.json"),
               }
             }
           ]

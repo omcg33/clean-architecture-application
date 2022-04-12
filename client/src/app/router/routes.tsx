@@ -1,10 +1,12 @@
-// import React from "react";
+import React from "react";
 import Loadable from "react-loadable"; // Обязательно default'ный импорт!!!!
+import { RouteProps } from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 
 import Loading    from "../../components/Loading";
 
+import { pagesRoutes } from "./helpers";
 // import { getIs404 } from "./helpers";
 
 const LoadableMain = Loadable({
@@ -37,33 +39,49 @@ const LoadableNotFoundPage = Loadable({
   loading: Loading
 });
 
-export const routes = [
-  {
-    path: PAGES_URL_ALIASES.MAIN,
-    component: LoadableMain
+const availableRoutesProps = {
+  [PAGES_URL_ALIASES.MAIN]: {
+    exact: true,
+    element: <LoadableMain/>
   },
+  [PAGES_URL_ALIASES.CATS_LIST]: {
+    exact: true,
+    element: <LoadableCatsList/>
+  },
+  [PAGES_URL_ALIASES.CAT]: {
+    exact: true,
+    element: <LoadableCat/>
+  },
+  [PAGES_URL_ALIASES.DOGS_LIST]: {
+    exact: true,
+    element: <LoadableDogsList/>
+  },
+  [PAGES_URL_ALIASES.DOG]: {
+    exact: true,
+    element: <LoadableDog/>
+  },
+};
 
-  {
-    path: PAGES_URL_ALIASES.CATS_LIST,
-    component: LoadableCatsList
-  },
-  {
-    path: PAGES_URL_ALIASES.CAT,
-    component: LoadableCat
-  },
 
-  {
-    path: PAGES_URL_ALIASES.DOGS_LIST,
-    component: LoadableDogsList
-  },
-  {
-    path: PAGES_URL_ALIASES.DOG,
-    component: LoadableDog
-  },
+export const getRoutes = (): RouteProps[] => {
+  return Object.entries(availableRoutesProps)
+    .reduce( (acc, [alias, props]) => {
+      const route = pagesRoutes.find(route => route.alias === alias);
 
-  {
-    path: '*',
-    component: LoadableNotFoundPage
-  },
-  
-];
+      if (route) {
+        acc.push({
+          path: route.template,
+          ...props,
+        })
+      }
+
+      return acc;
+     
+    }, [] as RouteProps[])
+    .concat([
+      {
+        path: "*",
+        element: LoadableNotFoundPage
+      }
+    ])
+  }

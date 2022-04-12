@@ -7,7 +7,7 @@ import {
 
 import styles        from "./styles.less";
 import favicon       from "./images/favicon.ico";
-import { routes } from "./router/routes";
+import { getRoutes } from "./router/routes";
 
 export type IProps = {
   meta: any;
@@ -18,7 +18,10 @@ export class View extends React.PureComponent<IProps> {
     const { meta } = this.props;
     const tags = meta.get("tags");
     const links = meta.get("links");
+    const routes = getRoutes();
 
+    console.log(routes);
+    
     return (
       <>
         <Helmet>
@@ -41,7 +44,7 @@ export class View extends React.PureComponent<IProps> {
         <div className={styles.wrp} id="__ssr__verify-layout">
           <Routes>
             {routes.map((route, i) => (
-              <Route key={i} {...route} />
+              <Route key={(route.path || "*").toString()} {...route} />
             ))}
           </Routes>  
         </div>

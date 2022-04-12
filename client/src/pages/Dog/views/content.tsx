@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
+import { generatePageUrl } from "../../../app/router/helpers";
 
 import { Dog, IDogProps } from "../../../components/Dog";
 
@@ -17,13 +18,13 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
 
     return (
       <>
-          <Link to={PAGES_URL_ALIASES.DOGS_LIST}>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
             Список Собачек
           </Link><br/>
-          <Link to={PAGES_URL_ALIASES.CATS_LIST}>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
             Список Кошачек
           </Link><br/>
-          <Link to={PAGES_URL_ALIASES.MAIN}>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
             Главная
           </Link><br/>
 
