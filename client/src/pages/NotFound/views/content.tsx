@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router5";
+import { Link } from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
 
@@ -20,13 +20,13 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
             <div>
               404
             </div>
-            <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
+            <Link to={PAGES_URL_ALIASES.DOGS_LIST}>
               Список Собачек
             </Link><br/>
-            <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+            <Link to={PAGES_URL_ALIASES.CATS_LIST}>
               Список Кошачек
             </Link><br/>
-            <Link routeName={PAGES_URL_ALIASES.MAIN}>
+            <Link to={PAGES_URL_ALIASES.MAIN}>
               Главная
             </Link><br/>
           </div>

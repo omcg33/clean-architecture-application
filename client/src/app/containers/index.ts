@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { withRoute } from "react-router5";
 
 import { getMeta } from "../../modules/meta/selectors";
 import { getConfig } from "../../modules/config/selectors";
@@ -25,13 +24,12 @@ const mapDispatchToProps = {
   setIsDesktop,
 };
 
-const Container = withRoute<Omit<IOwnProps, 'route'>>(
+const Container =
   connect<IStateToProps, IDispatchToProps, IOwnProps, any>(
     mapStateToProps,
     mapDispatchToProps
   )(
     Controller
-  )
-);
+  );
 
 export { Container };

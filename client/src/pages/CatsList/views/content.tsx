@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router5";
+import { Link } from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
+import { generatePageUrl } from "../../../app/router/helpers";
 
 import { Cat, ICatProps } from "../../../components/Cat";
 
@@ -18,10 +19,10 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
 
     return (
       <>
-          <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
+          <Link to={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
           </Link><br/>
-          <Link routeName={PAGES_URL_ALIASES.MAIN}>
+          <Link to={PAGES_URL_ALIASES.MAIN}>
             Главная
           </Link><br/>
           {
@@ -29,7 +30,7 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
               .map((cat,i) => (
                 <Fragment key={i}>
                   <Cat cat={cat} className={styles.cat} key={i}/>
-                  <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: cat.get("id") }}>{cat.get("name")}</Link>
+                  <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: cat.get("id") })}>{cat.get("name")}</Link>
                 </Fragment>
               ))
           }            

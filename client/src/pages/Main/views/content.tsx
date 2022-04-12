@@ -1,6 +1,8 @@
 import * as React from "react";
-import { Link } from "react-router5";
+import { Link } from "react-router-dom";
+
 import { PAGES_URL_ALIASES } from "../../../../../common";
+import { generatePageUrl } from "../../../app/router/helpers";
 
 import { Cat, ICatProps } from "../../../components/Cat";
 import { Dog, IDogProps } from "../../../components/Dog";
@@ -19,19 +21,19 @@ export class ContentView extends React.PureComponent<any> {
 
     return (
       <>
-          <Link routeName={PAGES_URL_ALIASES.DOGS_LIST}>
+          <Link to={PAGES_URL_ALIASES.DOGS_LIST}>
             Список Собачек
           </Link>
-          <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: 10 }}>DOG 10</Link><br/>
-          <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id:10 })}>DOG 10</Link>
+          <Link to={PAGES_URL_ALIASES.CATS_LIST}>
             Список Кошачек
           </Link>
-          <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: 10 }}>CAT 10</Link>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: 10 })}>CAT 10</Link>
           {
             cats
               .map((cat,i) => <>
                 <Cat cat={cat} className={styles.cat} key={i}/>
-                <Link routeName={PAGES_URL_ALIASES.CAT} routeParams={{ id: cat.get("id") }}>{cat.get("name")}</Link>
+                <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: cat.get("id") })}>{cat.get("name")}</Link>
               </>
             )
           }  
@@ -44,7 +46,7 @@ export class ContentView extends React.PureComponent<any> {
             dogs
               .map((dog,i) => <>
                 <Dog dog={dog} className={styles.dog} key={i}/>
-                <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: dog.get("id") }}>{dog.get("name")}</Link>
+                <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id: dog.get("id") })}>{dog.get("name")}</Link>
               </>)
           }  
       </>

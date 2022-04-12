@@ -1,12 +1,11 @@
-import React from "react";
+// import React from "react";
 import Loadable from "react-loadable"; // Обязательно default'ный импорт!!!!
-import { constants, StateMeta } from "router5";
 
-import { PAGES_URL_ALIASES } from "../../../../common";
+import { PAGES_URL_ALIASES } from "../../../../common/dist";
 
 import Loading    from "../../components/Loading";
 
-import { getIs404 } from "./helpers";
+// import { getIs404 } from "./helpers";
 
 const LoadableMain = Loadable({
   loader: () => import(/* webpackChunkName: "mainPage" */ "../../pages/Main"), 
@@ -38,25 +37,33 @@ const LoadableNotFoundPage = Loadable({
   loading: Loading
 });
 
-export const getComponentByRoute = (route: string, meta?: StateMeta) => {  
-    const is404 = typeof meta !== "undefined" && getIs404(meta);
+export const routes = [
+  {
+    path: PAGES_URL_ALIASES.MAIN,
+    component: LoadableMain
+  },
 
-    if (is404)
-      return <LoadableNotFoundPage/>;
+  {
+    path: PAGES_URL_ALIASES.CATS_LIST,
+    component: LoadableCatsList
+  },
+  {
+    path: PAGES_URL_ALIASES.CAT,
+    component: LoadableCat
+  },
 
-    switch (route) {
-      case PAGES_URL_ALIASES.MAIN:
-          return <LoadableMain/>;
-      case PAGES_URL_ALIASES.CATS_LIST:
-          return <LoadableCatsList/>;
-      case PAGES_URL_ALIASES.DOGS_LIST:
-          return <LoadableDogsList/>; 
-      case PAGES_URL_ALIASES.DOG:
-          return <LoadableDog/>;  
-      case PAGES_URL_ALIASES.CAT:
-          return <LoadableCat/>;      
-      case constants.UNKNOWN_ROUTE:
-      default:
-          return <LoadableNotFoundPage/>
-    }     
-}
+  {
+    path: PAGES_URL_ALIASES.DOGS_LIST,
+    component: LoadableDogsList
+  },
+  {
+    path: PAGES_URL_ALIASES.DOG,
+    component: LoadableDog
+  },
+
+  {
+    path: '*',
+    component: LoadableNotFoundPage
+  },
+  
+];

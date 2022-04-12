@@ -6,7 +6,7 @@ import { getBundles }   from "react-loadable-ssr-addon";
 import Helmet           from "react-helmet";
 // import csso               from "csso";
 import serialize        from "serialize-javascript";
-import { RouterProvider } from "react-router5";
+import { StaticRouter}  from "react-router-dom//server";
 
 import { CreateSSRender, PAGES_ROUTES, API_ROUTES } from "../../common";
 
@@ -15,7 +15,6 @@ import createStore                 from "./store";
 import { App }                     from "./app";
 import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
-import { createRouter, createRoutes, setRouter } from "./app/router";
 import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
 //TODO: Исправить
@@ -38,20 +37,14 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
 
     const preloadedState = state || {};
     const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);    
-    const router = createRouter(createRoutes(pagesRoutes));
-    setRouter(router);
-    
-    router.setDependency('store', store);
-    router.start(location);
-
     const modules = new Set();
 
     const html = ReactDOMServer.renderToString(
       <Loadable.Capture report={moduleName => modules.add(moduleName)}>
         <Provider store={store}>
-          <RouterProvider router={router}>
+          <StaticRouter location={location}>
             <App/>
-          </RouterProvider>
+          </StaticRouter>
         </Provider>
       </Loadable.Capture>
     );

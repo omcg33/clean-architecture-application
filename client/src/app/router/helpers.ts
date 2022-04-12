@@ -1,5 +1,4 @@
 import * as pathToRegexp from "path-to-regexp";
-import { StateMeta } from "router5";
 
 import { PAGES_URL_ALIASES, API_ROUTES, PAGES_ROUTES, API_URL_ALIASES_GET, API_URL_ALIASES_POST, API_URL_ALIASES_PATCH, API_URL_ALIASES_PUT, API_URL_ALIASES_DELETE } from "../../../../common/dist";
 
@@ -13,7 +12,7 @@ let pageRoutesObject: Record<PAGES_URL_ALIASES, string>;
 
 let apiRoutesObject: API_ROUTES = {} as any;
 
-export const getIs404 = (meta: StateMeta):boolean => {
+export const getIs404 = (meta: any):boolean => {
     const { is404 = false } = meta.options || {};
 
     return is404;

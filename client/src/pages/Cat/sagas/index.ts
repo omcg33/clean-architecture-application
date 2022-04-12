@@ -7,7 +7,7 @@ import { get } from "../../../libs/xhr";
 
 
 import { addReducer, removeReducer } from "../../../app/actions";
-import { router }                    from "../../../app/router";
+// import { router }                    from "../../../app/router";
 import { generateApiUrl }            from "../../../app/router/helpers";
 // import { set }                       from "../../../modules/meta/actions";
 
@@ -46,11 +46,11 @@ export function* getPageData(params: IGetPageDataParams) {
     } catch (e) {
       console.error(e);
       yield put(error((e as any).message));
-      yield call(router.navigate as any, PAGES_URL_ALIASES.CAT, params,  {         
-        is404: true,        
-        force: true,
-        replace: true,
-      });
+      // yield call(router.navigate as any, PAGES_URL_ALIASES.CAT, params,  {         
+      //   is404: true,        
+      //   force: true,
+      //   replace: true,
+      // });
     }
 
   }

@@ -4,7 +4,7 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router5";
+import { BrowserRouter } from "react-router-dom";
 
 import createStore from "./store";
 import { App }     from "./app";
@@ -14,8 +14,7 @@ import rootSaga              from "./app/sagas";
 import { createRootReducer } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
 
-import { createRouter, createRoutes, setRouter } from "./app/router";
-import { setPageRoutes, setApiRoutes, pagesRoutes }      from "./app/router/helpers";
+import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
@@ -26,12 +25,7 @@ export const render = () => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
 
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
-  const router = createRouter(createRoutes(pagesRoutes));
-
-  setRouter(router);
-
-  router.setDependency('store', store);
-
+ 
   // window.__PRELOADED_STATE__ = undefined;
   // window.__ROUTES__ = undefined;
 
@@ -49,15 +43,15 @@ export const render = () => {
   const renderApp = () => (
     ReactDOM.hydrate(
       <Provider store={store}>
-        <RouterProvider router={router}>
+        <BrowserRouter>
           <App/>
-        </RouterProvider>
+        </BrowserRouter>
       </Provider>,
       document.getElementById("root")
     )
   )
 
   Loadable.preloadReady().then(() => {
-    router.start(renderApp)    
+    renderApp();
   });
 };

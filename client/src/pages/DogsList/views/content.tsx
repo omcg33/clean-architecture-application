@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router5";
+import { Link } from "react-router-dom";
 
 import { PAGES_URL_ALIASES } from "../../../../../common";
+import { generatePageUrl } from "../../../app/router/helpers";
 
 import { Dog, IDogProps } from "../../../components/Dog";
 
@@ -21,10 +22,10 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
         <div className={styles.container}>
           <div>
             <div>
-              <Link routeName={PAGES_URL_ALIASES.CATS_LIST}>
+              <Link to={PAGES_URL_ALIASES.CATS_LIST}>
                 Список Собачек
               </Link><br/>
-              <Link routeName={PAGES_URL_ALIASES.MAIN}>
+              <Link to={PAGES_URL_ALIASES.MAIN}>
                 Главная
               </Link><br/>
               {
@@ -32,7 +33,7 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
                   .map((dog,i) => (
                     <Fragment key={i}>
                       <Dog className={styles.dog} dog={dog} />
-                      <Link routeName={PAGES_URL_ALIASES.DOG} routeParams={{ id: dog.get("id") }}>{dog.get("name")}</Link>
+                      <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id: dog.get("id") })}>{dog.get("name")}</Link>
                     </Fragment>
                   ))
               }
