@@ -1,18 +1,18 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-import { PAGES_URL_ALIASES } from "../../../../../common";
-import { generatePageUrl } from "../../../app/router/helpers";
+import { PAGES_URL_ALIASES } from "../../../../common/dist";
+import { generatePageUrl } from "../../app/router/helpers";
 
-import { Dog, IDogProps } from "../../../components/Dog";
+import { Dog, IDogProps } from "../../components/Dog";
 
 import styles from "./styles.less"
 
-export interface IContentViewProps {
+export interface IViewProps {
   dogs: IDogProps["dog"][]
 }
 
-export class ContentView extends React.PureComponent<IContentViewProps> {
+export class View extends React.PureComponent<IViewProps> {
 
   render() {
     const { dogs } = this.props;

@@ -1,10 +1,12 @@
 import { connect } from "react-redux";
 
+import { run as runSaga } from "../../app/actions";
 import { getIsDesktop } from "../../modules/isDesktop/selectors";
 
 import { getDogs, getHasData } from "./selectors";
-
+import saga from "./sagas";
 import { Controller } from "./controller";
+import { unmount } from "./actions";
 
 const mapStateToProps = (state: any, props: any) => {
   return {
@@ -14,5 +16,12 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {    
+    onDidMount: () => dispatch(runSaga({ saga })),
+    onWillUnmount: () => dispatch(unmount()),
+  }
+}
 
-export const Container = connect(mapStateToProps)(Controller);
+
+export const Container = connect(mapStateToProps, mapDispatchToProps)(Controller);
