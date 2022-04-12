@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { PAGES_URL_ALIASES } from "../../../../../common";
+import { PAGES_URL_ALIASES } from "../../../../common/dist";
+import { generatePageUrl } from "../../app/router/helpers";
 
 import styles              from "./styles.less";
 
-export interface IContentViewProps {
+export interface IViewProps {
 
 };
 
-export class ContentView extends React.PureComponent<IContentViewProps> {
+export class View extends React.PureComponent<IViewProps> {
   render() {
-    // const { isDesktop } = this.props;
 
     return (
       <>
@@ -20,13 +20,13 @@ export class ContentView extends React.PureComponent<IContentViewProps> {
             <div>
               404
             </div>
-            <Link to={PAGES_URL_ALIASES.DOGS_LIST}>
+            <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
               Список Собачек
             </Link><br/>
-            <Link to={PAGES_URL_ALIASES.CATS_LIST}>
+            <Link to={generatePageUrl(PAGES_URL_ALIASES.CATS_LIST)}>
               Список Кошачек
             </Link><br/>
-            <Link to={PAGES_URL_ALIASES.MAIN}>
+            <Link to={generatePageUrl(PAGES_URL_ALIASES.MAIN)}>
               Главная
             </Link><br/>
           </div>

@@ -69,7 +69,7 @@ export const getRoutes = (): RouteProps[] => {
       const route = pagesRoutes.find(route => route.alias === alias);
 
       if (route) {
-        acc.push({
+        acc.unshift({
           path: route.template,
           ...props,
         })
@@ -77,11 +77,10 @@ export const getRoutes = (): RouteProps[] => {
 
       return acc;
      
-    }, [] as RouteProps[])
-    .concat([
+    }, [
       {
         path: "*",
-        element: LoadableNotFoundPage
+        element: <LoadableNotFoundPage/>
       }
-    ])
+    ] as RouteProps[])
   }
