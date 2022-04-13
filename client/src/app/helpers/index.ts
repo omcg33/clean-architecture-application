@@ -1,9 +1,11 @@
 import { Reducer } from "redux";
 import omit        from "lodash-es/omit";
 
+import { ILocation } from '../../../../common';
+
 import { stubMap } from "../reducers";
 
-export const is404 = (location) => {
+export const is404 = (location: ILocation) => {
   const { state: { is404 = false } = {}} = location || {};
   return is404;
 };

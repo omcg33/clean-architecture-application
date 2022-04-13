@@ -1,9 +1,9 @@
 import { ICommonPageData } from "./common.service";
 
 export const adaptCommonPageDataToCommonInitialState = (data: ICommonPageData) => {
-    const { location, ...rest } = data;
+    // const { location, ...rest } = data;
 
     return {
-        ...rest
+        ...data
     }
 }

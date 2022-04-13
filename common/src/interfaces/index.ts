@@ -13,4 +13,9 @@ export type API_ROUTES = {
     DELETE: Record<API_URL_ALIASES_DELETE, string>,
 };
 
+export interface ILocation {
+    url: string;
+    state?: Record<string, any>
+}
+
 export * from './ssr';
