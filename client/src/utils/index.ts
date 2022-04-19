@@ -14,7 +14,7 @@ export const cleanDublicationSlashInPath = (url: string): string => url.replace(
 
 export const convertCssAssetsToString = (styles: IAsset[], prefix: string): string => {
     return styles
-        .map(style => `<link href="${cleanDublicationSlashInPath(`${prefix}/${style.file}`)}" rel="stylesheet"/>`)
+        .map(style => `<link rel="preload" href="${cleanDublicationSlashInPath(`${prefix}/${style.file}`)}" as="style" onload="this.onload=null;this.rel='stylesheet'" media="all">`)
         .join('\n');
 }
 
