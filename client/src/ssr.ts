@@ -4,9 +4,9 @@ import Loadable                 from "react-loadable";
 import { createSSRender }       from "./serverEntrypoint";
 import stats                    from "../dist/reactLoadable.json";
 
-const createSSRenderWithPreload = async () => {
+const createSSRenderWithPreload = async ({ assetsPath }: { assetsPath: string }) => {
     await Loadable.preloadAll();
-    return createSSRender({ stats });
+    return createSSRender({ stats, assetsPath });
 };
 
 export {

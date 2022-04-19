@@ -41,7 +41,7 @@ async function bootstrap() {
 	app.setViewEngine('hbs');
 
 	const [ssr] = await Promise.all([
-		createSSRender(),
+		createSSRender({ assetsPath: ASSETS_PATH }),
 	]);
 
 
