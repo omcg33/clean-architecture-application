@@ -4,6 +4,7 @@ import { Provider }     from "react-redux";
 import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
 import Helmet           from "react-helmet";
+import { Location }     from "history";
 // import csso               from "csso";
 import serialize        from "serialize-javascript";
 import { StaticRouter}  from "react-router-dom//server";
@@ -25,7 +26,7 @@ interface ICreateSSRenderParams {
 interface ISSRenderParams { 
   pagesRoutes: PAGES_ROUTES;
   apiRoutes: API_ROUTES;
-  location: string;
+  location: Location;
   state: Record<string, any>;
 }
 

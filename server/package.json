@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "prestart:dev": "rimraf dist",
+    "build:common": "tsc --build ../common/tsconfig.json",
     "build": "tsc --build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

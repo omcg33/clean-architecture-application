@@ -23,6 +23,6 @@ export class ClientService {
 
     // TODO: Типизировать state
     getRenderData(location: ILocation, initialState: any) {
-        return this._ssr({pagesRoutes: this._pagesRoutes, apiRoutes: this._apiRoutes, state: initialState, location: location.url});
+        return this._ssr({pagesRoutes: this._pagesRoutes, apiRoutes: this._apiRoutes, state: initialState, location });
     }
 }

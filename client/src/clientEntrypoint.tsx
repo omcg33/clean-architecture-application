@@ -4,10 +4,11 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
 import createStore from "./store";
 import { App }     from "./app";
+import { history } from "./app/history";
 
 // import history               from "./app/history";
 import rootSaga              from "./app/sagas";
@@ -40,12 +41,21 @@ export const render = () => {
   const generatedStyles = document.getElementById("server-side-styles");
   if (!!generatedStyles) generatedStyles.remove();
 
+  const location = history.location;
+  const serverLocation = preloadedState.location || {};
+
+  history.replace({
+    ...location,
+    ...serverLocation,
+    hash: location.hash
+  });
+
   const renderApp = () => (
     ReactDOM.hydrate(
       <Provider store={store}>
-        <BrowserRouter>
+        <HistoryRouter history={history}>
           <App/>
-        </BrowserRouter>
+        </HistoryRouter>
       </Provider>,
       document.getElementById("root")
     )

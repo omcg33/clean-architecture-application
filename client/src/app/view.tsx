@@ -3,6 +3,7 @@ import { Helmet }        from "react-helmet";
 import {
   Routes,
   Route,
+  useLocation,
 } from "react-router-dom";
 
 import styles        from "./styles.less";
@@ -13,13 +14,14 @@ export type IProps = {
   meta: any;
 };
 
-export class View extends React.PureComponent<IProps> {
-  render() {
-    const { meta } = this.props;
+export const View = (props: IProps) =>  {
+    const { meta } = props;
     const tags = meta.get("tags");
     const links = meta.get("links");
     const routes = getRoutes();
-
+    const location = useLocation();
+    
+    console.log('LOcATION ', location);
     return (
       <>
         <Helmet>
@@ -49,4 +51,3 @@ export class View extends React.PureComponent<IProps> {
       </>
     );
   }
-}
