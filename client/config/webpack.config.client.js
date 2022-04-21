@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
     //   })
     // ]);
   // }
-  
+    
   return {    
     entry: {
       index: ["babel-polyfill", DIRS.ENTRYPOINTS.CLIENT]

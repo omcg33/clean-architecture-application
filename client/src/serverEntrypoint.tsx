@@ -18,9 +18,12 @@ import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
 import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
+import { convertCssAssetsToCriticalCssString, convertCssAssetsToString, convertJsAssetsToString } from './utils';
+
 //TODO: Исправить
 interface ICreateSSRenderParams {
-  stats: any,
+  stats: any;
+  assetsPath: string;
 };
 
 interface ISSRenderParams { 
@@ -30,7 +33,7 @@ interface ISSRenderParams {
   state: Record<string, any>;
 }
 
-export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats }) => { 
+export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats, assetsPath }) => { 
   
   return ({ location, pagesRoutes, apiRoutes, state }) => {
     setPageRoutes(pagesRoutes);
@@ -52,45 +55,14 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
       </Loadable.Capture>
     );
     const helmet = Helmet.renderStatic();
-    // const serverSideStyles = csso.minify({}).css;
 
-    const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]),
-      jsException = [] as any[];
-
-    const styles = [
-      ...css
-        .map(style => `<link href="${__webpack_public_path__}${style.file}" rel="stylesheet"/>`)
-    ]
-      .join("\n");
-
-    const scripts = [
-      ...js
-        .reduce((acc, script) => {
-          if (script.file.includes("index")) {
-            jsException.push(script);
-            return acc;
-          }
-
-          return [
-            ...acc,
-            `<script defer src="${__webpack_public_path__}${script.file}"></script>`
-          ];
-        }, []),
-      ...jsException
-        .map(script => `<script defer src="${__webpack_public_path__}${script.file}"></script>`)
-    ]
-      .join("\n");
-
-    const inlineStyles = [
-      // `<style type="text/css" id="server-side-styles">${serverSideStyles}</style>`
-    ];
+    const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]);
 
     return {
       helmet,
       html,
-      styles,
-      scripts,
-      inlineStyles,
+      styles: convertCssAssetsToCriticalCssString(css, { publicPath: __webpack_public_path__, fileSystemPath: assetsPath}) + convertCssAssetsToString(css, __webpack_public_path__),
+      scripts: convertJsAssetsToString(js, __webpack_public_path__),
       preloadedState: serialize(state, { isJSON: true }),
       pagesRoutes: serialize(pagesRoutes, { isJSON: true }),
       apiRoutes: serialize(apiRoutes, { isJSON: true }),
