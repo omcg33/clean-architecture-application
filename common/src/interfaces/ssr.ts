@@ -4,6 +4,5 @@ export interface IRenderResult {
     html: string;
     styles: string;
     scripts: string;
-    inlineStyles: string[];
     routes: string;
   }
