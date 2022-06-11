@@ -3,9 +3,9 @@ import { NotFoundPageService } from "@src/modules/api/pages/notFound/not-found.s
 
 import { PAGES_KEYS } from "../../../../../common";
 import { adaptCommonPageDataToCommonInitialState } from "../common/common.adapter";
+import { CommonPageService } from "../common/common.service";
 
 import { ClientService } from "../helpers/services/client.service";
-import { CommonPageService } from "../common/common.service";
 
 @Catch(NotFoundException)
 export class NotFoundExceptionFilter implements ExceptionFilter {

@@ -3,8 +3,8 @@ const path = require("path");
 const ReactLoadableSSRAddon = require("react-loadable-ssr-addon");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const BundleAnalyzerPlugin      = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const BundleSizeAnalyzerPlugin  = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
+// const BundleAnalyzerPlugin      = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleSizeAnalyzerPlugin  = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 const webpack = require('webpack');
 
 const DIRS = require('./consts').DIRS;
@@ -190,18 +190,12 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: path.relative(DIRS.DIST.JS, path.join(DIRS.DIST.CSS, "[name].css?[contenthash:10]"))
       }),
-      new CopyWebpackPlugin([
-        {
-          from: DIRS.STATIC.IMAGES,
-          to: path.relative(DIRS.DIST.JS, DIRS.DIST.IMAGES),
-          test: /\.(gif|jpe?g|tiff?|png|webp|bmp)$/
-        },
-        {
-          from: DIRS.STATIC.TEMPLATES,
-          to: path.relative(DIRS.DIST.JS, DIRS.DIST.TEMPLATES),
-          test: /\.(hbs)$/
-        }
-      ]),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: DIRS.STATIC.IMAGES, to: path.relative(DIRS.DIST.JS, DIRS.DIST.IMAGES) },
+          { from: DIRS.STATIC.TEMPLATES, to: path.relative(DIRS.DIST.JS, DIRS.DIST.TEMPLATES) },
+        ]       
+      }),     
       ...additionalPlugins
     ]
   };
