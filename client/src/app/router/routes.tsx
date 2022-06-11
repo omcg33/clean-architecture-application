@@ -1,11 +1,11 @@
 import React from "react";
 import Loadable from "react-loadable"; // Обязательно default'ный импорт!!!!
 import { RouteProps } from "react-router-dom";
-import { compose }    from "redux";
+// import { compose }    from "redux";
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 
 import Loading    from "../../components/Loading";
-import { decorateBy404 } from "./decorators";
+// import { decorateBy404 } from "./decorators";
 
 import { pagesRoutes } from "./helpers";
 // import { getIs404 } from "./helpers";
