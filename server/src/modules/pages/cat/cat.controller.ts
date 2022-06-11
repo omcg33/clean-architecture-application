@@ -3,7 +3,7 @@ import { Controller, NotFoundException, Get, Param, Render, Req } from '@nestjs/
 import { CatPageService } from '@src/modules/api/pages/cat/cat.service';
 import { WithAlias } from '@src/modules/common/http';
 
-import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common/dist';
+import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../common/common.service';
 import { ClientService } from '../helpers/services/client.service';
 import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapter';

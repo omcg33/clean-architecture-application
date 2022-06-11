@@ -4,5 +4,6 @@ export interface IRenderResult {
     html: string;
     styles: string;
     scripts: string;
-    routes: string;
+    apiRoutes: string;
+    pagesRoutes: string;
   }
