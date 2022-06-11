@@ -1,7 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter, NotFoundException } from "@nestjs/common";
 import { NotFoundPageService } from "@src/modules/api/pages/notFound/not-found.service";
 
-import { PAGES_KEYS } from "../../../../../common/dist";
+import { PAGES_KEYS } from "../../../../../common";
 import { adaptCommonPageDataToCommonInitialState } from "./common.adapter";
 
 import { ClientService } from "../helpers/services/client.service";

@@ -4,7 +4,7 @@ import { Request } from 'express';
 import { CatsListPageService } from '@src/modules/api/pages/catsList/cats-list.service';
 import { WithAlias } from '@src/modules/common/http';
 
-import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common/dist';
+import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../common/common.service';
 import { ClientService } from '../helpers/services/client.service';
 import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapter';

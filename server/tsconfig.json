@@ -17,11 +17,11 @@
       "@src/*": ["./src/*"],
     }
   },
-  "references": [
-    {
-      "path": "../common"
-    }
-  ],
+  // "references": [
+  //   {
+  //     "path": "../common"
+  //   }
+  // ],
   "exclude": [
     "test"
   ]
