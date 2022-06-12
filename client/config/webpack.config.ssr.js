@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
       path: DIRS.DIST.INDEX,
       filename: "ssr.js",
       publicPath: PATHS.STATIC,     
-      // libraryTarget: 'es6'
+      libraryTarget: 'commonjs'
     },
 
     optimization: {
@@ -143,6 +143,9 @@ module.exports = (env, argv) => {
               loader: "ts-loader",
               options: {
                 configFile: require.resolve("../tsconfig.json"),
+                compilerOptions: {
+                  "declaration": true,
+                }
               }
             }
           ]
@@ -153,14 +156,14 @@ module.exports = (env, argv) => {
             {
               resourceQuery: /^\?raw$/,
               use: [ 
-                // MiniCssExtractPlugin.loader,
+                MiniCssExtractPlugin.loader,
                 "css-loader",
                 "less-loader"
               ]
             },
             {
               use: [
-                // MiniCssExtractPlugin.loader,
+                MiniCssExtractPlugin.loader,
                 {
                   loader: "css-loader",
                   options: {
@@ -180,9 +183,9 @@ module.exports = (env, argv) => {
       new TypescriptDeclarationPlugin({
         out: 'ssr.d.ts'
       }),
-      // new MiniCssExtractPlugin({
-      //   filename: "server.css"
-      // }),
+      new MiniCssExtractPlugin({
+        filename: "server.css"
+      }),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
       }),

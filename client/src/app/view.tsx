@@ -38,7 +38,7 @@ export const View = (props: IProps) =>  {
           }
         </Helmet>
 
-        <div className={styles.wrp} id="__ssr__verify-layout">
+        <div className={styles.wrp}>
           <Routes>
             {routes.map((route, i) => (
               <Route key={(route.path || "*").toString()} {...route} />
