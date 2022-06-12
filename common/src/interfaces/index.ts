@@ -14,7 +14,7 @@ export type API_ROUTES = {
 };
 
 export interface ILocation {
-    url: string;
+    pathname: string;
     state?: Record<string, any>
 }
 

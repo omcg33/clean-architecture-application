@@ -8,11 +8,9 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
 import createStore from "./store";
 import { App }     from "./app";
-import { history } from "./app/history";
-
-// import history               from "./app/history";
-import rootSaga              from "./app/sagas";
-import { createRootReducer } from "./app/helpers";
+import { history, IHistoryLocationState } from "./app/history";
+import { rootSaga }          from "./app/sagas";
+import { createRootReducer, setWebpackPublicPath } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
 
 import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
@@ -26,29 +24,27 @@ export const render = () => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
 
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
+  const clientConfig = getConfig(store.getState());
  
   // window.__PRELOADED_STATE__ = undefined;
   // window.__ROUTES__ = undefined;
 
-
-  const clientConfig = getConfig(store.getState()),
-    cdn = clientConfig.getIn(["apiHosts", "cdn"]);
-
-  if (cdn)
-    __webpack_public_path__ = cdn;
+  setWebpackPublicPath(clientConfig)
 
   // Регидрация стилей
   const generatedStyles = document.getElementById("server-side-styles");
   if (!!generatedStyles) generatedStyles.remove();
 
-  const location = history.location;
-  const serverLocation = preloadedState.location || {};
+  const { state: clientHistoryLocationState, ...restClientLocation } = history.location;
+  const { state: serverHistoryLocationState, ...restServerLocation } = preloadedState.location || {};
 
   history.replace({
-    ...location,
-    ...serverLocation,
-    hash: location.hash
-  });
+    ...restClientLocation,
+    ...restServerLocation
+  },{
+    ...(clientHistoryLocationState as IHistoryLocationState),
+    ...serverHistoryLocationState
+  })
 
   const renderApp = () => (
     ReactDOM.hydrate(

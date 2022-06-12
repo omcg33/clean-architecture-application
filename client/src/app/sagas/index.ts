@@ -1,3 +1,4 @@
-
-export default function* rootSaga() {
+function* rootSaga() {
 }
+
+export { rootSaga }

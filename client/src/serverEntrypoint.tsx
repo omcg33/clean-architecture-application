@@ -43,7 +43,7 @@ export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParam
     const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);    
     const modules = new Set();
 
-    console.log('location ', location);
+    console.log('location on render ', location);
     
     const html = ReactDOMServer.renderToString(
       <Loadable.Capture report={moduleName => modules.add(moduleName)}>

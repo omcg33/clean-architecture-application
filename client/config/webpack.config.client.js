@@ -34,6 +34,12 @@ module.exports = (env, argv) => {
     entry: {
       index: ["babel-polyfill", DIRS.ENTRYPOINTS.CLIENT]
     },
+    output: {
+      path: DIRS.DIST.JS,
+      filename: "[name].js?[contenthash:10]",
+      chunkFilename: "[name].js?[contenthash:10]",
+      publicPath: PATHS.STATIC
+    },
 
     optimization: {
       splitChunks: {
@@ -57,15 +63,18 @@ module.exports = (env, argv) => {
       },
     },
 
+    stats: {
+      children: false,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+      reasons: false,
+    },
+    
     // The main entry point source/client/index.tsx
     // Main entry point plus each dynamic import generate a bundle
     // Ex: import(/* webpackChunkName: "about" */ "../pages/about") generate about.js
-    output: {
-      path: DIRS.DIST.JS,
-      filename: "[name].js?[contenthash:10]",
-      chunkFilename: "[name].js?[contenthash:10]",
-      publicPath: PATHS.STATIC
-    },
+    
 
     watchOptions: {
       aggregateTimeout: 1000,

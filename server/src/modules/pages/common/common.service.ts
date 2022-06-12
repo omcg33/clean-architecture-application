@@ -14,7 +14,7 @@ export class CommonPageService {
         return {
             user: {},
             isDesktop: req.useragent.isDesktop,   
-            location: { url: req.originalUrl }
+            location: { pathname: req.originalUrl }
         }
     }
 }

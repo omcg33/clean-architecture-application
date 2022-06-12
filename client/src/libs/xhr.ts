@@ -1,6 +1,5 @@
 import axios              from "axios";
 import param              from "jquery-param";
-// import { redirectToPage } from "./browserActions";
 
 const isOuter = (url: string): boolean => /^https?:\/\//i.test(url);
 

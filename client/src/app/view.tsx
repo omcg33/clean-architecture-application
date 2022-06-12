@@ -21,7 +21,8 @@ export const View = (props: IProps) =>  {
     const routes = getRoutes();
     const location = useLocation();
     
-    console.log('LOcATION ', location);
+    console.log('location on client ', location);
+    
     return (
       <>
         <Helmet>
