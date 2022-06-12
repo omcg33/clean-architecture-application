@@ -8,7 +8,7 @@ import { get } from "../../../libs/xhr";
 
 import { addReducer, removeReducer } from "../../../app/actions";
 import { generateApiUrl }            from "../../../app/router/helpers";
-import { set }                       from "../../../modules/meta/actions";
+// import { set }                       from "../../../modules/meta/actions";
 
 import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData }                  from "../selectors";
@@ -36,7 +36,7 @@ export function* getPageData() {
       const { meta, ...data } = yield call(get, generateApiUrl(API_URL_ALIASES_GET.PAGE_NOT_FOUND));
 
       yield all([
-        put(set(meta)),
+        // put(set(meta)),
         put(add(data))
       ])
     } catch (e) {

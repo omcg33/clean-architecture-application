@@ -1,22 +1,24 @@
-import * as React        from "react";
+import React        from "react";
 import { Helmet }        from "react-helmet";
-import { State }         from 'router5';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import styles        from "./styles.less";
 import favicon       from "./images/favicon.ico";
-import { getComponentByRoute } from "./router/getComponentByRoute";
+import { getRoutes } from "./router/routes";
 
 export type IProps = {
   meta: any;
-  route: State;
 };
 
-export class View extends React.PureComponent<IProps> {
-  render() {
-    const { meta, route } = this.props;
+export const View = (props: IProps) =>  {
+    const { meta } = props;
     const tags = meta.get("tags");
     const links = meta.get("links");
-
+    const routes = getRoutes();
+    
     return (
       <>
         <Helmet>
@@ -37,11 +39,12 @@ export class View extends React.PureComponent<IProps> {
         </Helmet>
 
         <div className={styles.wrp} id="__ssr__verify-layout">
-          {            
-            getComponentByRoute(route.name, route.meta)
-          }         
+          <Routes>
+            {routes.map((route, i) => (
+              <Route key={(route.path || "*").toString()} {...route} />
+            ))}
+          </Routes>  
         </div>
       </>
     );
   }
-}

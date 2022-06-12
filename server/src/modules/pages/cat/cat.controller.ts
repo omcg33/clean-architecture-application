@@ -24,8 +24,6 @@ export class CatPageController extends CommonController {
     @Get('cats/:id')
     @WithAlias(PAGES_URL_ALIASES.CAT)
     async get(@Req() req: Request, @Param('id') id: string) {   
-        throw new NotFoundException('Invalid user');
-        
         const [commonPageData, pageData] = await Promise.all([
             this._commonPageService.get(req),
             this._catPageService.get(parseInt(id))

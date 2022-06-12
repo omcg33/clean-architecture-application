@@ -1,13 +1,16 @@
 import { Task } from "redux-saga";
 import { call, all, put, select, take } from "redux-saga/effects";
 
-import { PAGES_KEYS, API_URL_ALIASES_GET, PAGES_URL_ALIASES } from "../../../../../common";
+import { 
+  PAGES_KEYS, API_URL_ALIASES_GET, 
+  // PAGES_URL_ALIASES 
+} from "../../../../../common/dist";
 
 import { get } from "../../../libs/xhr";
 
 
 import { addReducer, removeReducer } from "../../../app/actions";
-import { router }                    from "../../../app/router";
+import { setHistoryState }           from "../../../app/history";
 import { generateApiUrl }            from "../../../app/router/helpers";
 // import { set }                       from "../../../modules/meta/actions";
 
@@ -15,7 +18,7 @@ import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData } from "../selectors";
 import { defaultReducer } from "../reducers";
 
-interface IGetPageDataParams {
+export interface IGetPageDataParams {
   id: number
 }
 
@@ -46,11 +49,11 @@ export function* getPageData(params: IGetPageDataParams) {
     } catch (e) {
       console.error(e);
       yield put(error((e as any).message));
-      yield call(router.navigate as any, PAGES_URL_ALIASES.CAT, params,  {         
-        is404: true,        
-        force: true,
-        replace: true,
-      });
+
+      if ((e as any).response.status === 404) {
+        yield call(() => setHistoryState({is404: true}));
+        return;
+      }
     }
 
   }

@@ -1,6 +1,7 @@
 import { Injectable, Scope } from '@nestjs/common';
 
-import { SSRender } from '../../../../../../common';
+import { ILocation, SSRender } from '../../../../../../common';
+
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {
@@ -21,7 +22,7 @@ export class ClientService {
     }
 
     // TODO: Типизировать state
-    getRenderData(location: string, initialState: any) {
-        return this._ssr({pagesRoutes: this._pagesRoutes, apiRoutes: this._apiRoutes, state: initialState, location});
+    getRenderData(location: ILocation, initialState: any) {
+        return this._ssr({pagesRoutes: this._pagesRoutes, apiRoutes: this._apiRoutes, state: initialState, location });
     }
 }

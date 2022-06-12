@@ -4,6 +4,7 @@ export interface IRenderResult {
     html: string;
     styles: string;
     scripts: string;
-    apiRoutes: string;
+    preloadedState: string;
     pagesRoutes: string;
+    apiRoutes: string;
   }

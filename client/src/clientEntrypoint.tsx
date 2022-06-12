@@ -4,18 +4,16 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router5";
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
 import createStore from "./store";
 import { App }     from "./app";
-
-// import history               from "./app/history";
-import rootSaga              from "./app/sagas";
-import { createRootReducer } from "./app/helpers";
+import { history, IHistoryLocationState } from "./app/history";
+import { rootSaga }          from "./app/sagas";
+import { createRootReducer, setWebpackPublicPath } from "./app/helpers";
 import { staticReducers }    from "./app/reducers";
 
-import { createRouter, createRoutes, setRouter } from "./app/router";
-import { setPageRoutes, setApiRoutes, pagesRoutes }      from "./app/router/helpers";
+import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
@@ -26,38 +24,37 @@ export const render = () => {
   const { is404 = false, ...preloadedState } = window.__PRELOADED_STATE__;
 
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
-  const router = createRouter(createRoutes(pagesRoutes));
-
-  setRouter(router);
-
-  router.setDependency('store', store);
-
-  // window.__PRELOADED_STATE__ = undefined;
-  // window.__ROUTES__ = undefined;
-
-
-  const clientConfig = getConfig(store.getState()),
-    cdn = clientConfig.getIn(["apiHosts", "cdn"]);
-
-  if (cdn)
-    __webpack_public_path__ = cdn;
+  const clientConfig = getConfig(store.getState());
+ 
+  setWebpackPublicPath(clientConfig)
 
   // Регидрация стилей
   const generatedStyles = document.getElementById("server-side-styles");
   if (!!generatedStyles) generatedStyles.remove();
 
+  const { state: clientHistoryLocationState, ...restClientLocation } = history.location;
+  const { state: serverHistoryLocationState, ...restServerLocation } = preloadedState.location || {};
+
+  history.replace({
+    ...restClientLocation,
+    ...restServerLocation
+  },{
+    ...(clientHistoryLocationState as IHistoryLocationState),
+    ...serverHistoryLocationState
+  })
+
   const renderApp = () => (
     ReactDOM.hydrate(
       <Provider store={store}>
-        <RouterProvider router={router}>
+        <HistoryRouter history={history}>
           <App/>
-        </RouterProvider>
+        </HistoryRouter>
       </Provider>,
       document.getElementById("root")
     )
   )
 
   Loadable.preloadReady().then(() => {
-    router.start(renderApp)    
+    renderApp();
   });
 };

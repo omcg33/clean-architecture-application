@@ -2,10 +2,10 @@ import { ArgumentsHost, Catch, ExceptionFilter, NotFoundException } from "@nestj
 import { NotFoundPageService } from "@src/modules/api/pages/notFound/not-found.service";
 
 import { PAGES_KEYS } from "../../../../../common";
-import { adaptCommonPageDataToCommonInitialState } from "./common.adapter";
+import { adaptCommonPageDataToCommonInitialState } from "../common/common.adapter";
+import { CommonPageService } from "../common/common.service";
 
 import { ClientService } from "../helpers/services/client.service";
-import { CommonPageService } from "./common.service";
 
 @Catch(NotFoundException)
 export class NotFoundExceptionFilter implements ExceptionFilter {
@@ -24,14 +24,15 @@ export class NotFoundExceptionFilter implements ExceptionFilter {
             this._commonPageService.get(req),
             this._notFoundPageService.get()
         ]);
-        const location = '/404';
+        const { location } = commonPageData;
+        const location404 = { ...location, state: {...location.state, is404: true }};
 
         res.render(
             'index',
             this._clientService.getRenderData(
-               location,
+               location404,
                 {
-                ...adaptCommonPageDataToCommonInitialState(commonPageData),
+                ...adaptCommonPageDataToCommonInitialState({...commonPageData, location: location404 }),
                 [PAGES_KEYS.NOT_FOUND]: data
             })
         );
