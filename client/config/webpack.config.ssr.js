@@ -13,6 +13,16 @@ module.exports = (env, argv) => {
     // Set Webpack build for Node.js
     target: "node",
 
+    entry: [DIRS.ENTRYPOINTS.SERVER],
+
+    // Generated bundle location
+    output: {
+      path: DIRS.DIST.INDEX,
+      filename: "ssr.js",
+      publicPath: PATHS.STATIC,     
+      libraryTarget: 'commonjs'
+    },
+
     optimization: {
       // We no not want to minimize our code.
       minimize: false
@@ -45,16 +55,6 @@ module.exports = (env, argv) => {
       inline: false,
     },
     
-    entry: [DIRS.ENTRYPOINTS.SERVER],
-
-    // Generated bundle location
-    output: {
-      path: DIRS.DIST.INDEX,
-      filename: "ssr.js",
-      publicPath: PATHS.STATIC,     
-      libraryTarget: 'commonjs'
-    },
-
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,

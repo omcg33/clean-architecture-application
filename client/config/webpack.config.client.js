@@ -64,11 +64,24 @@ module.exports = (env, argv) => {
     },
 
     stats: {
-      children: false,
-      chunks: false,
-      chunkModules: false,
-      modules: false,
+      assets: true,
+      chunks: true,
+      colors: true,
+
       reasons: false,
+      modules: false,
+      moduleTrace: false,
+      outputPath: false,
+      logging: false,
+      entrypoints: false,
+      chunkGroups: false,
+      chunkModules: false,
+      chunkOrigins: false,
+      moduleAssets: false,
+      cached: false,
+      cachedAssets: false,
+      children: false,
+      warnings: false,
     },
     
     // The main entry point source/client/index.tsx

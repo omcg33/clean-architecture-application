@@ -3,13 +3,13 @@ import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
 import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
-import Helmet           from "react-helmet";
+// import Helmet           from "react-helmet";
 import { Location }     from "history";
 // import csso               from "csso";
 import serialize        from "serialize-javascript";
 import { StaticRouter}  from "react-router-dom//server";
 
-import { CreateSSRender, PAGES_ROUTES, API_ROUTES } from "../../common";
+import { PAGES_ROUTES, API_ROUTES, IRenderResult } from "../../common";
 
 import createStore                 from "./store";
 
@@ -21,49 +21,52 @@ import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 import { convertCssAssetsToCriticalCssString, convertCssAssetsToString, convertJsAssetsToString } from './utils';
 
 //TODO: Исправить
-interface ICreateSSRenderParams {
-  stats: any;
-  assetsPath: string;
-};
+// interface ICreateRenderParams {
+//   stats: Record<string, any>;
+//   assetsPath: string;
+// };
 
-interface ISSRenderParams { 
+export interface IRenderParams { 
+  stats: Record<string, any>;
+  assetsPath: string;
+
+  state: Record<string, any>;
+
   pagesRoutes: PAGES_ROUTES;
   apiRoutes: API_ROUTES;
-  location: Location;
-  state: Record<string, any>;
+  location: Location;  
 }
 
-export const createSSRender:CreateSSRender<ICreateSSRenderParams, ISSRenderParams> = ({ stats, assetsPath }) => { 
-  
-  return ({ location, pagesRoutes, apiRoutes, state }) => {
-    setPageRoutes(pagesRoutes);
-    setApiRoutes(apiRoutes);
+export const render = (params: IRenderParams): IRenderResult  => {
+  const { location, pagesRoutes, apiRoutes, state, stats, assetsPath } = params;
 
-    const preloadedState = state || {};
-    const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);    
-    const modules = new Set();
+  setPageRoutes(pagesRoutes);
+  setApiRoutes(apiRoutes);
 
-    const html = ReactDOMServer.renderToString(
-      <Loadable.Capture report={moduleName => modules.add(moduleName)}>
-        <Provider store={store}>
-          <StaticRouter location={location}>
-            <App/>
-          </StaticRouter>
-        </Provider>
-      </Loadable.Capture>
-    );
-    const helmet = Helmet.renderStatic();
+  const preloadedState = state || {};
+  const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);    
+  const modules = new Set();
 
-    const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]);
+  const html = ReactDOMServer.renderToString(
+    <Loadable.Capture report={moduleName => modules.add(moduleName)}>
+      <Provider store={store}>
+        <StaticRouter location={location}>
+          <App/>
+        </StaticRouter>
+      </Provider>
+    </Loadable.Capture>
+  );
+  // const helmet = Helmet.renderStatic();
 
-    return {
-      helmet,
-      html,
-      styles: convertCssAssetsToCriticalCssString(css, { publicPath: __webpack_public_path__, fileSystemPath: assetsPath}) + convertCssAssetsToString(css, __webpack_public_path__),
-      scripts: convertJsAssetsToString(js, __webpack_public_path__),
-      preloadedState: serialize(state, { isJSON: true }),
-      pagesRoutes: serialize(pagesRoutes, { isJSON: true }),
-      apiRoutes: serialize(apiRoutes, { isJSON: true }),
-    };
-  }
+  const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]);
+
+  return {
+    // helmet,
+    html,
+    styles: convertCssAssetsToCriticalCssString(css, { publicPath: __webpack_public_path__, fileSystemPath: assetsPath}) + convertCssAssetsToString(css, __webpack_public_path__),
+    scripts: convertJsAssetsToString(js, __webpack_public_path__),
+    preloadedState: serialize(state, { isJSON: true }),
+    pagesRoutes: serialize(pagesRoutes, { isJSON: true }),
+    apiRoutes: serialize(apiRoutes, { isJSON: true }),
+  };
 };
