@@ -3,7 +3,6 @@ import { Helmet }        from "react-helmet";
 import {
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 
 import styles        from "./styles.less";
@@ -19,9 +18,6 @@ export const View = (props: IProps) =>  {
     const tags = meta.get("tags");
     const links = meta.get("links");
     const routes = getRoutes();
-    const location = useLocation();
-    
-    console.log('location on client ', location);
     
     return (
       <>

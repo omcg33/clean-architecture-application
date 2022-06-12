@@ -26,9 +26,6 @@ export const render = () => {
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
   const clientConfig = getConfig(store.getState());
  
-  // window.__PRELOADED_STATE__ = undefined;
-  // window.__ROUTES__ = undefined;
-
   setWebpackPublicPath(clientConfig)
 
   // Регидрация стилей
