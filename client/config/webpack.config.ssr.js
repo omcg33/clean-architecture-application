@@ -2,6 +2,7 @@ const path                  = require("path");
 const webpack               = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TypescriptDeclarationPlugin = require('typescript-declaration-webpack-plugin');
 
 const DIRS   = require('./consts').DIRS;
 const PATHS = require('./consts').PATHS;
@@ -12,6 +13,16 @@ module.exports = (env, argv) => {
   return {
     // Set Webpack build for Node.js
     target: "node",
+
+    entry: [DIRS.ENTRYPOINTS.SERVER],
+
+    // Generated bundle location
+    output: {
+      path: DIRS.DIST.INDEX,
+      filename: "ssr.js",
+      publicPath: PATHS.STATIC,     
+      libraryTarget: 'commonjs'
+    },
 
     optimization: {
       // We no not want to minimize our code.
@@ -45,16 +56,6 @@ module.exports = (env, argv) => {
       inline: false,
     },
     
-    entry: [DIRS.ENTRYPOINTS.SERVER],
-
-    // Generated bundle location
-    output: {
-      path: DIRS.DIST.INDEX,
-      filename: "ssr.js",
-      publicPath: PATHS.STATIC,     
-      libraryTarget: 'commonjs'
-    },
-
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,
@@ -142,6 +143,10 @@ module.exports = (env, argv) => {
               loader: "ts-loader",
               options: {
                 configFile: require.resolve("../tsconfig.json"),
+                compilerOptions: {
+                  declaration: true,
+                  removeComments: true,
+                }
               }
             }
           ]
@@ -151,7 +156,11 @@ module.exports = (env, argv) => {
           oneOf: [
             {
               resourceQuery: /^\?raw$/,
-              use: [ MiniCssExtractPlugin.loader,"css-loader", "less-loader"]
+              use: [ 
+                MiniCssExtractPlugin.loader,
+                "css-loader",
+                "less-loader"
+              ]
             },
             {
               use: [
@@ -171,7 +180,10 @@ module.exports = (env, argv) => {
         }
       ]
     },
-    plugins: [     
+    plugins: [
+      new TypescriptDeclarationPlugin({
+        out: 'ssr.d.ts'
+      }),
       new MiniCssExtractPlugin({
         filename: "server.css"
       }),

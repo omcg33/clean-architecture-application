@@ -8,7 +8,6 @@ import { is404 } from "./helpers";
 export const decorateBy404 = (Component: React.ElementType) => ([props, urlAlias]: [RouteProps, PAGES_URL_ALIASES]): [RouteProps, PAGES_URL_ALIASES] => {
     const { children, element, ...rest } = props;
     const location = useLocation();
-    console.log('hook location ', location);
 
     return [
       {

@@ -2,7 +2,6 @@ import { Injectable, Scope } from '@nestjs/common';
 
 import { ILocation, SSRender } from '../../../../../../common';
 
-
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {
     private _pagesRoutes;
