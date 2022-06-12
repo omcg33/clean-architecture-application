@@ -4,7 +4,7 @@ const WebpackNotifierPlugin = require('webpack-notifier')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const DIRS   = require('./consts').DIRS;
-const PATHS = require("./consts").PATHS;
+const PATHS = require('./consts').PATHS;
 
 module.exports = (env, argv) => {
   const { mode, analyze = false } = argv;
