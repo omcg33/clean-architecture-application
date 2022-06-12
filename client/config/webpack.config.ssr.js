@@ -2,6 +2,7 @@ const path                  = require("path");
 const webpack               = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TypescriptDeclarationPlugin = require('typescript-declaration-webpack-plugin');
 
 const DIRS   = require('./consts').DIRS;
 const PATHS = require('./consts').PATHS;
@@ -20,7 +21,7 @@ module.exports = (env, argv) => {
       path: DIRS.DIST.INDEX,
       filename: "ssr.js",
       publicPath: PATHS.STATIC,     
-      libraryTarget: 'commonjs'
+      // libraryTarget: 'es6'
     },
 
     optimization: {
@@ -151,11 +152,15 @@ module.exports = (env, argv) => {
           oneOf: [
             {
               resourceQuery: /^\?raw$/,
-              use: [ MiniCssExtractPlugin.loader,"css-loader", "less-loader"]
+              use: [ 
+                // MiniCssExtractPlugin.loader,
+                "css-loader",
+                "less-loader"
+              ]
             },
             {
               use: [
-                MiniCssExtractPlugin.loader,
+                // MiniCssExtractPlugin.loader,
                 {
                   loader: "css-loader",
                   options: {
@@ -171,10 +176,13 @@ module.exports = (env, argv) => {
         }
       ]
     },
-    plugins: [     
-      new MiniCssExtractPlugin({
-        filename: "server.css"
+    plugins: [
+      new TypescriptDeclarationPlugin({
+        out: 'ssr.d.ts'
       }),
+      // new MiniCssExtractPlugin({
+      //   filename: "server.css"
+      // }),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
       }),

@@ -1,13 +1,12 @@
 import { Injectable, Scope } from '@nestjs/common';
 
-import { ILocation, SSRender } from '../../../../../../common';
-
+import { ILocation } from '../../../../../../common';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {
     private _pagesRoutes;
     private _apiRoutes;
-    private _ssr: SSRender<any>;
+    private _ssr: any;
     
     setPagesRoutes(pagesRoutes){
         this._pagesRoutes = pagesRoutes;
@@ -17,7 +16,7 @@ export class ClientService {
         this._apiRoutes = apiRoutes;      
     }
 
-    setSSR(ssr: SSRender<any>){
+    setSSR(ssr: any){
         this._ssr = ssr;
     }
 

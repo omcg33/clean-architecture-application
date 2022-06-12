@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from 'nestjs-config';
 import morgan from 'morgan';
 
-import { createSSRender } from '../../client/dist/ssr';
+import { createRender } from '../../client/dist/ssr';
 
 import { ClientService } from './modules/pages/helpers/services/client.service';
 
@@ -22,7 +22,7 @@ async function bootstrap() {
 		NestFactory.create<NestExpressApplication>(AppModule, {
 			bodyParser: true
 		}),
-		createSSRender({ assetsPath: ASSETS_PATH }),
+		createRender({ assetsPath: ASSETS_PATH }),
 	]);
 
 	const configService = app.get(ConfigService);	
@@ -43,8 +43,6 @@ async function bootstrap() {
 	);
 	app.setBaseViewsDir(TEMPLATES_PATH);
 	app.setViewEngine('hbs');
-
-	
 
 	app.listen(port, host, async () => {
 		const namedRoutes = getNamedRoutes();
