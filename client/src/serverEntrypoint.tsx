@@ -5,11 +5,10 @@ import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
 // import Helmet           from "react-helmet";
 import { Location }     from "history";
-// import csso               from "csso";
 import serialize        from "serialize-javascript";
 import { StaticRouter}  from "react-router-dom//server";
 
-import { PAGES_ROUTES, API_ROUTES, IRenderResult } from "../../common";
+import { PAGES_ROUTES, API_ROUTES, IRenderResult, SSRender } from "../../common";
 
 import createStore                 from "./store";
 
@@ -19,12 +18,6 @@ import { staticReducers }          from "./app/reducers";
 import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
 import { convertCssAssetsToCriticalCssString, convertCssAssetsToString, convertJsAssetsToString } from './utils';
-
-//TODO: Исправить
-// interface ICreateRenderParams {
-//   stats: Record<string, any>;
-//   assetsPath: string;
-// };
 
 export interface IRenderParams { 
   stats: Record<string, any>;
@@ -37,7 +30,7 @@ export interface IRenderParams {
   location: Location;  
 }
 
-export const render = (params: IRenderParams): IRenderResult  => {
+export const render:SSRender<IRenderParams> = (params: IRenderParams): IRenderResult  => {
   const { location, pagesRoutes, apiRoutes, state, stats, assetsPath } = params;
 
   setPageRoutes(pagesRoutes);

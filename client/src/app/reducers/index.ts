@@ -14,5 +14,5 @@ export const staticReducers = {
   config: stubMap,
   meta,
   isDesktop,
-  location: stubString,
+  location: stubMap,
 };
