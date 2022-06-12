@@ -23,8 +23,7 @@
       "noImplicitThis": true,
       "strictFunctionTypes": true,
       "strictPropertyInitialization": true,
-      "strictNullChecks": true,     
-      "removeComments": true,
+      "strictNullChecks": true,
       
       "strict": true,
       "forceConsistentCasingInFileNames": true,

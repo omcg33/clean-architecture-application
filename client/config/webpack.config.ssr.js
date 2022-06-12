@@ -144,7 +144,8 @@ module.exports = (env, argv) => {
               options: {
                 configFile: require.resolve("../tsconfig.json"),
                 compilerOptions: {
-                  "declaration": true,
+                  declaration: true,
+                  removeComments: true,
                 }
               }
             }
