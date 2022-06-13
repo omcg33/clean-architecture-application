@@ -1,12 +1,5 @@
 import "babel-polyfill";
 
-if (process.env.NODE_ENV === 'development') {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
-  whyDidYouRender(React, {
-    trackAllPureComponents: true,
-  });
-}
-
 import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
@@ -35,8 +28,8 @@ export const render = () => {
   setWebpackPublicPath(clientConfig)
 
   // Регидрация стилей
-  const generatedStyles = document.getElementById("server-side-styles");
-  if (!!generatedStyles) generatedStyles.remove();
+  // const generatedStyles = document.getElementById("server-side-styles");
+  // if (!!generatedStyles) generatedStyles.remove();
 
   const { state: clientHistoryLocationState, ...restClientLocation } = history.location;
   const { state: serverHistoryLocationState, ...restServerLocation } = preloadedState.location || {};
