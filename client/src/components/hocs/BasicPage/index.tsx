@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
 import { Header }  from "../../Header";
-import { Spinner } from "../../PageSpinner";
+import { Footer }  from "../../Footer";
+import { Spinner } from "../../Spinner";
 
 import styles      from "./styles.less";
 
@@ -22,20 +23,22 @@ export const BasicPage: React.FunctionComponent<IBasicPageProps> = (props) => {
     }, [])
 
     return (
-        <>
-          <div className={styles.headerWrp}>
-              <Header
-                className={styles.header}
-              />
-          </div>
+        <div className={styles.container}>
+          <Header
+            className={styles.header}
+          />
   
-          <div className={styles.pageContent}>
-              {
-                hasData
-                  ? children
-                  : <Spinner/>
-              }
+          <div className={styles.content}>
+            {
+              hasData
+                ? children
+                : <div className={styles.spinnerContainer}><Spinner className={styles.spinner}/></div>
+            }  
           </div>
-        </>
+
+          <Footer
+            className={styles.footer}
+          />
+        </div>
       );
 }

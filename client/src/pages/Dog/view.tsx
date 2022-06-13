@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 import { generatePageUrl } from "../../app/router/helpers";
 
-import { Dog, IDogProps } from "../../components/Dog";
+import { DogCard, IDogProps } from "../../components/DogCard";
 
 import styles from "./styles.less";
 
@@ -27,7 +27,7 @@ export const View = (props: IViewProps) => {
           Главная
         </Link><br/>
 
-        <Dog dog={dog} className={styles.dog} />            
+        <DogCard dog={dog} className={styles.dog} />            
     </>
   )
 }

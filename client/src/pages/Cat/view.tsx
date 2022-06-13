@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 import { generatePageUrl } from "../../app/router/helpers";
 
-import { Cat, ICatProps } from "../../components/Cat";
+import { CatCard, ICatProps } from "../../components/CatCard";
 
 import styles from "./styles.less";
 
@@ -28,7 +28,7 @@ export class View extends React.PureComponent<IViewProps> {
             Главная
           </Link><br/>
           
-          <Cat cat={cat} className={styles.cat} />     
+          <CatCard cat={cat} className={styles.cat} />     
 
           <br/>
           <Link to={generatePageUrl(PAGES_URL_ALIASES.CAT, { id: 1 })}>
