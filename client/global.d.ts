@@ -52,6 +52,9 @@ interface Window {
   __PRELOADED_STATE__: any;
   __PAGES_ROUTES__: PAGES_ROUTES;
   __API_ROUTES__: API_ROUTES;
+
+  __SAGA_MONITOR_EXTENSION__?: any
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: any
 }
 
 //variables
