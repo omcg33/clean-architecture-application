@@ -11,7 +11,7 @@ export class CatsGetService {
                 id: 1,
                 name: "Cat0",
                 description: "desc",
-                image: "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                image: "https://static.probusiness.io/720x480c/n/03/d/38097027_439276526579800_2735888197547458560_n.jpg"
             },
             {
                 id: 2,

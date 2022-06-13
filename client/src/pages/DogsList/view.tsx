@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 import { generatePageUrl } from "../../app/router/helpers";
 
-import { Dog, IDogProps } from "../../components/Dog";
+import { DogCard, IDogProps } from "../../components/DogCard";
 
 import styles from "./styles.less"
 
@@ -32,7 +32,7 @@ export class View extends React.PureComponent<IViewProps> {
                 dogs
                   .map((dog,i) => (
                     <Fragment key={i}>
-                      <Dog className={styles.dog} dog={dog} />
+                      <DogCard className={styles.dog} dog={dog} />
                       <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id: dog.get("id") })}>{dog.get("name")}</Link>
                     </Fragment>
                   ))

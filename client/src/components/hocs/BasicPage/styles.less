@@ -1,0 +1,31 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
+.header,
+.footer {
+    flex-shrink: 0;
+}
+
+.spinnerContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 100%;
+}
+
+.spinner {
+    width: 150px;
+}
