@@ -39,25 +39,25 @@ const LoadableNotFoundPage = Loadable({
   loading: Loading
 });
 
-const availableRoutesProps = {
+const availableRoutesProps: Record<PAGES_URL_ALIASES, RouteProps> = {
   [PAGES_URL_ALIASES.MAIN]: {
-    exact: true,
+    
     element: <LoadableMain/>
   },
   [PAGES_URL_ALIASES.CATS_LIST]: {
-    exact: true,
+    
     element: <LoadableCatsList/>
   },
   [PAGES_URL_ALIASES.CAT]: {
-    exact: true,
+    
     element: <LoadableCat/>
   },
   [PAGES_URL_ALIASES.DOGS_LIST]: {
-    exact: true,
+    
     element: <LoadableDogsList/>
   },
   [PAGES_URL_ALIASES.DOG]: {
-    exact: true,
+    
     element: <LoadableDog/>
   },
 };

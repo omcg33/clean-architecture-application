@@ -1,19 +1,25 @@
 import "babel-polyfill";
 
+if (process.env.NODE_ENV === 'development') {
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  whyDidYouRender(React, {
+    trackAllPureComponents: true,
+  });
+}
+
 import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
-import createStore from "./store";
-import { App }     from "./app";
-import { history, IHistoryLocationState } from "./app/history";
-import { rootSaga }          from "./app/sagas";
+import createStore                                 from "./store";
+import { App }                                     from "./app";
+import { history, IHistoryLocationState }          from "./app/history";
+import { rootSaga }                                from "./app/sagas";
 import { createRootReducer, setWebpackPublicPath } from "./app/helpers";
-import { staticReducers }    from "./app/reducers";
-
-import { setPageRoutes, setApiRoutes }      from "./app/router/helpers";
+import { staticReducers }                          from "./app/reducers";
+import { setPageRoutes, setApiRoutes }             from "./app/router/helpers";
 
 import { getConfig }     from "./modules/config/selectors";
 
