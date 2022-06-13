@@ -1,9 +1,11 @@
 Цель проекта: Создать приложение на основе слоистой архитектуры с использованием готовых фреймворков на node и browser
 
 ### Start
-зайти в первом терминале ./client -> npm run watch
-
-зайти в втором терминале ./server -> npm run build затем npm run start:dev
+```bash
+npm run install
+npm run build
+npm run start
+```
 
 Обрати внимание на вкладку Network в браузере, при переключении страниц. 
 
