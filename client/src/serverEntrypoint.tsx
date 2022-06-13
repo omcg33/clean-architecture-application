@@ -3,7 +3,7 @@ import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
 import Loadable         from "react-loadable";
 import { getBundles }   from "react-loadable-ssr-addon";
-// import Helmet           from "react-helmet";
+import Helmet           from "react-helmet";
 import { Location }     from "history";
 import serialize        from "serialize-javascript";
 import { StaticRouter}  from "react-router-dom//server";
@@ -17,7 +17,7 @@ import { createRootReducer }       from "./app/helpers";
 import { staticReducers }          from "./app/reducers";
 import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
-import { convertCssAssetsToCriticalCssString, convertCssAssetsToString, convertJsAssetsToString } from './utils';
+import { convertCssAssetsToString, convertJsAssetsToString } from './utils';
 
 export interface IRenderParams { 
   stats: Record<string, any>;
@@ -31,7 +31,7 @@ export interface IRenderParams {
 }
 
 export const render:SSRender<IRenderParams> = (params: IRenderParams): IRenderResult  => {
-  const { location, pagesRoutes, apiRoutes, state, stats, assetsPath } = params;
+  const { location, pagesRoutes, apiRoutes, state, stats } = params;
 
   setPageRoutes(pagesRoutes);
   setApiRoutes(apiRoutes);
@@ -46,17 +46,23 @@ export const render:SSRender<IRenderParams> = (params: IRenderParams): IRenderRe
         <StaticRouter location={location}>
           <App/>
         </StaticRouter>
-      </Provider>
+      </Provider> 
     </Loadable.Capture>
   );
-  // const helmet = Helmet.renderStatic();
+  const helmet = Helmet.renderStatic();
 
   const { css = [], js = [] } = getBundles(stats, [...stats.entrypoints, ...Array.from(modules)]);
 
   return {
-    // helmet,
+    helmet: {
+      htmlAttributes: helmet.htmlAttributes.toString(),
+      bodyAttributes: helmet.bodyAttributes.toString(),
+      meta: helmet.meta.toString(),
+      title: helmet.title.toString(),
+      link: helmet.link.toString(),
+    },
     html,
-    styles: convertCssAssetsToCriticalCssString(css, { publicPath: __webpack_public_path__, fileSystemPath: assetsPath}) + convertCssAssetsToString(css, __webpack_public_path__),
+    styles: convertCssAssetsToString(css, __webpack_public_path__),
     scripts: convertJsAssetsToString(js, __webpack_public_path__),
     preloadedState: serialize(state, { isJSON: true }),
     pagesRoutes: serialize(pagesRoutes, { isJSON: true }),

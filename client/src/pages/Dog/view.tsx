@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { Helmet }   from "react-helmet";
 
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 import { generatePageUrl } from "../../app/router/helpers";
@@ -17,6 +18,9 @@ export const View = (props: IViewProps) => {
 
   return (
     <>
+        <Helmet>
+          <title>{ `СОБАКА ${dog.get("id")}` }</title>          
+        </Helmet>
         <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
           Список Собачек
         </Link><br/>

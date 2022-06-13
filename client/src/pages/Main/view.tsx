@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Helmet }   from "react-helmet";
 import { Link as RouterLink } from "react-router-dom";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -25,6 +26,9 @@ export class View extends React.PureComponent<IViewProps> {
 
     return (
       <Container>
+        <Helmet>
+          <title>Главная</title>
+        </Helmet>
         <Grid container spacing={5}>
           
           <Grid item xs={6}>

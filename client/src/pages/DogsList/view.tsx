@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { Helmet }   from "react-helmet";
 
 import { PAGES_URL_ALIASES } from "../../../../common/dist";
 import { generatePageUrl } from "../../app/router/helpers";
@@ -19,6 +20,9 @@ export class View extends React.PureComponent<IViewProps> {
 
     return (
       <>
+        <Helmet>
+          <title>Список Собак</title>
+        </Helmet>
         <div className={styles.container}>
           <div>
             <div>
