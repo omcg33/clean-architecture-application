@@ -8,6 +8,7 @@ import { get } from "../../../libs/xhr";
 
 import { addReducer, removeReducer } from "../../../app/actions";
 import { generateApiUrl }            from "../../../app/router/helpers";
+import { setHistoryState }           from "../../../app/history";
 // import { set }                       from "../../../modules/meta/actions";
 
 import { add, error, loaded, UNMOUNT } from "../actions";
@@ -42,6 +43,11 @@ export function* getPageData() {
     } catch (e) {
       console.error(e);
       yield put(error((e as any).message));
+
+      if ((e as any).response.status === 404) {
+        yield call(() => setHistoryState({is404: true}));
+        return;
+      }
     }
 
   }

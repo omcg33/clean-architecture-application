@@ -21,7 +21,7 @@ export class View extends React.PureComponent<IViewProps> {
 
     return (
       <>
-          <Link to={(PAGES_URL_ALIASES.DOGS_LIST)}>
+          <Link to={generatePageUrl(PAGES_URL_ALIASES.DOGS_LIST)}>
             Список Собачек
           </Link>
           <Link to={generatePageUrl(PAGES_URL_ALIASES.DOG, { id:10 })}>DOG 10</Link>

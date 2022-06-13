@@ -8,16 +8,16 @@ import { get } from "../../../libs/xhr";
 
 import { addReducer, removeReducer } from "../../../app/actions";
 import { generateApiUrl }            from "../../../app/router/helpers";
+import { setHistoryState }           from "../../../app/history";
 
 import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData }                  from "../selectors";
 import { defaultReducer }              from "../reducers";
 
-
 export default function* () {
   yield put(addReducer(PAGES_KEYS.MAIN, defaultReducer));
 
-  let listeners: Task[] = [];
+  let listeners: Task[] = []; 
 
   yield call(getPageData);
 
@@ -41,6 +41,11 @@ export function* getPageData() {
     } catch (e) {
       console.error(e);
       yield put(error((e as any).message));
+
+      if ((e as any).response.status === 404) {
+        yield call(() => setHistoryState({is404: true}));
+        return;
+      }
     }
 
   }

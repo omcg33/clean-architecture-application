@@ -17,6 +17,7 @@ import { generateApiUrl }                            from "../../../app/router/h
 import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData }                  from "../selectors";
 import { defaultReducer, pageReducer } from "../reducers";
+import { setHistoryState } from "../../../app/history";
 
 export interface IGetPageDataParams {
   id: number
@@ -49,11 +50,11 @@ export function* getPageData(params: IGetPageDataParams) {
     } catch (e) {
       console.error(e);
       yield put(error((e as any).message));
-      // yield call(router.navigate as any, PAGES_URL_ALIASES.DOG, params,  {         
-      //   is404: true,        
-      //   force: true,
-      //   replace: true,
-      // });
+      
+      if ((e as any).response.status === 404) {
+        yield call(() => setHistoryState({is404: true}));
+        return;
+      }
     }
 
   }
