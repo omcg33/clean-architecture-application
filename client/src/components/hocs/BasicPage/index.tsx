@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Header }  from "../../Header";
 import { Footer }  from "../../Footer";
@@ -8,19 +8,11 @@ import styles      from "./styles.less";
 
 
 export interface IBasicPageProps {
-  hasData: boolean;
-  onDidMount: () => void;
-  onWillUnmount: () => void;
+  hasData: boolean;  
 }
 
 export const BasicPage: React.FunctionComponent<IBasicPageProps> = (props) => {
-    const { hasData, children, onDidMount, onWillUnmount } = props;
-
-    useEffect(() => {
-        onDidMount();
-
-        return () => onWillUnmount()
-    }, [])
+    const { hasData, children } = props;
 
     return (
         <div className={styles.container}>
