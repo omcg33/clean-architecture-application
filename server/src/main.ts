@@ -1,7 +1,7 @@
 import path from 'path';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { ConfigService } from 'nestjs-config';
+import { ConfigService } from '@nestjs/config';
 import morgan from 'morgan';
 
 import { createRender } from '../../client/dist/ssr';
@@ -28,9 +28,9 @@ async function bootstrap() {
 	const configService = app.get(ConfigService);	
 	const clientService = app.get(ClientService);
 
-	const host = configService.get(['express', CONFIG.HOST]);
-	const port = configService.get(['express', CONFIG.PORT]);
-	const basePath = configService.get(['express', CONFIG.BASE_PATH]);
+	const host = configService.get(CONFIG.HOST);
+	const port = configService.get(CONFIG.PORT);
+	const basePath = configService.get(CONFIG.BASE_PATH);
 
 	app.setGlobalPrefix(basePath);
 	app.use(morgan('tiny'));
@@ -57,11 +57,11 @@ async function bootstrap() {
 
 		console.log(`Server listening at http://${host}:${port}`);
 
-		console.log(CONFIG.HOST, configService.get(['express', CONFIG.HOST]));
-		console.log(CONFIG.PORT, configService.get(['express', CONFIG.PORT]));
-		console.log(CONFIG.BASE_PATH, configService.get(['express', CONFIG.BASE_PATH]));
+		console.log(CONFIG.HOST, host);
+		console.log(CONFIG.PORT, port);
+		console.log(CONFIG.BASE_PATH, basePath);
 
-		console.log(CONFIG.NODE_TLS_REJECT_UNAUTHORIZED, configService.get(['node', CONFIG.NODE_TLS_REJECT_UNAUTHORIZED]));
+		console.log(CONFIG.NODE_TLS_REJECT_UNAUTHORIZED, configService.get(CONFIG.NODE_TLS_REJECT_UNAUTHORIZED));
 	});
 }
 

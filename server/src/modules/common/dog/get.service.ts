@@ -1,17 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ConfigService } from 'nestjs-config';
 
 import { delay } from '@src/modules/common/utils';
-import { CONFIG } from '@src/consts/config';
 
 @Injectable()
 export class DogGetService {
-    constructor(
-        private _configService: ConfigService
-    ) {}
-
     async get(id: number) {
-        // Имитация получения урла до внешнего сервиса из конфига
         await delay(500);
 
         const data = [

@@ -21,10 +21,12 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^2.1.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "express-useragent": "^1.0.15",
     "hbs": "^4.1.2",
+    "joi": "^17.6.0",
     "morgan": "^1.10.0",
     "nestjs-config": "^1.4.10",
     "reflect-metadata": "^0.1.13",

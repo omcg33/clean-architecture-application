@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Controller, NotFoundException, Get, Param, Render, Req } from '@nestjs/common';
+import { Controller, Get, Param, Render, Req } from '@nestjs/common';
 import { CatPageService } from '@src/modules/api/pages/cat/cat.service';
 import { WithAlias } from '@src/modules/common/http';
 
