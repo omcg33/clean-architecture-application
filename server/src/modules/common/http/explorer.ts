@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Type } from '@nestjs/common/interfaces';
 import { DiscoveryService, MetadataScanner, ModulesContainer } from '@nestjs/core';
 import { PATH_METADATA, MODULE_PATH } from '@nestjs/common/constants';
-import { ConfigService } from 'nestjs-config';
+import { ConfigService } from '@nestjs/config';
 
 import { CONFIG } from '@src/consts/config';
 
@@ -26,7 +26,7 @@ export class HttpExplorer {
 
     const wrappers = this.discovery.getControllers();
     this.applicationId = this.container.applicationId;    
-    this.basePath = this.config.get(['express', CONFIG.BASE_PATH]);
+    this.basePath = this.config.get(CONFIG.BASE_PATH);
 
     wrappers.forEach((w) => {
       const { instance, metatype, host } = w;
