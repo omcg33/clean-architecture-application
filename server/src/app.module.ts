@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ApiModule } from './modules/api/api.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { CommonModule } from './modules/common/common.module';
+import { GraphqlModule } from './modules/graphql/graphql.module';
 import { CONFIG } from './consts/config';
 
 @Module({
@@ -28,10 +29,15 @@ import { CONFIG } from './consts/config';
         path: '/api',
         module: ApiModule,
       },
+      {
+        path: '/graphql',
+        module: GraphqlModule,
+      }
     ]),
     ApiModule,
     PagesModule,
     CommonModule,
+    GraphqlModule,
   ],
   providers: [],
   controllers: []
