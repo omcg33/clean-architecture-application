@@ -29,6 +29,7 @@
     "apollo-server-express": "^3.10.0",
     "express-useragent": "^1.0.15",
     "graphql": "^16.5.0",
+    "graphql-tools": "^8.3.1",
     "hbs": "^4.1.2",
     "joi": "^17.6.0",
     "morgan": "^1.10.0",

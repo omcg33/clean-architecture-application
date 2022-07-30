@@ -15,15 +15,13 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@src/*": ["./src/*"]      
     }
   },
-  // "references": [
-  //   {
-  //     "path": "../common"
-  //   }
-  // ],
+
+  "include": ["./src/**/*","./global.d.ts"],
   "exclude": [
     "test"
   ]

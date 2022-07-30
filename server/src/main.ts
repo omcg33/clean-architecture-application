@@ -1,3 +1,4 @@
+
 import path from 'path';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -5,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import morgan from 'morgan';
 
 import { createRender } from '../../client/dist/ssr';
+
 
 import { ClientService } from './modules/pages/helpers/services/client.service';
 
@@ -46,7 +48,7 @@ async function bootstrap() {
 
 	app.listen(port, host, async () => {
 		const namedRoutes = getNamedRoutes();
-
+		
 		clientService.setSSR(ssr);
 		clientService.setPagesRoutes(
 			filterPagesRoutes(namedRoutes)

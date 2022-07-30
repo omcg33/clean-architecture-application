@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLSchema } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
+
+import { ClientService } from '../pages/helpers/services/client.service';
+import { PagesModule } from '../pages/pages.module';
 
 import { AuthorsService } from './authors/authors.service';
 import { AuthorsResolver } from './authors/authors.resolvers';
@@ -9,12 +12,20 @@ import { PostsService } from './posts/posts.service';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      debug: true,
-      playground: true,
-      sortSchema: true,
-      autoSchemaFile: join(__dirname, './schema.gql'),
+      imports: [PagesModule],
+      inject: [ClientService],
+      useFactory: async (clientService: ClientService) => ({
+        transformSchema: (schema: GraphQLSchema) => {
+          clientService.setGraphQLSchema(schema);
+          return schema;
+        },
+        debug: true,
+        playground: false,
+        sortSchema: true,
+        autoSchemaFile: true,
+      }),
     }),
   ],
   providers: [AuthorsService, AuthorsResolver, PostsService]

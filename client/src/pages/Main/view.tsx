@@ -11,6 +11,7 @@ import { generatePageUrl } from "../../app/router/helpers";
 
 import { CatCard, ICatProps } from "../../components/CatCard";
 import { DogCard, IDogProps } from "../../components/DogCard";
+import { AuthorCard } from "../../components/AuthorCard";
 
 import styles from "./styles.less";
 
@@ -44,6 +45,19 @@ export class View extends React.PureComponent<IViewProps> {
                 Список Кошачек
               </Link>
             </Paper>
+          </Grid>
+
+          <Grid item xs={6}>         
+           <AuthorCard id={1}/>
+          </Grid>
+          <Grid item xs={6}>         
+           <AuthorCard id={2}/>
+          </Grid>
+          <Grid item xs={6}>         
+           <AuthorCard id={1}/>
+          </Grid>
+          <Grid item xs={6}>         
+           <AuthorCard id={2}/>
           </Grid>
 
           {

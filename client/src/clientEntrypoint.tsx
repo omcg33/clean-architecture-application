@@ -4,6 +4,7 @@ import React        from "react";
 import ReactDOM     from "react-dom";
 import Loadable     from "react-loadable";
 import { Provider } from "react-redux";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 
 import createStore                                 from "./store";
@@ -24,7 +25,13 @@ export const render = () => {
 
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), rootSaga, preloadedState);
   const clientConfig = getConfig(store.getState());
- 
+  
+  const client = new ApolloClient({
+    // TODO: брать из ApiRoutes
+    uri: 'http://localhost:8080/graphql',
+    cache: new InMemoryCache(),
+  });
+
   setWebpackPublicPath(clientConfig)
 
   // Регидрация стилей
@@ -45,9 +52,11 @@ export const render = () => {
   const renderApp = () => (
     ReactDOM.hydrate(
       <Provider store={store}>
-        <HistoryRouter history={history}>
-          <App/>
-        </HistoryRouter>
+        <ApolloProvider client={client}>
+          <HistoryRouter history={history}>
+            <App/> 
+          </HistoryRouter>
+        </ApolloProvider>
       </Provider>,
       document.getElementById("root")
     )

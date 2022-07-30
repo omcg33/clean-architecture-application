@@ -1,4 +1,5 @@
 import React            from "react";
+import { GraphQLSchema } from "graphql";
 import ReactDOMServer   from "react-dom/server";
 import { Provider }     from "react-redux";
 import Loadable         from "react-loadable";
@@ -7,6 +8,12 @@ import Helmet           from "react-helmet";
 import { Location }     from "history";
 import serialize        from "serialize-javascript";
 import { StaticRouter}  from "react-router-dom//server";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache
+} from '@apollo/client';
+import { SchemaLink } from '@apollo/client/link/schema';
 
 import { PAGES_ROUTES, API_ROUTES, IRenderResult, SSRender } from "../../common";
 
@@ -19,7 +26,10 @@ import { setPageRoutes, setApiRoutes } from "./app/router/helpers";
 
 import { convertCssAssetsToString, convertJsAssetsToString } from './utils';
 
-export interface IRenderParams { 
+interface IGraphqlRenderParams {
+  schema: GraphQLSchema
+}
+export interface IRenderParams extends IGraphqlRenderParams { 
   stats: Record<string, any>;
   assetsPath: string;
 
@@ -31,7 +41,7 @@ export interface IRenderParams {
 }
 
 export const render:SSRender<IRenderParams> = (params: IRenderParams): IRenderResult  => {
-  const { location, pagesRoutes, apiRoutes, state, stats } = params;
+  const { location, pagesRoutes, apiRoutes, state, stats, schema } = params;
 
   setPageRoutes(pagesRoutes);
   setApiRoutes(apiRoutes);
@@ -39,13 +49,20 @@ export const render:SSRender<IRenderParams> = (params: IRenderParams): IRenderRe
   const preloadedState = state || {};
   const [store] = createStore(createRootReducer(preloadedState, staticReducers), undefined, preloadedState);    
   const modules = new Set();
+  const client = new ApolloClient({
+    ssrMode: true,
+    link: new SchemaLink({ schema }),
+    cache: new InMemoryCache(),
+  });
 
   const html = ReactDOMServer.renderToString(
     <Loadable.Capture report={moduleName => modules.add(moduleName)}>
       <Provider store={store}>
-        <StaticRouter location={location}>
-          <App/>
-        </StaticRouter>
+        <ApolloProvider client={client}>
+          <StaticRouter location={location}>
+            <App/>
+          </StaticRouter>
+        </ApolloProvider>
       </Provider> 
     </Loadable.Capture>
   );

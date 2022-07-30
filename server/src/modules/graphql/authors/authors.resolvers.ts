@@ -4,6 +4,8 @@ import { PostsService } from '../posts/posts.service';
 import { Author } from './author.model';
 import { AuthorsService } from './authors.service';
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 // @ts-ignore
 @Resolver(of => Author)
 export class AuthorsResolver {
@@ -15,6 +17,8 @@ export class AuthorsResolver {
   // @ts-ignore
   @Query(returns => Author)
   async author(@Args('id', { type: () => Int }) id: number) {
+    await sleep(1000);
+    
     return this.authorsService.findOneById(id);
   }
 
