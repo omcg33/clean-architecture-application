@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore, Middleware, Reducer, Store }  from "redux";
 import createSagaMiddleware, { Saga, SagaMiddleware, Task } from "redux-saga";
 
-import { fromJS }         from "./libs/immutable";
+import { fromJS }         from "./helpers/immutable";
 import initialSaga        from "./app/sagas/sagasRunner";
 import { staticReducers } from "./app/reducers";
 

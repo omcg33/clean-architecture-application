@@ -6,7 +6,7 @@ import {
   // PAGES_URL_ALIASES 
 } from "../../../../../common/dist";
 
-import { get } from "../../../libs/xhr";
+import { get } from "../../../helpers/httpClient";
 
 
 import { addReducer, removeReducer, replaceReducer } from "../../../app/actions";

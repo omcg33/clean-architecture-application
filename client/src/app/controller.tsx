@@ -1,6 +1,6 @@
 import * as React  from "react";
 
-// import { desktopMediaQueryListerner } from "../libs/mediaQuery";
+// import { desktopMediaQueryListerner } from "../helpers/mediaQuery";
 
 import { View, IProps as IViewProps } from "./view";
 

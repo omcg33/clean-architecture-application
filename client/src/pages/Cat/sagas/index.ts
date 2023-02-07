@@ -6,7 +6,7 @@ import {
   // PAGES_URL_ALIASES 
 } from "../../../../../common/dist";
 
-import { get } from "../../../libs/xhr";
+import { get } from "../../../helpers/httpClient";
 
 
 import { addReducer, removeReducer } from "../../../app/actions";
@@ -17,6 +17,7 @@ import { generateApiUrl }            from "../../../app/router/helpers";
 import { add, error, loaded, UNMOUNT } from "../actions";
 import { getHasData } from "../selectors";
 import { defaultReducer } from "../reducers";
+import { CatPageService } from "../../../services/pages/cat";
 
 export interface IGetPageDataParams {
   id: number
@@ -40,7 +41,7 @@ export function* getPageData(params: IGetPageDataParams) {
   if (!hasData) {
     try {
       // TODO: Заменить на вызов сервиса
-      const data = yield call(get, generateApiUrl(API_URL_ALIASES_GET.PAGE_CAT, { params }));
+      const data = yield call(CatPageService.get, { params }));
 
       yield all([
         // put(set(meta)),

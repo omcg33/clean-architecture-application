@@ -1,12 +1,10 @@
-import axios    from "axios";
 import { Saga } from "redux-saga";
 import {
-  fork, takeEvery, select, call
+  fork, takeEvery, call
 }               from "redux-saga/effects";
 
 // // import i18n                      from 'modules/i18n/sagas';
 import logger        from "../../modules/logger/sagas";
-import { getConfig } from "../../modules/config/selectors";
 
 import { ADD_REDUCER, IRunAction, REMOVE_REDUCER, REPLACE_REDUCER, RUN } from "../actions";
 
@@ -24,15 +22,6 @@ const NOT_SEND_ERRORS = [
  *
  */
 export function* initialSagas(reducerManager) {
-  const config = yield select(getConfig);
-
-  axios.defaults = {
-    ...axios.defaults,
-    withCredentials: true,
-    maxContentLength: (config.get("maxContentLength") * 1024) * 1024,
-    timeout: config.get("apiRequestTimeout"),
-  };
-
   // yield fork(i18n);
   yield fork(logger);
 

@@ -1,5 +1,5 @@
 import { fork, takeEvery, call }        from 'redux-saga/effects';
-import { post }                         from '../../../libs/xhr';
+import { post }                         from '../../../helpers/httpClient';
 
 import { SEND, IResult }                from '../actions';
 

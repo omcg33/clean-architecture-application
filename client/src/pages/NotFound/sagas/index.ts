@@ -3,7 +3,7 @@ import { call, all, put, select, take } from "redux-saga/effects";
 
 import { PAGES_KEYS, API_URL_ALIASES_GET } from "../../../../../common";
 
-import { get } from "../../../libs/xhr";
+import { get } from "../../../helpers/httpClient";
 
 
 import { addReducer, removeReducer } from "../../../app/actions";
