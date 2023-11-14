@@ -22,7 +22,6 @@ const DIRS = {
 
 const REACT_LOADABLE_STATS = join(DIRS.DIST.INDEX, "reactLoadable.json");
 
-
 const PATHS = {
   STATIC: "/" // Для правильной работы балансировщика
 };
