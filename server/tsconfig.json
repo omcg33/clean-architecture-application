@@ -22,6 +22,9 @@
   "references": [
     { "path": "../common" }
   ],
+  "include": [
+    "./src/**/*"
+  ],
   "exclude": [
     "test"
   ]
