@@ -4,7 +4,7 @@ import { call, all, put, select, take } from "redux-saga/effects";
 import { 
   PAGES_KEYS, API_URL_ALIASES_GET,
   // PAGES_URL_ALIASES 
-} from "../../../../../common/dist";
+} from "../../../../../common";
 
 import { get } from "../../../libs/xhr";
 

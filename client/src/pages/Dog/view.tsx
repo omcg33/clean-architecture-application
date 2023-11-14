@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Helmet }   from "react-helmet";
 
-import { PAGES_URL_ALIASES } from "../../../../common/dist";
+import { PAGES_URL_ALIASES } from "../../../../common";
 import { generatePageUrl } from "../../app/router/helpers";
 
 import { DogCard, IDogProps } from "../../components/DogCard";

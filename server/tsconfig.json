@@ -16,14 +16,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@src/*": ["./src/*"]      
+      "@src/*": ["./src/*"],
     }
   },
-  // "references": [
-  //   {
-  //     "path": "../common"
-  //   }
-  // ],
+  "references": [
+    { "path": "../common", "prepend": true }
+  ],
   "exclude": [
     "test"
   ]

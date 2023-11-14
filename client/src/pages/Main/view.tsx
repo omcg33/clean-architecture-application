@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Paper from "@mui/material/Paper";
 import Link from '@mui/material/Link';
 
-import { PAGES_URL_ALIASES } from "../../../../common/dist";
+import { PAGES_URL_ALIASES } from "../../../../common";
 import { generatePageUrl } from "../../app/router/helpers";
 
 import { CatCard, ICatProps } from "../../components/CatCard";

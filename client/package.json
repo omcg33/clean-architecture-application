@@ -13,7 +13,7 @@
 		"build:ssr": "webpack --config ./config/webpack.config.ssr.js -p",
 		"build": "npm run clean && npm run build:client && npm run build:ssr",
 		"start": "node static/dist/server.js",
-		"start:dev": "nodemon static/dist/server.js"
+		"start:dev": "nodemon static/dist/server.js"		
 	},
 	"keywords": [],
 	"organizator": "Chimochikhin Aleksey <batalin90@mail.ru>",

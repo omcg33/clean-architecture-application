@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import morgan from 'morgan';
 
-import { createRender } from '../../client/dist/ssr';
+// import { createRender } from '../../client/dist/ssr';
 
 import { ClientService } from './modules/pages/helpers/services/client.service';
 
@@ -12,6 +12,9 @@ import { AppModule } from './app.module';
 import { CONFIG } from './consts/config';
 import { getNamedRoutes } from './modules/common/http';
 import { filterApiRoutes, filterPagesRoutes } from './helpers/router';
+import { IRenderResult } from '../../common';
+
+const createRender = (...args) => (rest) => { console.log(args,rest); return {} as IRenderResult }
 
 const ASSETS_PATH = path.join(process.cwd(), '../client/dist/static');
 const TEMPLATES_PATH = path.join(process.cwd(), '../client/dist/templates');
