@@ -9,7 +9,7 @@ import {
 import { PATH_METADATA, MODULE_PATH } from '@nestjs/common/constants';
 import { ConfigService } from '@nestjs/config';
 
-import { CONFIG } from '@src/consts/config';
+import { CONFIG } from '../../../consts/config';
 
 import { ROUTE_NAME } from './consts';
 import { HttpMetadata } from './metadata';

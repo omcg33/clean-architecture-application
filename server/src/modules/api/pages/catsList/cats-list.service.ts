@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CatsGetService } from '@src/modules/common/cats/get.service';
+import { CatsGetService } from '../../../../modules/common/cats/get.service';
 
 // Сервис реализует сборку всех нужных данных для конкретной страницы
 @Injectable()

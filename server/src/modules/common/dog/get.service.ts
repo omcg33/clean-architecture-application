@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { delay } from '@src/modules/common/utils';
+import { delay } from '../../../modules/common/utils';
 
 @Injectable()
 export class DogGetService {

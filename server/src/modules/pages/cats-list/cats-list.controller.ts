@@ -1,8 +1,8 @@
 import { Controller, Get, Render, Req } from '@nestjs/common';
 import { Request } from 'express';
 
-import { CatsListPageService } from '@src/modules/api/pages/catsList/cats-list.service';
-import { WithAlias } from '@src/modules/common/http';
+import { CatsListPageService } from '../../../modules/api/pages/catsList/cats-list.service';
+import { WithAlias } from '../../../modules/common/http';
 
 import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
 import { CommonPageService } from '../common/common.service';

@@ -4,7 +4,7 @@ import {
   ExceptionFilter,
   NotFoundException,
 } from '@nestjs/common';
-import { NotFoundPageService } from '@src/modules/api/pages/notFound/not-found.service';
+import { NotFoundPageService } from '../../../modules/api/pages/notFound/not-found.service';
 
 import { PAGES_KEYS } from '../../../../../common';
 import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapter';

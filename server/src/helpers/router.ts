@@ -1,4 +1,4 @@
-import { NAMED_ROUTES } from '@src/modules/common/http';
+import { NAMED_ROUTES } from '../modules/common/http';
 import {
   PAGES_ROUTES,
   API_ROUTES,

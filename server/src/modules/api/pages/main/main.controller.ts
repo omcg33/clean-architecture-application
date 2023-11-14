@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { WithAlias } from '@src/modules/common/http';
+import { WithAlias } from '../../../../modules/common/http';
 import { API_URL_ALIASES_GET } from '../../../../../../common';
 import { MainPageService } from './main.service';
 

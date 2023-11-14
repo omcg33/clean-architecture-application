@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CatGetService } from '@src/modules/common/cat/get.service';
+import { CatGetService } from '../../../../modules/common/cat/get.service';
 
 // Сервис реализует сборку всех нужных данных для конкретной страницы
 @Injectable()

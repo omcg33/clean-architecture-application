@@ -1,6 +1,6 @@
 ///<reference types="node" />
-declare type PAGES_ROUTES = import("../common").PAGES_ROUTES;
-declare type API_ROUTES = import("../common").API_ROUTES;
+declare type PAGES_ROUTES = import("../common/src").PAGES_ROUTES;
+declare type API_ROUTES = import("../common/src").API_ROUTES;
 
 
 interface IStyles {

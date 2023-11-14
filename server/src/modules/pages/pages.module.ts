@@ -1,6 +1,6 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
 
-import { ApiModule } from '@src/modules/api/api.module';
+import { ApiModule } from '../../modules/api/api.module';
 
 import { UserAgentMiddleware } from './helpers/middlewares/useragent.middleware';
 

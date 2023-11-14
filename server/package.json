@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "license": "UNLICENSED",
+  "type": "module",
+  
   "scripts": {
     "prebuild": "rimraf dist",
     "prestart:dev": "rimraf dist",
-    "build": "nest build -p ./tsconfig.json -b tsc",
+    "build": "tsc --build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch --tsc --path=./tsconfig.json",
