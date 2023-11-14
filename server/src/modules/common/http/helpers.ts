@@ -1,9 +1,12 @@
-import { HttpMetadata } from "./metadata";
+import { HttpMetadata } from './metadata';
 
-export function generateUrl(routeUrlAlias: string, params?: Object) {
-    return HttpMetadata.generateUrl(routeUrlAlias, params);
-}  
+export function generateUrl(
+  routeUrlAlias: string,
+  params?: Record<string, string | number>,
+) {
+  return HttpMetadata.generateUrl(routeUrlAlias, params);
+}
 
 export function getNamedRoutes() {
-    return HttpMetadata.getNamedRoutes();
-} 
+  return HttpMetadata.getNamedRoutes();
+}

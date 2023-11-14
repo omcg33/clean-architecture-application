@@ -183,11 +183,13 @@ module.exports = (env, argv) => {
                 MiniCssExtractPlugin.loader,
                 {
                   loader: "css-loader",
-                  options: {
-                    localIdentName: "[hash:base64:7]___[local]",
-                    modules: true,
-                    importLoaders: 1
-                  }
+                   options: {
+                    esModule: true,
+                    modules: {
+                      namedExport: true,
+                      localIdentName: "[hash:base64:7]___[local]",
+                    },
+                  },
                 },
                 "less-loader"
               ]

@@ -41,5 +41,8 @@
   ],
   "exclude": [
       "./static"
+  ],
+  "references": [
+    { "path": "../common" }
   ]
 }

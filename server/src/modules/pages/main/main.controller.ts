@@ -11,29 +11,25 @@ import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapte
 
 @Controller()
 export class MainPageController {
+  constructor(
+    private _commonPageService: CommonPageService,
+    private _mainPageService: MainPageService,
+    private _clientService: ClientService,
+  ) {}
 
-    constructor(
-        private _commonPageService: CommonPageService,
-        private _mainPageService: MainPageService,
-        private _clientService: ClientService
-    ) { }
+  @Render('index')
+  @Get('/')
+  @WithAlias(PAGES_URL_ALIASES.MAIN)
+  async get(@Req() req: Request) {
+    const [commonPageData, pageData] = await Promise.all([
+      this._commonPageService.get(req),
+      this._mainPageService.get(),
+    ]);
+    const { location } = commonPageData;
 
-    @Render('index')
-    @Get('/')
-    @WithAlias(PAGES_URL_ALIASES.MAIN)
-    async get(@Req() req: Request) {
-        const [commonPageData, pageData] = await Promise.all([
-            this._commonPageService.get(req),
-            this._mainPageService.get(),
-        ]);
-        const { location } = commonPageData;
-
-        return this._clientService.getRenderData(
-            location,
-            {
-                ...adaptCommonPageDataToCommonInitialState(commonPageData),
-                [PAGES_KEYS.MAIN]: pageData
-            }
-        )
-    }
+    return this._clientService.getRenderData(location, {
+      ...adaptCommonPageDataToCommonInitialState(commonPageData),
+      [PAGES_KEYS.MAIN]: pageData,
+    });
+  }
 }

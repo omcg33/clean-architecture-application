@@ -11,30 +11,27 @@ import { CommonController } from '../common/common.controller';
 
 @Controller()
 export class CatPageController extends CommonController {
+  constructor(
+    private _commonPageService: CommonPageService,
+    private _catPageService: CatPageService,
+    private _clientService: ClientService,
+  ) {
+    super();
+  }
 
-    constructor(
-        private _commonPageService: CommonPageService,
-        private _catPageService: CatPageService,
-        private _clientService: ClientService
-    ) { 
-        super();
-    }
+  @Render('index')
+  @Get('cats/:id')
+  @WithAlias(PAGES_URL_ALIASES.CAT)
+  async get(@Req() req: Request, @Param('id') id: string) {
+    const [commonPageData, pageData] = await Promise.all([
+      this._commonPageService.get(req),
+      this._catPageService.get(parseInt(id)),
+    ]);
+    const { location } = commonPageData;
 
-    @Render('index')
-    @Get('cats/:id')
-    @WithAlias(PAGES_URL_ALIASES.CAT)
-    async get(@Req() req: Request, @Param('id') id: string) {   
-        const [commonPageData, pageData] = await Promise.all([
-            this._commonPageService.get(req),
-            this._catPageService.get(parseInt(id))
-        ]);
-        const { location } = commonPageData;
-
-        return this._clientService.getRenderData(
-            location,
-            {
-            ...adaptCommonPageDataToCommonInitialState(commonPageData),
-            [PAGES_KEYS.CAT]: pageData
-        })
-    }
+    return this._clientService.getRenderData(location, {
+      ...adaptCommonPageDataToCommonInitialState(commonPageData),
+      [PAGES_KEYS.CAT]: pageData,
+    });
+  }
 }

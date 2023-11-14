@@ -20,7 +20,7 @@
     }
   },
   "references": [
-    { "path": "../common", "prepend": true }
+    { "path": "../common" }
   ],
   "exclude": [
     "test"

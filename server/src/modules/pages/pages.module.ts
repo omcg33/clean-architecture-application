@@ -14,26 +14,22 @@ import { DogsListPageController } from './dogs-list/dogs-list.controller';
 import { CatPageController } from './cat/cat.controller';
 import { DogPageController } from './dog/dog.controller';
 
-
-
 @Module({
   controllers: [
-    CatsListPageController, CatPageController, DogsListPageController,
-    MainPageController, DogPageController
+    CatsListPageController,
+    CatPageController,
+    DogsListPageController,
+    MainPageController,
+    DogPageController,
   ],
   imports: [ApiModule],
-  providers: [
-    ClientService,
-    CommonPageService,
-  ],
-  exports: [ClientService]
+  providers: [ClientService, CommonPageService],
+  exports: [ClientService],
 })
 
 // Сюда можно написать миддвары только для урлов Страниц
 export class PagesModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer
-          .apply(UserAgentMiddleware)
-          .forRoutes('/');
-      }
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(UserAgentMiddleware).forRoutes('/');
+  }
 }

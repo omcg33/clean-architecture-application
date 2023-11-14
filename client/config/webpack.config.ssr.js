@@ -157,21 +157,33 @@ module.exports = (env, argv) => {
             {
               resourceQuery: /^\?raw$/,
               use: [ 
-                MiniCssExtractPlugin.loader,
+                {
+                  loader: MiniCssExtractPlugin.loader,
+                  options: {
+                    emit: false,
+                  },
+                },
                 "css-loader",
                 "less-loader"
               ]
             },
             {
               use: [
-                MiniCssExtractPlugin.loader,
+                {
+                  loader: MiniCssExtractPlugin.loader,
+                  options: {
+                    emit: false,
+                  },
+                },
                 {
                   loader: "css-loader",
                   options: {
-                    localIdentName: "[hash:base64:7]___[local]",
-                    modules: true,
-                    importLoaders: 1
-                  }
+                    esModule: true,
+                    modules: {
+                      namedExport: true,
+                      localIdentName: "[hash:base64:7]___[local]",
+                    },
+                  },
                 },
                 "less-loader"
               ]
@@ -184,9 +196,7 @@ module.exports = (env, argv) => {
       new TypescriptDeclarationPlugin({
         out: 'ssr.d.ts'
       }),
-      new MiniCssExtractPlugin({
-        filename: "server.css"
-      }),
+      new MiniCssExtractPlugin(),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
       }),

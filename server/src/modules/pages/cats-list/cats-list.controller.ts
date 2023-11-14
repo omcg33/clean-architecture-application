@@ -11,28 +11,25 @@ import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapte
 
 @Controller()
 export class CatsListPageController {
+  constructor(
+    private _commonPageService: CommonPageService,
+    private _catsListPageService: CatsListPageService,
+    private _clientService: ClientService,
+  ) {}
 
-    constructor(
-        private _commonPageService: CommonPageService,
-        private _catsListPageService: CatsListPageService,
-        private _clientService: ClientService
-    ) { }
+  @Render('index')
+  @Get('cats')
+  @WithAlias(PAGES_URL_ALIASES.CATS_LIST)
+  async get(@Req() req: Request) {
+    const [commonPageData, pageData] = await Promise.all([
+      this._commonPageService.get(req),
+      this._catsListPageService.get(),
+    ]);
+    const { location } = commonPageData;
 
-    @Render('index')
-    @Get('cats')
-    @WithAlias(PAGES_URL_ALIASES.CATS_LIST)
-    async get(@Req() req: Request) {        
-        const [commonPageData, pageData] = await Promise.all([
-            this._commonPageService.get(req),
-            this._catsListPageService.get()
-        ]);
-        const { location } = commonPageData;
-        
-        return this._clientService.getRenderData(
-            location,
-            {
-            ...adaptCommonPageDataToCommonInitialState(commonPageData),
-            [PAGES_KEYS.CATS_LIST]: pageData
-        })
-    }
+    return this._clientService.getRenderData(location, {
+      ...adaptCommonPageDataToCommonInitialState(commonPageData),
+      [PAGES_KEYS.CATS_LIST]: pageData,
+    });
+  }
 }

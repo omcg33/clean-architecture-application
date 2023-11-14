@@ -12,7 +12,10 @@ export class HttpMetadata {
     return HttpMetadata.store.routes;
   }
 
-  static generateUrl(routeName: string, params: Object = {}): string {
+  static generateUrl(
+    routeName: string,
+    params: Record<string, string | number> = {},
+  ): string {
     const routeTemplate = HttpMetadata.store.routes[routeName];
 
     if (!routeTemplate) return null;
@@ -20,18 +23,16 @@ export class HttpMetadata {
     const [route, queryParams] = Object.entries(params).reduce(
       (acc, [paramKey, paramValue]) => {
         if (acc[0].includes(`:${paramKey}`))
-          acc[0] = acc[0].replace(`:${paramKey}`, paramValue)
-        else 
-          acc[1][paramKey] = paramValue;
+          acc[0] = acc[0].replace(`:${paramKey}`, '' + paramValue);
+        else acc[1][paramKey] = paramValue;
 
         return acc;
       },
-      [routeTemplate, {}]
-    )
+      [routeTemplate, {}],
+    );
 
     const searchParams = new URLSearchParams(queryParams).toString();
 
     return join(route, searchParams ? `?${searchParams}` : '');
   }
-
 }

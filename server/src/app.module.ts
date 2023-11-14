@@ -14,15 +14,17 @@ import { CONFIG } from './consts/config';
       validationSchema: Joi.object({
         [CONFIG.HOST]: Joi.string().hostname().default('localhost'),
         [CONFIG.PORT]: Joi.number().default(3000),
-        [CONFIG.BASE_PATH]: Joi.string().uri({relativeOnly: true }).default('/'),
+        [CONFIG.BASE_PATH]: Joi.string()
+          .uri({ relativeOnly: true })
+          .default('/'),
 
         [CONFIG.NODE_TLS_REJECT_UNAUTHORIZED]: Joi.number().default(1),
-      })      
+      }),
     }),
     RouterModule.register([
       {
         path: '/',
-        module: PagesModule
+        module: PagesModule,
       },
       {
         path: '/api',
@@ -34,7 +36,6 @@ import { CONFIG } from './consts/config';
     CommonModule,
   ],
   providers: [],
-  controllers: []
+  controllers: [],
 })
-
-export class AppModule { }
+export class AppModule {}

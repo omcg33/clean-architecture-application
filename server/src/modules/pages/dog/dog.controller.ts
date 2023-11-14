@@ -11,30 +11,27 @@ import { CommonController } from '../common/common.controller';
 
 @Controller()
 export class DogPageController extends CommonController {
+  constructor(
+    private _commonPageService: CommonPageService,
+    private _dogPageService: DogPageService,
+    private _clientService: ClientService,
+  ) {
+    super();
+  }
 
-    constructor(
-        private _commonPageService: CommonPageService,
-        private _dogPageService: DogPageService,
-        private _clientService: ClientService
-    ) { 
-        super();
-    }
+  @Render('index')
+  @Get('dogs/:id')
+  @WithAlias(PAGES_URL_ALIASES.DOG)
+  async get(@Req() req: Request, @Param('id') id: string) {
+    const [commonPageData, pageData] = await Promise.all([
+      this._commonPageService.get(req),
+      this._dogPageService.get(parseInt(id)),
+    ]);
+    const { location } = commonPageData;
 
-    @Render('index')
-    @Get('dogs/:id')
-    @WithAlias(PAGES_URL_ALIASES.DOG)
-    async get(@Req() req: Request, @Param('id') id: string) {
-        const [commonPageData, pageData] = await Promise.all([
-            this._commonPageService.get(req),
-            this._dogPageService.get(parseInt(id))
-        ]);
-        const { location } = commonPageData;
-
-        return this._clientService.getRenderData(
-            location,
-            {
-            ...adaptCommonPageDataToCommonInitialState(commonPageData),
-            [PAGES_KEYS.DOG]: pageData
-        })
-    }
+    return this._clientService.getRenderData(location, {
+      ...adaptCommonPageDataToCommonInitialState(commonPageData),
+      [PAGES_KEYS.DOG]: pageData,
+    });
+  }
 }

@@ -7,15 +7,13 @@ import { DogPageService } from './dog.service';
 // Здесь производится преобразование req в параметры нужные сервису
 @Controller('/pages')
 export class ApiDogPageController {
-    constructor(
-        private _dogPageService: DogPageService
-    ){}
+  constructor(private _dogPageService: DogPageService) {}
 
-    @Get('/dogs/:id')
-    @WithAlias(API_URL_ALIASES_GET.PAGE_DOG)
-    async get(@Param('id') id: string){
-        const data = await this._dogPageService.get(parseInt(id));
+  @Get('/dogs/:id')
+  @WithAlias(API_URL_ALIASES_GET.PAGE_DOG)
+  async get(@Param('id') id: string) {
+    const data = await this._dogPageService.get(parseInt(id));
 
-        return data;
-    }
+    return data;
+  }
 }

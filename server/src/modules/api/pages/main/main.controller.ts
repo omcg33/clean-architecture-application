@@ -7,15 +7,13 @@ import { MainPageService } from './main.service';
 // Здесь производится преобразование req в параметры нужные сервису
 @Controller('/pages')
 export class ApiMainPageController {
-    constructor(
-        private _mainPageService: MainPageService,
-    ){}
+  constructor(private _mainPageService: MainPageService) {}
 
-    @Get('/main')
-    @WithAlias(API_URL_ALIASES_GET.PAGE_MAIN)
-    async get(){
-        const data = await this._mainPageService.get();
+  @Get('/main')
+  @WithAlias(API_URL_ALIASES_GET.PAGE_MAIN)
+  async get() {
+    const data = await this._mainPageService.get();
 
-        return data;
-    }
+    return data;
+  }
 }

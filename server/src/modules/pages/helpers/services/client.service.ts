@@ -4,24 +4,29 @@ import { ILocation, SSRender } from '../../../../../../common';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {
-    private _pagesRoutes;
-    private _apiRoutes;
-    private _ssr: SSRender<any>;
-    
-    setPagesRoutes(pagesRoutes){
-        this._pagesRoutes = pagesRoutes;
-    }
+  private _pagesRoutes;
+  private _apiRoutes;
+  private _ssr: SSRender<any>;
 
-    setApiRoutes(apiRoutes){
-        this._apiRoutes = apiRoutes;      
-    }
+  setPagesRoutes(pagesRoutes) {
+    this._pagesRoutes = pagesRoutes;
+  }
 
-    setSSR(ssr: SSRender<any>){
-        this._ssr = ssr;
-    }
+  setApiRoutes(apiRoutes) {
+    this._apiRoutes = apiRoutes;
+  }
 
-    // TODO: Типизировать state
-    getRenderData(location: ILocation, initialState: any) {
-        return this._ssr({pagesRoutes: this._pagesRoutes, apiRoutes: this._apiRoutes, state: initialState, location });
-    }
+  setSSR(ssr: SSRender<any>) {
+    this._ssr = ssr;
+  }
+
+  // TODO: Типизировать state
+  getRenderData(location: ILocation, initialState: any) {
+    return this._ssr({
+      pagesRoutes: this._pagesRoutes,
+      apiRoutes: this._apiRoutes,
+      state: initialState,
+      location,
+    });
+  }
 }

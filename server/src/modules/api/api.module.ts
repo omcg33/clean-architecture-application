@@ -20,10 +20,31 @@ import { NotFoundPageService } from './pages/notFound/not-found.service';
 import { ApiNotFoundPageController } from './pages/notFound/not-found.controller';
 
 @Module({
-  controllers: [ApiCatsListPageController, ApiDogsListPageController, ApiMainPageController, ApiCatPageController, ApiDogPageController, ApiNotFoundPageController],
+  controllers: [
+    ApiCatsListPageController,
+    ApiDogsListPageController,
+    ApiMainPageController,
+    ApiCatPageController,
+    ApiDogPageController,
+    ApiNotFoundPageController,
+  ],
   imports: [CommonModule],
-  providers: [CatsListPageService, DogsListPageService, MainPageService, CatPageService, DogPageService, NotFoundPageService],
-  exports: [CatsListPageService, DogsListPageService,  CatPageService, DogPageService, MainPageService, NotFoundPageService]
+  providers: [
+    CatsListPageService,
+    DogsListPageService,
+    MainPageService,
+    CatPageService,
+    DogPageService,
+    NotFoundPageService,
+  ],
+  exports: [
+    CatsListPageService,
+    DogsListPageService,
+    CatPageService,
+    DogPageService,
+    MainPageService,
+    NotFoundPageService,
+  ],
 })
 
 // Сюда можно написать миддвары только для урлов АПИ

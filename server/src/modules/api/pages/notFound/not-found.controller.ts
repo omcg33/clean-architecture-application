@@ -7,15 +7,13 @@ import { NotFoundPageService } from './not-found.service';
 // Здесь производится преобразование req в параметры нужные сервису
 @Controller('/pages')
 export class ApiNotFoundPageController {
-    constructor(
-        private _notFoundPageService: NotFoundPageService,
-    ){}
+  constructor(private _notFoundPageService: NotFoundPageService) {}
 
-    @Get('/not-found')
-    @WithAlias(API_URL_ALIASES_GET.PAGE_NOT_FOUND)
-    async get(){
-        const data = await this._notFoundPageService.get();
+  @Get('/not-found')
+  @WithAlias(API_URL_ALIASES_GET.PAGE_NOT_FOUND)
+  async get() {
+    const data = await this._notFoundPageService.get();
 
-        return data;
-    }
+    return data;
+  }
 }

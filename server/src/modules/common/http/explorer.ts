@@ -1,7 +1,11 @@
 import { join } from 'path';
 import { Injectable } from '@nestjs/common';
 import { Type } from '@nestjs/common/interfaces';
-import { DiscoveryService, MetadataScanner, ModulesContainer } from '@nestjs/core';
+import {
+  DiscoveryService,
+  MetadataScanner,
+  ModulesContainer,
+} from '@nestjs/core';
 import { PATH_METADATA, MODULE_PATH } from '@nestjs/common/constants';
 import { ConfigService } from '@nestjs/config';
 
@@ -23,9 +27,8 @@ export class HttpExplorer {
   ) {}
 
   onModuleInit() {
-
     const wrappers = this.discovery.getControllers();
-    this.applicationId = this.container.applicationId;    
+    this.applicationId = this.container.applicationId;
     this.basePath = this.config.get(CONFIG.BASE_PATH);
 
     wrappers.forEach((w) => {
@@ -38,37 +41,46 @@ export class HttpExplorer {
         return;
       }
 
-    this.metadataScanner.scanFromPrototype(
+      this.metadataScanner.scanFromPrototype(
         instance,
         Object.getPrototypeOf(instance),
         (key: string) =>
           this.lookupListeners(
             instance,
             key,
-            this.getBasePath(host.metatype, metatype)
+            this.getBasePath(host.metatype, metatype),
           ),
       );
     });
   }
 
-  getBasePath(moduleMetatype: Function | Type<any>, controllerMetatype: Function | Type<any>) {
-    const modulePath = Reflect.getMetadata(MODULE_PATH + this.applicationId,  moduleMetatype);
-    const controllerPath =  Reflect.getMetadata(PATH_METADATA, controllerMetatype);
+  getBasePath(
+    moduleMetatype: Function | Type<any>,
+    controllerMetatype: Function | Type<any>,
+  ) {
+    const modulePath = Reflect.getMetadata(
+      MODULE_PATH + this.applicationId,
+      moduleMetatype,
+    );
+    const controllerPath = Reflect.getMetadata(
+      PATH_METADATA,
+      controllerMetatype,
+    );
 
-    return join(this.basePath, modulePath, controllerPath)
+    return join(this.basePath, modulePath, controllerPath);
   }
 
   lookupListeners(
     instance: Record<string, Function>,
     key: string,
-    baseRoute: string = '',
+    baseRoute = '',
   ) {
     const hasRouteName = Reflect.hasMetadata(ROUTE_NAME, instance, key);
 
     if (!hasRouteName) return;
     const routeName = Reflect.getMetadata(ROUTE_NAME, instance, key);
 
-    HttpMetadata.addNamedRoute( 
+    HttpMetadata.addNamedRoute(
       routeName,
       join(baseRoute, Reflect.getMetadata(PATH_METADATA, instance[key])),
     );

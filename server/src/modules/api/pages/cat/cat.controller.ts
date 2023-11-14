@@ -8,15 +8,13 @@ import { CatPageService } from './cat.service';
 // Здесь производится преобразование req в параметры нужные сервису
 @Controller('/pages')
 export class ApiCatPageController {
-    constructor(
-        private _catPageService: CatPageService
-    ){}
+  constructor(private _catPageService: CatPageService) {}
 
-    @Get('/cats/:id')
-    @WithAlias(API_URL_ALIASES_GET.PAGE_CAT)
-    async get(@Param('id') id: string) {
-        const data = await this._catPageService.get(parseInt(id));
+  @Get('/cats/:id')
+  @WithAlias(API_URL_ALIASES_GET.PAGE_CAT)
+  async get(@Param('id') id: string) {
+    const data = await this._catPageService.get(parseInt(id));
 
-        return data;
-    }
+    return data;
+  }
 }
