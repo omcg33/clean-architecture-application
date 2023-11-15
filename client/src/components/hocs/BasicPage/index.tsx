@@ -11,7 +11,7 @@ export interface IBasicPageProps {
   hasData: boolean;  
 }
 
-export const BasicPage: React.FunctionComponent<IBasicPageProps> = (props) => {
+export const BasicPage: React.FunctionComponent<React.PropsWithChildren<IBasicPageProps>> = (props) => {
     const { hasData, children } = props;
 
     return (

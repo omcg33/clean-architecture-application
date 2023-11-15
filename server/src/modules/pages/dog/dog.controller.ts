@@ -3,7 +3,7 @@ import { Controller, Get, Param, Render, Req } from '@nestjs/common';
 import { DogPageService } from '@src/modules/api/pages/dog/dog.service';
 import { WithAlias } from '@src/modules/common/http';
 
-import { PAGES_KEYS, PAGES_URL_ALIASES } from '../../../../../common';
+import { PAGES_KEYS, PAGES_URL_ALIASES } from '@clean-arch/common';
 import { CommonPageService } from '../common/common.service';
 import { ClientService } from '../helpers/services/client.service';
 import { adaptCommonPageDataToCommonInitialState } from '../common/common.adapter';

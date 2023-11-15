@@ -10,23 +10,10 @@ export type IProps = {
   config: any;
 } & IViewProps;
 
-export class Controller extends React.PureComponent<IProps> {  
-
-  componentDidMount() {   
-    // desktopMediaQueryListerner(isDesktop => {
-    //   this.props.setIsDesktop(isDesktop);
-    // });
-  }
-
-  componentDidCatch(error: Error) {
-    //window?.Raven?.captureException(error);
-  }
-
-  render() {
-    return (
-      <View
-        {...this.props}
-      />
-    )
-  }
+export const Controller = (props: IProps) => {
+  return (
+    <View
+      {...props}
+    />
+  )
 }
