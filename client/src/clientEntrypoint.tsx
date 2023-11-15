@@ -45,6 +45,7 @@ export const render = () => {
   const renderApp = () => (
     ReactDOM.hydrate(
       <Provider store={store}>
+        {/* @ts-expect-error */}
         <HistoryRouter history={history}>
           <App/>
         </HistoryRouter>
