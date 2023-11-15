@@ -1,6 +1,6 @@
 import { Injectable, Scope } from '@nestjs/common';
 
-import { ILocation, SSRender } from '../../../../../../common';
+import { ILocation, SSRender } from '@clean-arch/common';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class ClientService {

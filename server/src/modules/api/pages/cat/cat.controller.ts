@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { WithAlias } from '@src/modules/common/http';
 
-import { API_URL_ALIASES_GET } from '../../../../../../common';
+import { API_URL_ALIASES_GET } from '@clean-arch/common';
 import { CatPageService } from './cat.service';
 
 // Обработчик входящего запроса

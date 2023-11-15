@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
-import { ILocation } from '../../../../../common';
+import { ILocation } from '@clean-arch/common';
 
 export interface ICommonPageData {
     user: Record<string, string>;
